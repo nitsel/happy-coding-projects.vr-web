@@ -1,0 +1,15 @@
+body{
+	font-family: "Times New Roman", "Times", "serif";
+	font-size: 20px; 
+	line-height:25px; 
+}
+
+#details{
+	border: 2px, dashed;
+	width: 50%;
+	height: 50%;
+}
+
+#details ul{
+	list-style: none;
+}
