@@ -39,7 +39,7 @@
 			{
 				//AJAX code: submit rating to server action
 				//ajax_submit(rating);
-				$.get("/submitRating", {uId: userId, pId:productId, r:rating}, function(data){
+				$.get("rating.do?action=submit", {uId: userId, pId:productId, rating:rating}, function(data){
 					$(resultSelector).html("&nbsp;"+data);
 				});
 			}							

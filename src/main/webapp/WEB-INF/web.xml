@@ -3,13 +3,13 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>The Project</display-name>
+  <display-name>Book Store</display-name>
   <servlet>
-        <servlet-name>sayHello</servlet-name>
-        <servlet-class>org.felix.phd.web.SayHello</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>sayHello</servlet-name>
-        <url-pattern>/submitRating</url-pattern>
-    </servlet-mapping>
+      <servlet-name>rating</servlet-name>
+      <servlet-class>org.felix.phd.web.RatingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>rating</servlet-name>
+      <url-pattern>/rating.do</url-pattern>
+  </servlet-mapping>
 </web-app>

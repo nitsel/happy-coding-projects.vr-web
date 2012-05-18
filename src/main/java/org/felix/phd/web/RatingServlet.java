@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class SayHello extends HttpServlet
+public class RatingServlet extends HttpServlet
 {
 	private static final long	serialVersionUID	= 1L;
 
@@ -19,9 +19,8 @@ public class SayHello extends HttpServlet
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		System.out.println("Something");
-		String method = request.getMethod();
-		if ("submitRating".equalsIgnoreCase(method))
+		String action = request.getParameter("action");
+		if ("submit".equalsIgnoreCase(action))
 		{
 			submitRating(request, response);
 		}
@@ -30,8 +29,7 @@ public class SayHello extends HttpServlet
 	private void submitRating(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException
 	{
-		String rating = (String) request.getAttribute("r");
-		System.out.println("lkajsdlfka");
+		String rating = request.getParameter("rating");
 		PrintWriter out = response.getWriter();
 		out.write("You rating is " + rating);
 		out.close();
