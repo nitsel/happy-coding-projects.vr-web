@@ -41,8 +41,14 @@
 		  <artifactId>jetty-maven-plugin</artifactId>
 		   <configuration>
 		    	<webApp>
-		      		<contextPath>/VR-web</contextPath>
+		      		<contextPath>/${project.artifactId}</contextPath>
 		    	</webApp>
+		    	<connectors>
+		       <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+		          <port>9090</port>
+		          <maxIdleTime>60000</maxIdleTime>
+		       </connector>
+		     </connectors>
 		    </configuration>
 		</plugin>
     </plugins>
