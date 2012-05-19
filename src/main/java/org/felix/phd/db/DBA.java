@@ -32,10 +32,10 @@ public class DBA
 	public boolean createTable() throws Exception
 	{
 		String SQL_table = "CREATE TABLE books"
-			+"(" +
-			  "bookId INTEGER, " +
-			  "isbn VARCHAR(100)," +
-			  "authors VARCHAR(255)," +
+			+ "(id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, " +
+			  "title VARCHAR(200) NOT NULL"+
+			  "isbn VARCHAR(100) NOT NULL," +
+			  "authors VARCHAR(255) NOT NULL," +
 			  "publishDate DATE," +
 			  "publisher VARCHAR(255)," +
 			  "imgUrlS VARCHAR(255)," +
@@ -48,7 +48,7 @@ public class DBA
 
 	public void insertData() throws Exception
 	{
-		String bookId = null, isbn = null, authors = null, publisher = null, imgUrlS = null, imgUrlM = null, imgUrlL = null;
+		String title = null, isbn = null, authors = null, publisher = null, imgUrlS = null, imgUrlM = null, imgUrlL = null;
 		Date publishDate = null;
 		
 		File dataset = new File("Dataset/books.csv");
@@ -57,7 +57,7 @@ public class DBA
 		while ((line = br.readLine()) != null)
 		{
 			String[] data = line.split("::");
-			bookId = data[0];
+			title = data[0];
 			isbn = data[1];
 			authors = data[2];
 			publishDate = (Date) new SimpleDateFormat().parse(data[3]);
@@ -66,12 +66,14 @@ public class DBA
 			imgUrlM = data[6];
 			imgUrlL = data[7];
 
-			String SQL_insert = new StringBuilder().append("INSERT INTO booksVALUES(").append(bookId).append(",")
+			String SQL_insert = new StringBuilder()
+					.append("INSERT INTO books (title, isbn, authors, publishDate, publisher, imgUrlS, imgUrlM, imgUrlL) VALUES( ")
+					.append(title).append(",")
 					.append(isbn).append(",").append(authors).append(",").append(publishDate).append(",")
 					.append(publisher).append(",").append(imgUrlS).append(",").append(imgUrlM).append(",")
 					.append(imgUrlL).toString();
 
-			stmt.execute(SQL_insert);
+			stmt.executeUpdate(SQL_insert);
 		}
 	}
 
