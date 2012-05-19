@@ -1,4 +1,4 @@
-package org.felix.phd.db;
+package org.felix.db;
 
 /**
  * Database access object for Book class

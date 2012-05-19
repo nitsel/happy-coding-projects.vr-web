@@ -1,4 +1,4 @@
-package org.felix.phd.web;
+package org.felix.web;
 
 /* Load the information of the book from Amazon site */
 

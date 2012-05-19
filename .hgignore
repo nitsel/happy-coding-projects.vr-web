@@ -5,3 +5,7 @@ syntax: regexp
 ^target$
 syntax: regexp
 ^bookDB$
+syntax: regexp
+^Book-Crossing$
+syntax: regexp
+^BookDB$

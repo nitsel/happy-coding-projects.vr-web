@@ -1,6 +1,5 @@
-package org.felix.phd.db;
+package org.felix.db;
 
-import java.sql.Date;
 
 public class Book
 {
@@ -8,7 +7,7 @@ public class Book
 	private String	title;
 	/* authors format: authorA|authorB|authorC */
 	private String	authors;
-	private Date	publishDate;
+	private int		year;
 	private String	publisher;
 	private String	imgUrlS;
 	private String	imgUrlM;
@@ -32,16 +31,6 @@ public class Book
 	public void setTitle(String title)
 	{
 		this.title = title;
-	}
-
-	public Date getPublishDate()
-	{
-		return publishDate;
-	}
-
-	public void setPublishDate(Date publishDate)
-	{
-		this.publishDate = publishDate;
 	}
 
 	public String getPublisher()
@@ -92,5 +81,15 @@ public class Book
 	public void setAuthors(String authors)
 	{
 		this.authors = authors;
+	}
+
+	public int getYear()
+	{
+		return year;
+	}
+
+	public void setYear(int year)
+	{
+		this.year = year;
 	}
 }

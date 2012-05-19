@@ -1,4 +1,4 @@
-package org.felix.phd.web;
+package org.felix.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;

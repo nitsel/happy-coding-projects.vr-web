@@ -1,14 +1,13 @@
-package org.felix.phd.db;
+package org.felix.db;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
+
+import au.com.bytecode.opencsv.CSVReader;
 
 /**
  * Database Administrator Operator: prepare data tables and initial data
@@ -19,24 +18,22 @@ import java.text.SimpleDateFormat;
 public class DBA
 {
 	private final static String	DRIVER	= "org.apache.derby.jdbc.EmbeddedDriver";
-	private final static String	URL		= "jdbc:derby:bookDB;create=true";
+	private final static String	URL		= "jdbc:derby:BookDB;create=true";
 
 	private Connection			conn;
 	private Statement			stmt;
 
-	public DBA() throws Exception
-	{
-		createTable();
-	}
-
 	public boolean createTable() throws Exception
 	{
+		String SQL_Drop = "DROP TABLE books";
+		stmt.execute(SQL_Drop);
+
 		String SQL_table = "CREATE TABLE books"
 			+ "(id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, " +
-			  "title VARCHAR(200) NOT NULL"+
 			  "isbn VARCHAR(100) NOT NULL," +
+			  "title VARCHAR(200) NOT NULL,"+
 			  "authors VARCHAR(255) NOT NULL," +
-			  "publishDate DATE," +
+			  "publishYear INTEGER," +
 			  "publisher VARCHAR(255)," +
 			  "imgUrlS VARCHAR(255)," +
 			  "imgUrlM VARCHAR(255)," +
@@ -49,28 +46,25 @@ public class DBA
 	public void insertData() throws Exception
 	{
 		String title = null, isbn = null, authors = null, publisher = null, imgUrlS = null, imgUrlM = null, imgUrlL = null;
-		Date publishDate = null;
+		int year = 0;
 		
-		File dataset = new File("Dataset/books.csv");
-		BufferedReader br = new BufferedReader(new FileReader(dataset));
-		String line = null;
-		while ((line = br.readLine()) != null)
+		CSVReader br = new CSVReader(new FileReader(new File("Book-Crossing/BX-Books.csv")), ';', '"', 1);
+		String[] data = null;
+		while ((data = br.readNext()) != null)
 		{
-			String[] data = line.split("::");
-			title = data[0];
-			isbn = data[1];
+			isbn = data[0];
+			title = data[1];
 			authors = data[2];
-			publishDate = (Date) new SimpleDateFormat().parse(data[3]);
+			year = Integer.parseInt(data[3]);
 			publisher = data[4];
 			imgUrlS = data[5];
 			imgUrlM = data[6];
 			imgUrlL = data[7];
 
 			String SQL_insert = new StringBuilder()
-					.append("INSERT INTO books (title, isbn, authors, publishDate, publisher, imgUrlS, imgUrlM, imgUrlL) VALUES( ")
-					.append(title).append(",")
-					.append(isbn).append(",").append(authors).append(",").append(publishDate).append(",")
-					.append(publisher).append(",").append(imgUrlS).append(",").append(imgUrlM).append(",")
+					.append("INSERT INTO books ( isbn, title, authors, year, publisher, imgUrlS, imgUrlM, imgUrlL) VALUES( ")
+					.append(isbn).append(",").append(title).append(",").append(authors).append(",").append(year)
+					.append(",").append(publisher).append(",").append(imgUrlS).append(",").append(imgUrlM).append(",")
 					.append(imgUrlL).toString();
 
 			stmt.executeUpdate(SQL_insert);
@@ -87,6 +81,7 @@ public class DBA
 	{
 		Class.forName(DRIVER).newInstance();
 		conn = DriverManager.getConnection(URL);
+
 		stmt = conn.createStatement();
 	}
 
@@ -96,6 +91,7 @@ public class DBA
 
 		dba.getConn();
 		dba.createTable();
+		dba.insertData();
 		dba.closeConn();
 	}
 }
