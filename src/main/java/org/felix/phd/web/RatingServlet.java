@@ -31,7 +31,7 @@ public class RatingServlet extends HttpServlet
 	{
 		String rating = request.getParameter("rating");
 		PrintWriter out = response.getWriter();
-		out.write("You rating is " + rating);
+		out.write("Thanks. Your rating " + rating + " is saved.");
 		out.close();
 	}
 }

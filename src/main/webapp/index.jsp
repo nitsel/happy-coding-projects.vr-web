@@ -3,6 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<title>Product Page</title>
+	<link rel="stylesheet" type="text/css" href="css/html.css" />
 	<link rel="stylesheet" type="text/css" href="css/main.css" />
 	<link rel="stylesheet" type="text/css"  href='js/jquery.rating.css' />
 	<script type="text/javascript" language="javascript" src='js/jquery.js'></script>	
@@ -76,7 +77,7 @@
 		<img src="img/image.jpg" width="100%" height="100%"/>
 	</div>
 	<div class="float-info">
-		<p style="font-size: 26px;">Introduction to Linear Algebra, Fourth Edition [asdfasdf]<br/>
+		<p style="font-size: 26px;"><a href="preview.jsp?bookId=Gv4pCVyoUVYC">Introduction to Linear Algebra</a>, Fourth Edition<br/>
 		<small>[Hardcover]</small></p>
 		<p style="margin-bottom: 10px;"><b>Author(s):</b> Gilbert Strang</p>		 
 		<div class="averageRating">Average Rating:</div>
