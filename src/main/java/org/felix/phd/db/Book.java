@@ -1,18 +1,18 @@
-package org.felix.phd.web;
+package org.felix.phd.db;
 
 import java.sql.Date;
-import java.util.List;
 
 public class Book
 {
-	private String			ISBN;
-	private String			title;
-	private List<String>	authors;
-	private Date			publishDate;
-	private String			publisher;
-	private String			imgUrlS;
-	private String			imgUrlM;
-	private String			imgUrlL;
+	private String	ISBN;
+	private String	title;
+	/* authors format: authorA|authorB|authorC */
+	private String	authors;
+	private Date	publishDate;
+	private String	publisher;
+	private String	imgUrlS;
+	private String	imgUrlM;
+	private String	imgUrlL;
 
 	public String getISBN()
 	{
@@ -32,16 +32,6 @@ public class Book
 	public void setTitle(String title)
 	{
 		this.title = title;
-	}
-
-	public List<String> getAuthors()
-	{
-		return authors;
-	}
-
-	public void setAuthors(List<String> authors)
-	{
-		this.authors = authors;
 	}
 
 	public Date getPublishDate()
@@ -92,5 +82,15 @@ public class Book
 	public void setImgUrlL(String imgUrlL)
 	{
 		this.imgUrlL = imgUrlL;
+	}
+
+	public String getAuthors()
+	{
+		return authors;
+	}
+
+	public void setAuthors(String authors)
+	{
+		this.authors = authors;
 	}
 }

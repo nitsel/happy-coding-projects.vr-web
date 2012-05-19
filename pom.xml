@@ -6,7 +6,7 @@
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>VR-web Maven Webapp</name>
-  <url>http://maven.apache.org</url>
+  <url>http://maven.apache.org</url> 
     
    <properties>
     <jettyVersion>8.1.3.v20120416</jettyVersion>
@@ -18,6 +18,11 @@
       <artifactId>jetty-server</artifactId>
       <version>${jettyVersion}</version>
     </dependency>
+    <dependency>
+		<groupId>org.apache.derby</groupId>
+		<artifactId>derby</artifactId>
+		<version>10.8.2.2</version>
+	</dependency>            
 	<dependency>
 		<groupId>javax.servlet</groupId>
   		<artifactId>servlet-api</artifactId>
