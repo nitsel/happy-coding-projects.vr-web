@@ -7,6 +7,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import au.com.bytecode.opencsv.CSVReader;
 
 /**
@@ -17,6 +20,7 @@ import au.com.bytecode.opencsv.CSVReader;
  */
 public class DBA
 {
+	private final static Logger logger = LoggerFactory.getLogger(DBA.class);
 	private final static String	DRIVER	= "org.apache.derby.jdbc.EmbeddedDriver";
 	private final static String	URL		= "jdbc:derby:BookDB;create=true";
 
@@ -25,15 +29,20 @@ public class DBA
 
 	public boolean createTable() throws Exception
 	{
-		String SQL_Drop = "DROP TABLE books";
-		stmt.execute(SQL_Drop);
+		try
+		{
+			String SQL_Drop = "DROP TABLE books";
+			stmt.execute(SQL_Drop);
+		} catch (SQLException e)
+		{
+			logger.error(e.getMessage());
+		}
 
 		String SQL_table = "CREATE TABLE books"
-			+ "(id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, " +
-			  "isbn VARCHAR(100) NOT NULL," +
+			+ "(isbn VARCHAR(100) PRIMARY KEY," +
 			  "title VARCHAR(200) NOT NULL,"+
 			  "authors VARCHAR(255) NOT NULL," +
-			  "publishYear INTEGER," +
+			  "pubYear INTEGER," +
 			  "publisher VARCHAR(255)," +
 			  "imgUrlS VARCHAR(255)," +
 			  "imgUrlM VARCHAR(255)," +
@@ -62,10 +71,10 @@ public class DBA
 			imgUrlL = data[7];
 
 			String SQL_insert = new StringBuilder()
-					.append("INSERT INTO books ( isbn, title, authors, year, publisher, imgUrlS, imgUrlM, imgUrlL) VALUES( ")
-					.append(isbn).append(",").append(title).append(",").append(authors).append(",").append(year)
-					.append(",").append(publisher).append(",").append(imgUrlS).append(",").append(imgUrlM).append(",")
-					.append(imgUrlL).toString();
+					.append("INSERT INTO books (isbn, title, authors, pubYear, publisher, imgUrlS, imgUrlM, imgUrlL) VALUES ('")
+					.append(isbn).append("', '").append(title).append("', '").append(authors).append("', ")
+					.append(year).append(", '").append(publisher).append("', '").append(imgUrlS).append("', '")
+					.append(imgUrlM).append("', '").append(imgUrlL).append("')").toString();
 
 			stmt.executeUpdate(SQL_insert);
 		}
