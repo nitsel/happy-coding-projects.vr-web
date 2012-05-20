@@ -23,7 +23,7 @@ public class DBA
 {
 	private static Logger logger = null;
 	private final static String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
-	private final static String URL = "jdbc:derby:BookDB;create=true";
+	private final static String URL = "jdbc:derby:BookDB";
 	
 	private Connection conn;
 	private Statement stmt;
@@ -45,9 +45,9 @@ public class DBA
 			logger.error(e.getMessage());
 		}
 		
-		String SQL_table = "CREATE TABLE books" + "(isbn VARCHAR(100) PRIMARY KEY," + "title VARCHAR(200) NOT NULL,"
-				+ "authors VARCHAR(255) NOT NULL," + "pubYear INTEGER," + "publisher VARCHAR(255),"
-				+ "imgUrlS VARCHAR(255)," + "imgUrlM VARCHAR(255)," + "imgUrlL VARCHAR(255)" + " )";
+		String SQL_table = "CREATE TABLE books" + "(isbn VARCHAR(100) PRIMARY KEY," + "title VARCHAR(500) NOT NULL,"
+				+ "authors VARCHAR(300) NOT NULL," + "pubYear INTEGER," + "publisher VARCHAR(300),"
+				+ "imgUrlS VARCHAR(500)," + "imgUrlM VARCHAR(500)," + "imgUrlL VARCHAR(500)" + " )";
 
 		return stmt.execute(SQL_table);
 	}
@@ -108,7 +108,8 @@ public class DBA
 	private void getConn() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
 		Class.forName(DRIVER).newInstance();
-		conn = DriverManager.getConnection(URL);
+
+		conn = DriverManager.getConnection(URL + ";create=true");
 		stmt = conn.createStatement();
 	}
 
@@ -117,7 +118,7 @@ public class DBA
 		DBA dba = new DBA();
 
 		dba.getConn();
-		// dba.createTable();
+		dba.createTable();
 		dba.insertData();
 		dba.closeConn();
 		
