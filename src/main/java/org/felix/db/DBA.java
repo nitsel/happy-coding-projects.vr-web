@@ -20,12 +20,18 @@ import au.com.bytecode.opencsv.CSVReader;
  */
 public class DBA
 {
-	private final static Logger logger = LoggerFactory.getLogger(DBA.class);
+	private static Logger logger = null;
 	private final static String	DRIVER	= "org.apache.derby.jdbc.EmbeddedDriver";
 	private final static String	URL		= "jdbc:derby:BookDB;create=true";
 
 	private Connection			conn;
 	private Statement			stmt;
+	
+	public DBA()
+	{
+		System.setProperty("Password", "through@pass");
+		logger = LoggerFactory.getLogger(DBA.class);
+	}
 
 	public boolean createTable() throws Exception
 	{
@@ -90,14 +96,13 @@ public class DBA
 	{
 		Class.forName(DRIVER).newInstance();
 		conn = DriverManager.getConnection(URL);
-		logger.debug("Connection is created.");
+		logger.error("Connection is created.");
 
 		stmt = conn.createStatement();
 	}
 
 	public static void main(String[] args) throws Exception
 	{
-		// PropertyConfigurator.configure("log4j.properties");
 		DBA dba = new DBA();
 
 		dba.getConn();

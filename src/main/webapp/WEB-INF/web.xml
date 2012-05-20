@@ -4,6 +4,11 @@
 
 <web-app>
   <display-name>Book Store</display-name>
+  <context-param>
+  	  <param-name>Password</param-name>
+  	  <param-value>through@pass</param-value>
+  </context-param>
+  
   <servlet>
       <servlet-name>rating</servlet-name>
       <servlet-class>org.felix.web.RatingServlet</servlet-class>
@@ -12,4 +17,5 @@
       <servlet-name>rating</servlet-name>
       <url-pattern>/rating.do</url-pattern>
   </servlet-mapping>
+  
 </web-app>
