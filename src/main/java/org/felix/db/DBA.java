@@ -90,12 +90,14 @@ public class DBA
 	{
 		Class.forName(DRIVER).newInstance();
 		conn = DriverManager.getConnection(URL);
+		logger.debug("Connection is created.");
 
 		stmt = conn.createStatement();
 	}
 
 	public static void main(String[] args) throws Exception
 	{
+		// PropertyConfigurator.configure("log4j.properties");
 		DBA dba = new DBA();
 
 		dba.getConn();
