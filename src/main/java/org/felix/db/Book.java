@@ -3,8 +3,14 @@ package org.felix.db;
 
 public class Book
 {
-	private String	ISBN;
+	/*
+	 * primary id: book isbn (ISBN-10) Amazon book id (ASIN) = ISBN-10 Google book contains isbn (both isbn-10 and
+	 * isbn-13) and a google book id
+	 */
+	private String	isbn;
+	private String	googleId;
 	private String	title;
+	private String	subTitle;
 	/* authors format: authorA|authorB|authorC */
 	private String	authors;
 	private int		year;
@@ -13,14 +19,9 @@ public class Book
 	private String	imgUrlM;
 	private String	imgUrlL;
 
-	public String getISBN()
+	public Book(String _isbn)
 	{
-		return ISBN;
-	}
-
-	public void setISBN(String iSBN)
-	{
-		ISBN = iSBN;
+		isbn = _isbn;
 	}
 
 	public String getTitle()
@@ -91,5 +92,35 @@ public class Book
 	public void setYear(int year)
 	{
 		this.year = year;
+	}
+
+	public String getIsbn()
+	{
+		return isbn;
+	}
+
+	public void setIsbn(String isbn)
+	{
+		this.isbn = isbn;
+	}
+
+	public String getGoogleId()
+	{
+		return googleId;
+	}
+
+	public void setGoogleId(String googleId)
+	{
+		this.googleId = googleId;
+	}
+
+	public String getSubTitle()
+	{
+		return subTitle;
+	}
+
+	public void setSubTitle(String subTitle)
+	{
+		this.subTitle = subTitle;
 	}
 }
