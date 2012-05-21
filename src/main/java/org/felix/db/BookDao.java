@@ -6,10 +6,13 @@ package org.felix.db;
  * @author guoguibing
  * 
  */
-public class BookDao
+@SuppressWarnings("hiding")
+public class BookDao<Book> extends DefaultDao<Book>
 {
-	public static void update()
-	{
 
+	@Override
+	public void update(Book book)
+	{
 	}
+
 }
