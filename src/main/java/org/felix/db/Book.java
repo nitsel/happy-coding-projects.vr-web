@@ -1,23 +1,24 @@
 package org.felix.db;
 
-
 public class Book
 {
 	/*
-	 * primary id: book isbn (ISBN-10) Amazon book id (ASIN) = ISBN-10 Google book contains isbn (both isbn-10 and
-	 * isbn-13) and a google book id
+	 * primary id: book isbn (ISBN-10) Amazon book id (ASIN) = ISBN-10 Google
+	 * book contains isbn (both isbn-10 and isbn-13) and a google book id
 	 */
-	private String	isbn;
-	private String	googleId;
-	private String	title;
-	private String	subTitle;
+	private String isbn;
+	private String googleId;
+	private String title;
+	private String subTitle;
 	/* authors format: authorA|authorB|authorC */
-	private String	authors;
-	private int		year;
-	private String	publisher;
-	private String	imgUrlS;
-	private String	imgUrlM;
-	private String	imgUrlL;
+	private String authors;
+	private int publishYear;
+	private String publisher;
+	private String manufacturer;
+	private String imgUrlS;
+	private String imgUrlM;
+	private String imgUrlL;
+	private String amazonUrl;
 
 	public Book(String _isbn)
 	{
@@ -84,16 +85,6 @@ public class Book
 		this.authors = authors;
 	}
 
-	public int getYear()
-	{
-		return year;
-	}
-
-	public void setYear(int year)
-	{
-		this.year = year;
-	}
-
 	public String getIsbn()
 	{
 		return isbn;
@@ -122,5 +113,35 @@ public class Book
 	public void setSubTitle(String subTitle)
 	{
 		this.subTitle = subTitle;
+	}
+	
+	public String getManufacturer()
+	{
+		return manufacturer;
+	}
+	
+	public void setManufacturer(String manufacturer)
+	{
+		this.manufacturer = manufacturer;
+	}
+	
+	public int getPublishYear()
+	{
+		return publishYear;
+	}
+	
+	public void setPublishYear(int publishYear)
+	{
+		this.publishYear = publishYear;
+	}
+	
+	public String getAmazonUrl()
+	{
+		return amazonUrl;
+	}
+	
+	public void setAmazonUrl(String amazonUrl)
+	{
+		this.amazonUrl = amazonUrl;
 	}
 }

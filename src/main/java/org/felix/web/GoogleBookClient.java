@@ -1,4 +1,4 @@
-package org.felix.web.ws;
+package org.felix.web;
 
 import java.io.Reader;
 import java.net.URI;
@@ -12,9 +12,9 @@ import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GoogleBook extends DefaultHttpImpl
+public class GoogleBookClient extends DefaultWebClient
 {
-	private static final Logger	logger	= LoggerFactory.getLogger(GoogleBook.class);
+	private static final Logger	logger	= LoggerFactory.getLogger(GoogleBookClient.class);
 
 	/**
 	 * Search Google Books by using isbn
@@ -99,7 +99,7 @@ public class GoogleBook extends DefaultHttpImpl
 		String title = "A Second Chicken Soup for the Woman's";
 		// String subTitle = "Soul Chicken Soup for the Soul Series";
 		String isbn = "1558746226";
-		GoogleBook book = new GoogleBook();
+		GoogleBookClient book = new GoogleBookClient();
 		String jsons = book.searchBook(title, isbn);
 
 		// String file = "googleBookResponse.json";
