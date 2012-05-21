@@ -15,6 +15,7 @@ public class AmazonBookClient extends DefaultWebClient
 		String amazonUrl = book.getAmazonUrl();
 		String htmlContent = super.query(new HttpGet(amazonUrl));
 		
+
 		/* parse html code to obtain book information */
 		// TODO: adding parsing codes here
 
