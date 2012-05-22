@@ -9,3 +9,5 @@ syntax: regexp
 ^Book-Crossing$
 syntax: regexp
 ^BookDB$
+syntax: regexp
+^target$

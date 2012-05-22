@@ -120,6 +120,20 @@ public class AmazonBookLookup
 		String amazonUrl = urlNode.getTextContent();
 		book.setAmazonUrl(amazonUrl);
 		
+		NodeList itemLinkList = doc.getElementsByTagName("ItemLink");
+		for (int i = 0; i < itemLinkList.getLength(); i++)
+		{
+			Node itemLinkNode = itemLinkList.item(i);
+			Node desNode = itemLinkNode.getFirstChild();
+			if (desNode.getTextContent().equals("All Customer Reviews"))
+			{
+				Node reviewNode = itemLinkNode.getLastChild();
+				String reviewUrl = reviewNode.getTextContent();
+				book.setReviewUrl(reviewUrl);
+				break;
+			}
+		}
+
 		NodeList authorList = doc.getElementsByTagName("Author");
 		String authors = null;
 		for (int i = 0; i < authorList.getLength(); i++)
@@ -132,8 +146,8 @@ public class AmazonBookLookup
 		if (authors != null) book.setAuthors(authors);
 
 		Node manuNode = doc.getElementsByTagName("Manufacturer").item(0);
-		String manufacturer = manuNode.getTextContent();
-		book.setManufacturer(manufacturer);
+		String publisher = manuNode.getTextContent();
+		book.setPublisher(publisher);
 
 		Node titleNode = doc.getElementsByTagName("Title").item(0);
 		String title = titleNode.getTextContent();
