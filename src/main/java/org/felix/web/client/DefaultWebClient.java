@@ -1,4 +1,4 @@
-package org.felix.web;
+package org.felix.web.client;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

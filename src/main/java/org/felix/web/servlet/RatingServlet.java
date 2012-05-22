@@ -1,4 +1,4 @@
-package org.felix.web;
+package org.felix.web.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
