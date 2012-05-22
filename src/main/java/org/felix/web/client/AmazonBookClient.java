@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.http.client.methods.HttpGet;
 import org.felix.db.Book;
 import org.felix.db.Review;
+import org.felix.util.io.FileOperUtil;
 import org.felix.web.ws.AmazonBookLookup;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -113,7 +114,44 @@ public class AmazonBookClient extends DefaultWebClient
 	{
 		int max = 20; // 20 reviews for each product is good enough
 		List<Review> reviews = new ArrayList<Review>();
+
+		// String html = super.query(new HttpGet(reviewUrl));
+		// FileOperUtil.write("reviews.html", html);
+		String html = FileOperUtil.read("reviews.html");
+
+		Document doc = Jsoup.parse(html);
+		Elements es = null;
+		Element e = null;
+		String item = null, content = null;
+
 		// TODO: adding codes to retrieve reviews from amazon
+		es = doc.select("table#productReviews a[name] ~ div");
+
+		for (int i = 1; i < es.size(); i++)
+		{
+			e = es.get(i);
+			Elements nodes = e.children();
+
+			Review review = new Review();
+
+			Element node = nodes.get(1);
+			content = node.select("span[title]").get(0).attr("title");
+			content = content.substring(0, content.indexOf(' '));
+			review.setRating(Float.parseFloat(content));
+
+			content = node.select("b").first().ownText();
+			review.setTitle(content);
+
+			content = node.select("nobr").first().ownText();
+			Date date=new Date(DateFormat.getDateInstance(DateFormat.LONG).parse(content).getTime());
+			review.setPublishDate(date);
+
+			node = nodes.get(2);
+			node = node.select("a").first();
+			content = node.ownText();
+
+			System.out.println(node);
+		}
 
 		return reviews;
 	}
@@ -122,7 +160,12 @@ public class AmazonBookClient extends DefaultWebClient
 	{
 		AmazonBookClient amazon = new AmazonBookClient();
 		String isbn = "1558746226";
-		Book book = amazon.searchBook(isbn);
-		System.out.println(book);
+		// Book book = amazon.searchBook(isbn);
+		// List<Review> reviews = amazon.searchReviews(book.getReviewUrl());
+
+		String reviewUrl = "http://www.amazon.com/review/product/1558746226%3FSubscriptionId%3DAKIAIWHTQU7L3LARWXKA%26tag%3Dvrweb-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3D1558746226";
+		List<Review> reviews = amazon.searchReviews(reviewUrl);
+
+		System.out.println();
 	}
 }
