@@ -8,7 +8,6 @@ import java.util.List;
 import org.apache.http.client.methods.HttpGet;
 import org.felix.db.Book;
 import org.felix.db.Review;
-import org.felix.util.io.FileOperUtil;
 import org.felix.web.ws.AmazonBookLookup;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -113,19 +112,18 @@ public class AmazonBookClient extends DefaultWebClient
 
 	public List<Review> searchReviews(String isbn, String reviewUrl) throws Exception
 	{
-		int max = 20; // 20 reviews for each product is good enough
+		// int max = 20; // 20 reviews for each product is good enough
 		List<Review> reviews = new ArrayList<Review>();
 
-		// String html = super.query(new HttpGet(reviewUrl));
+		String html = super.query(new HttpGet(reviewUrl));
 		// FileOperUtil.write("reviews.html", html);
-		String html = FileOperUtil.read("reviews.html");
+		// String html = FileOperUtil.read("reviews.html");
 
 		Document doc = Jsoup.parse(html);
 		Elements es = null;
 		Element e = null;
 		String content = null;
 
-		// TODO: adding codes to retrieve reviews from amazon
 		es = doc.select("table#productReviews a[name] ~ div");
 
 		for (int i = 0; i < es.size(); i++)
