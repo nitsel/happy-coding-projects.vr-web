@@ -50,6 +50,17 @@ public class GoogleBookClient extends DefaultWebClient
 		return super.query(new HttpGet(uri));
 	}
 
+	public String searchBookId(String title, String isbn) throws Exception
+	{
+		String jsons = this.searchBook(title, isbn);
+
+		String googleId = this.parseBookJson(jsons, isbn);
+
+		logger.info("Google Book Id = {}", googleId);
+
+		return googleId;
+	}
+
 	public String parseBookJson(String jsons, String isbn) throws Exception
 	{
 		JSONParser parser = new JSONParser();
@@ -69,8 +80,6 @@ public class GoogleBookClient extends DefaultWebClient
 	@SuppressWarnings("unchecked")
 	private String parseJson(JSONParser parser, Object object, String isbn)
 	{
-		String googleId = null;
-
 		JSONObject obj = (JSONObject) object;
 		JSONArray items = (JSONArray) obj.get("items");
 		for (int i = 0; i < items.size(); i++)
@@ -87,7 +96,7 @@ public class GoogleBookClient extends DefaultWebClient
 			}
 
 		}
-		return googleId;
+		return null;
 	}
 
 	/**
