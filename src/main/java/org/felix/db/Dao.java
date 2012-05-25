@@ -43,9 +43,9 @@ public abstract class Dao
 
 	protected abstract boolean dropTable() throws Exception;
 	
-	private String replace(String old)
+	protected String replace(String old)
 	{
-		return old.replace('\'', '\"');
+		return old.replace('\'', ' ');
 	}
 
 	public void insertData() throws Exception
