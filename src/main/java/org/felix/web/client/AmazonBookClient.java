@@ -13,6 +13,7 @@ import org.felix.web.ws.AmazonBookLookup;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 
 /* Load the information of the book from Amazon site */
@@ -110,7 +111,7 @@ public class AmazonBookClient extends DefaultWebClient
 		return book;
 	}
 
-	public List<Review> searchReviews(String reviewUrl) throws Exception
+	public List<Review> searchReviews(String isbn, String reviewUrl) throws Exception
 	{
 		int max = 20; // 20 reviews for each product is good enough
 		List<Review> reviews = new ArrayList<Review>();
@@ -122,12 +123,12 @@ public class AmazonBookClient extends DefaultWebClient
 		Document doc = Jsoup.parse(html);
 		Elements es = null;
 		Element e = null;
-		String item = null, content = null;
+		String content = null;
 
 		// TODO: adding codes to retrieve reviews from amazon
 		es = doc.select("table#productReviews a[name] ~ div");
 
-		for (int i = 1; i < es.size(); i++)
+		for (int i = 0; i < es.size(); i++)
 		{
 			e = es.get(i);
 			Elements nodes = e.children();
@@ -143,14 +144,53 @@ public class AmazonBookClient extends DefaultWebClient
 			review.setTitle(content);
 
 			content = node.select("nobr").first().ownText();
-			Date date=new Date(DateFormat.getDateInstance(DateFormat.LONG).parse(content).getTime());
+			Date date = new Date(DateFormat.getDateInstance(DateFormat.LONG).parse(content).getTime());
 			review.setPublishDate(date);
 
-			node = nodes.get(2);
-			node = node.select("a").first();
-			content = node.ownText();
+			nodes = nodes.select("div.tiny");
+			content = "";
+			for (int j = 0; j < nodes.size(); j++)
+			{
+				node = nodes.get(j);
+				content += node.nextSibling().toString();
+				Element el = node.nextElementSibling();
+				String tagName = el.tagName();
+				while (!tagName.equals("div"))
+				{
+					if (tagName.equals("br"))
+					{
+						Node cont = el.nextSibling();
+						if (cont != null) content += "<br />" + cont.toString();
+					} else if (tagName.equals("p"))
+					{
+						content += el.html();
+					}
+					el = el.nextElementSibling();
+					tagName = el.tagName();
+				}
+			}
+			review.setContent(content);
 
-			System.out.println(node);
+			Element authorNode = nodes.select("div.tiny").first().previousElementSibling();
+			node = authorNode.select("a").first();
+			if (node == null)
+			{
+				content = authorNode.text();
+				if (content.startsWith("By")) content = content.substring("By".length() + 1);
+				review.setUserName(content);
+			} else
+			{
+				content = node.attr("href");
+				review.setUserProfileUrl(content);
+
+				String userId = content.substring(content.indexOf("profile/") + "profile/".length(),
+						content.indexOf("/ref"));
+				review.setUserId(userId);
+				review.setUserName(node.text());
+			}
+
+			review.setIsbn(isbn);
+			reviews.add(review);
 		}
 
 		return reviews;
@@ -160,12 +200,17 @@ public class AmazonBookClient extends DefaultWebClient
 	{
 		AmazonBookClient amazon = new AmazonBookClient();
 		String isbn = "1558746226";
-		// Book book = amazon.searchBook(isbn);
-		// List<Review> reviews = amazon.searchReviews(book.getReviewUrl());
+		Book book = amazon.searchBook(isbn);
+		List<Review> reviews = amazon.searchReviews(isbn, book.getReviewUrl());
 
-		String reviewUrl = "http://www.amazon.com/review/product/1558746226%3FSubscriptionId%3DAKIAIWHTQU7L3LARWXKA%26tag%3Dvrweb-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3D1558746226";
-		List<Review> reviews = amazon.searchReviews(reviewUrl);
+		// String reviewUrl =
+		// "http://www.amazon.com/review/product/1558746226%3FSubscriptionId%3DAKIAIWHTQU7L3LARWXKA%26tag%3Dvrweb-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3D1558746226";
+		// List<Review> reviews = amazon.searchReviews(isbn, reviewUrl);
 
-		System.out.println();
+		for (Review r : reviews)
+		{
+			System.out.println(r);
+			System.out.println(" ------------------------------------------- ");
+		}
 	}
 }
