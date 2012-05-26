@@ -16,7 +16,7 @@ public class RunDB
 	{
 		GoogleBookClient googleBook = new GoogleBookClient();
 		AmazonBookClient amazonBook = new AmazonBookClient();
-		int count = 0, max = 1;
+		int count = 0, max = 100;
 
 		BookDao dao = new BookDao();
 		List<String> isbns = dao.retrieveAllBooks();
@@ -27,34 +27,25 @@ public class RunDB
 			Book book = dao.query(isbn);
 
 			/* Search if Google Books and Amazon Web Services have such previews or records */
-			if (book.getAmazonUrl() == null)
+			if (book.getAmazonUrl().isEmpty())
 			{
-				// control the search rate: too fast will result in error response
-				Thread.sleep(5000);
 				String googleId = googleBook.searchBookId(book);
 				book.setGoogleId(googleId);
 
 				AmazonBookLookup.retrieveBook(book);
 				dao.update(book);
+
+				// control the search rate: too fast will result in error response
+				Thread.sleep(5000);
 			}
 
 			/* Search the book's details from Amazon web site */
-			if (book.getDescription() == null)
+			if (book.getDescription().isEmpty())
 			{
 				amazonBook.searchBook(book);
 				dao.update(book);
 
-				List<Review> reviews = amazonBook.searchReviews(book);
-
-				// update to database
-				for (Review r : reviews)
-				{
-					System.out.println(r);
-					System.out.println("  ----------------------------------  ");
-				}
-
 				/* update to the database */
-				dao.update(book);
 				if (++count > max) break;
 			}
 		}

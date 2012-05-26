@@ -12,25 +12,30 @@ import au.com.bytecode.opencsv.CSVReader;
 
 public class BookDao extends Dao
 {
-	private final static String	tableElements	= "isbn, isbn13, googleId, title, subTitle, authors, "
-														+ "pages, price, language, publishDate, publisher, edition, dimensions, weight, description, "
-														+ "editorReviews, imgUrlS, imgUrlM, imgUrlL, amazonUrl, reviewUrl, averageRating, ranking";
+	private final static String	tableElements	= "isbn, isbn13, googleId, title, subTitle, authors, pages, price, language, publishDate, publisher, edition, dimensions, weight, description, editorReviews, imgUrlS, imgUrlM, imgUrlL, amazonUrl, reviewUrl, averageRating, ranking";
 
 	void update(Book book) throws Exception
 	{
-		String sql = "UPDATE books SET isbn13='" + book.getIsbn13() + "', googleId='" + book.getGoogleId() + "'"
-				+ "', title='" + book.getTitle() + "', subTitle = '" + book.getSubTitle() + "', authors='"
-				+ book.getAuthors() + "', pages=" + book.getPages() + ", price = '" + book.getPrice()
-				+ "', language ='" + book.getLanguage() + "', publishDate='" + book.getPublishDate()
-				+ "', publisher ='" + book.getPublisher() + "', edition=" + book.getEdition() + ", dimensions='"
-				+ book.getDimensions() + "', weight='" + book.getWeight() + "', description = '"
-				+ book.getDescription() + "', editorReviews='" + book.getEditorReviews() + "', imgUrlS='"
-				+ book.getImgUrlS() + "', imgUrlM='" + book.getImgUrlM() + "', imgUrlL='" + book.getImgUrlL()
-				+ "', averageRating =" + book.getAverageRating() + ", ranking='" + book.getRanking() + "' WHERE isbn='"
+		String sql = "UPDATE books SET isbn13='" + sqlString(book.getIsbn13()) + "', googleId='"
+				+ sqlString(book.getGoogleId()) + "', title='" + sqlString(book.getTitle()) + "', subTitle = '"
+				+ sqlString(book.getSubTitle()) + "', authors='" + sqlString(book.getAuthors()) + "', pages="
+				+ book.getPages() + ", price = '" + sqlString(book.getPrice()) + "', language ='"
+				+ sqlString(book.getLanguage()) + "', publishDate='" + sqlString(book.getPublishDate().toString())
+				+ "', publisher ='" + sqlString(book.getPublisher()) + "', edition=" + book.getEdition()
+				+ ", dimensions='" + sqlString(book.getDimensions()) + "', weight='" + sqlString(book.getWeight())
+				+ "', description = '" + sqlString(book.getDescription()) + "', editorReviews='"
+				+ sqlString(book.getEditorReviews()) + "', imgUrlS='" + sqlString(book.getImgUrlS()) + "', imgUrlM='"
+				+ sqlString(book.getImgUrlM()) + "', imgUrlL='" + sqlString(book.getImgUrlL()) + "', averageRating ="
+				+ book.getAverageRating() + ", ranking='" + sqlString(book.getRanking()) + "' WHERE isbn='"
 				+ book.getIsbn() + "'";
 
 		logger.info("Update book: {}", sql);
 		stmt.executeUpdate(sql);
+	}
+
+	private String sqlString(String normalStr)
+	{
+		return normalStr == null ? "" : normalStr;
 	};
 
 	void insert(Book book) throws Exception
@@ -45,25 +50,16 @@ public class BookDao extends Dao
 
 		// insert into database
 		String sql = "INSERT INTO books (" + tableElements + ") VALUES ('" + book.getIsbn() + "', '"
-				+ (book.getIsbn13() == null ? "" : book.getIsbn13()) + "', '"
-				+ (book.getGoogleId() == null ? "" : book.getGoogleId()) + "', '"
-				+ (book.getTitle() == null ? "" : book.getTitle()) + "', '"
-				+ (book.getSubTitle() == null ? "" : book.getSubTitle()) + "', '"
-				+ (book.getAuthors() == null ? "" : book.getAuthors()) + "', " + book.getPages() + ", '"
-				+ (book.getPrice() == null ? "" : book.getPrice()) + "', '"
-				+ (book.getLanguage() == null ? "" : book.getLanguage()) + "', '"
-				+ (book.getPublishDate() == null ? "" : book.getPublishDate()) + "', '"
-				+ (book.getPublisher() == null ? "" : book.getPublisher()) + "', " + book.getEdition() + ", '"
-				+ (book.getDimensions() == null ? "" : book.getDimensions()) + "', '"
-				+ (book.getWeight() == null ? "" : book.getWeight()) + "', '"
-				+ (book.getDescription() == null ? "" : book.getDescription()) + "', '"
-				+ (book.getEditorReviews() == null ? "" : book.getEditorReviews()) + "', '"
-				+ (book.getImgUrlS() == null ? "" : book.getImgUrlS()) + "', '"
-				+ (book.getImgUrlM() == null ? "" : book.getImgUrlM()) + "', '"
-				+ (book.getImgUrlL() == null ? "" : book.getImgUrlL()) + "', '"
-				+ (book.getAmazonUrl() == null ? "" : book.getAmazonUrl()) + "', '"
-				+ (book.getReviewUrl() == null ? "" : book.getReviewUrl()) + "', " + book.getAverageRating() + ", '"
-				+ (book.getRanking() == null ? "" : book.getRanking()) + "')";
+				+ sqlString(book.getIsbn13()) + "', '" + sqlString(book.getGoogleId()) + "', '"
+				+ sqlString(book.getTitle()) + "', '" + sqlString(book.getSubTitle()) + "', '"
+				+ sqlString(book.getAuthors()) + "', " + book.getPages() + ", '" + sqlString(book.getPrice()) + "', '"
+				+ sqlString(book.getLanguage()) + "', '" + sqlString(book.getPublishDate().toString()) + "', '"
+				+ sqlString(book.getPublisher()) + "', " + book.getEdition() + ", '" + sqlString(book.getDimensions())
+				+ "', '" + sqlString(book.getWeight()) + "', '" + sqlString(book.getDescription()) + "', '"
+				+ sqlString(book.getEditorReviews()) + "', '" + sqlString(book.getImgUrlS()) + "', '"
+				+ sqlString(book.getImgUrlM()) + "', '" + sqlString(book.getImgUrlL()) + "', '"
+				+ sqlString(book.getAmazonUrl()) + "', '" + sqlString(book.getReviewUrl()) + "', "
+				+ book.getAverageRating() + ", '" + sqlString(book.getRanking()) + "')";
 
 		logger.info("Insert book: {}", sql);
 
@@ -120,7 +116,7 @@ public class BookDao extends Dao
 			book.setPages(Integer.parseInt(rs.getString("pages")));
 			book.setPrice(rs.getString("price"));
 			book.setLanguage(rs.getString("language"));
-			book.setPublishDate(DateTimeUtil.parseDateToDB(rs.getString("publishDate")));
+			book.setPublishDate(DateTimeUtil.parseStrFromDb(rs.getString("publishDate")));
 			book.setPublisher(rs.getString("publisher"));
 			book.setEdition(Integer.parseInt(rs.getString("edition")));
 			book.setDimensions(rs.getString("dimensions"));
@@ -168,7 +164,7 @@ public class BookDao extends Dao
 			book.setImgUrlS(data[5]);
 			book.setImgUrlM(data[6]);
 			book.setImgUrlL(data[7]);
-			book.setPublishDate(DateTimeUtil.parseDateToDB("Jan 1, " + data[3]));
+			book.setPublishDate(DateTimeUtil.parseStrToDb("Jan 1, " + data[3]));
 
 			insert(book);
 		}
@@ -185,7 +181,9 @@ public class BookDao extends Dao
 
 	public static void main(String[] args) throws Exception
 	{
-		new BookDao().initDataTable();
+		BookDao dao = new BookDao();
+		dao.createTable();
+		dao.initDataTable();
 	}
 
 }

@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.http.client.methods.HttpGet;
 import org.felix.db.Book;
 import org.felix.db.Review;
+import org.felix.util.system.DateTimeUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -61,9 +62,7 @@ public class AmazonBookClient extends DefaultWebClient
 			current = t.ownText();
 			if (previous != null && previous.equals("Publication Date:"))
 			{
-				/* format String "October 1, 1998" to java.sql.Date */
-				DateFormat format = DateFormat.getDateInstance(DateFormat.LONG);
-				book.setPublishDate(new Date(format.parse(current).getTime()));
+				book.setPublishDate(DateTimeUtil.parseStrToDb(current));
 			} else if (previous != null && previous.equals("ISBN-13:"))
 			{
 				book.setIsbn13(current);
@@ -75,12 +74,20 @@ public class AmazonBookClient extends DefaultWebClient
 			previous = current;
 		}
 
-		e = doc.select("div#postBodyPS div").get(0);
-		book.setDescription(e.html());
+		e = doc.select("div#postBodyPS div:lt(3)").first();
+		book.setDescription(e.text());
 
 		/* Section: Editorial Reviews */
 		e = doc.select("div#productDescription .content").get(0);
-		book.setEditorReviews(e.html());
+		es = e.select("div.productDescriptionWrapper");
+		content = "";
+		for (int i = 0; i < es.size(); i++)
+		{
+			e = es.get(i);
+			if (content.isEmpty()) content += e.text();
+			else content += "<br />" + e.text();
+		}
+		book.setEditorReviews(content);
 
 		/* Section: Product Details */
 		es = doc.select("table td.bucket div.content li");
@@ -106,7 +113,7 @@ public class AmazonBookClient extends DefaultWebClient
 				book.setDimensions(content);
 			} else if (item.equals("Shipping Weight:"))
 			{
-				content = content.substring(0, content.indexOf('('));
+				if (content.indexOf('(') > 0) content = content.substring(0, content.indexOf('('));
 				book.setWeight(content);
 			} else if (item.equals("Amazon Best Sellers Rank:"))
 			{

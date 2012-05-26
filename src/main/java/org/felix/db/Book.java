@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class Book
 {
+	private final static int	MAX_LENGTH	= 200;
 	/*
 	 * primary id: book isbn (ISBN-10) Amazon book id (ASIN) = ISBN-10 Google book contains isbn (both isbn-10 and
 	 * isbn-13) and a google book id
@@ -40,7 +41,16 @@ public class Book
 
 	protected String replace(String old)
 	{
+		if (old == null) return null;
+		// SQL String
 		return old.replace("\'", "''");
+	}
+
+	private String subString(String str, int length)
+	{
+		String result = str;
+		if (str.length() >= length) result = str.substring(0, (length - 4)) + "...";
+		return result;
 	}
 
 	public String getTitle()
@@ -190,7 +200,7 @@ public class Book
 
 	public void setDescription(String description)
 	{
-		this.description = replace(description);
+		this.description = subString(replace(description), MAX_LENGTH);
 	}
 
 	public String getEditorReviews()
@@ -200,7 +210,7 @@ public class Book
 
 	public void setEditorReviews(String editorReviews)
 	{
-		this.editorReviews = replace(editorReviews);
+		this.editorReviews = subString(replace(editorReviews), MAX_LENGTH);
 	}
 
 	public int getPages()
@@ -276,31 +286,21 @@ public class Book
 	@Override
 	public String toString()
 	{
-		StringBuilder sb=new StringBuilder();
-		sb.append("ISBN_10: ").append(isbn).append("\n")
-		.append("ISBN_13: ").append(isbn13).append("\n")
-		.append("Google ID: ").append(googleId).append("\n")
-		.append("Title: ").append(title).append("\n")
-		.append("SubTitle: ").append(subTitle).append("\n")
-		.append("Authors: ").append(authors).append("\n")
-		.append("Pages: ").append(pages).append("\n")
-		.append("Price: ").append(price).append("\n")
-		.append("Language: ").append(language).append("\n")
-		.append("Publish Date: ").append(publishDate).append("\n")
-		.append("Publisher: ").append(publisher).append("\n")
-		.append("Edition: ").append(edition).append("\n")
-		.append("Dimensions: ").append(dimensions).append("\n")
-		.append("Weight: ").append(weight).append("\n")
-		.append("Average Rating: ").append(averageRating).append("\n")
-		.append("Amazon Ranking: ").append(ranking).append("\n")
-		.append("Image URL(S): ").append(imgUrlS).append("\n")
-		.append("Image URL(M): ").append(imgUrlM).append("\n")
-		.append("Image URL(L): ").append(imgUrlL).append("\n")
-		.append("Amazon URL: ").append(amazonUrl).append("\n")
-		.append("Review URL: ").append(reviewUrl).append("\n")
-		.append("Editoral Reviews: \n").append(editorReviews).append("\n")
-		.append("Description: \n").append(description).append("\n");
-		
+		StringBuilder sb = new StringBuilder();
+		sb.append("ISBN_10: ").append(isbn).append("\n").append("ISBN_13: ").append(isbn13).append("\n")
+				.append("Google ID: ").append(googleId).append("\n").append("Title: ").append(title).append("\n")
+				.append("SubTitle: ").append(subTitle).append("\n").append("Authors: ").append(authors).append("\n")
+				.append("Pages: ").append(pages).append("\n").append("Price: ").append(price).append("\n")
+				.append("Language: ").append(language).append("\n").append("Publish Date: ").append(publishDate)
+				.append("\n").append("Publisher: ").append(publisher).append("\n").append("Edition: ").append(edition)
+				.append("\n").append("Dimensions: ").append(dimensions).append("\n").append("Weight: ").append(weight)
+				.append("\n").append("Average Rating: ").append(averageRating).append("\n").append("Amazon Ranking: ")
+				.append(ranking).append("\n").append("Image URL(S): ").append(imgUrlS).append("\n")
+				.append("Image URL(M): ").append(imgUrlM).append("\n").append("Image URL(L): ").append(imgUrlL)
+				.append("\n").append("Amazon URL: ").append(amazonUrl).append("\n").append("Review URL: ")
+				.append(reviewUrl).append("\n").append("Editoral Reviews: \n").append(editorReviews).append("\n")
+				.append("Description: \n").append(description).append("\n");
+
 		return sb.toString();
 	}
 }
