@@ -38,6 +38,11 @@ public class Book
 		isbn = _isbn;
 	}
 
+	protected String replace(String old)
+	{
+		return old.replace("\'", "''");
+	}
+
 	public String getTitle()
 	{
 		return title;
@@ -45,7 +50,7 @@ public class Book
 
 	public void setTitle(String title)
 	{
-		this.title = title;
+		this.title = replace(title);
 	}
 
 	public String getPublisher()
@@ -55,7 +60,7 @@ public class Book
 
 	public void setPublisher(String publisher)
 	{
-		this.publisher = publisher;
+		this.publisher = replace(publisher);
 	}
 
 	public String getImgUrlS()
@@ -65,7 +70,7 @@ public class Book
 
 	public void setImgUrlS(String imgUrlS)
 	{
-		this.imgUrlS = imgUrlS;
+		this.imgUrlS = replace(imgUrlS);
 	}
 
 	public String getImgUrlM()
@@ -75,7 +80,7 @@ public class Book
 
 	public void setImgUrlM(String imgUrlM)
 	{
-		this.imgUrlM = imgUrlM;
+		this.imgUrlM = replace(imgUrlM);
 	}
 
 	public String getImgUrlL()
@@ -85,7 +90,7 @@ public class Book
 
 	public void setImgUrlL(String imgUrlL)
 	{
-		this.imgUrlL = imgUrlL;
+		this.imgUrlL = replace(imgUrlL);
 	}
 
 	public String getAuthors()
@@ -95,7 +100,7 @@ public class Book
 
 	public void setAuthors(String authors)
 	{
-		this.authors = authors;
+		this.authors = replace(authors);
 	}
 
 	public String getIsbn()
@@ -115,7 +120,7 @@ public class Book
 
 	public void setGoogleId(String googleId)
 	{
-		this.googleId = googleId;
+		this.googleId = replace(googleId);
 	}
 
 	public String getSubTitle()
@@ -125,7 +130,7 @@ public class Book
 
 	public void setSubTitle(String subTitle)
 	{
-		this.subTitle = subTitle;
+		this.subTitle = replace(subTitle);
 	}
 
 	public String getAmazonUrl()
@@ -135,7 +140,7 @@ public class Book
 
 	public void setAmazonUrl(String amazonUrl)
 	{
-		this.amazonUrl = amazonUrl;
+		this.amazonUrl = replace(amazonUrl);
 	}
 
 	public String getReviewUrl()
@@ -145,7 +150,7 @@ public class Book
 
 	public void setReviewUrl(String reviewUrl)
 	{
-		this.reviewUrl = reviewUrl;
+		this.reviewUrl = replace(reviewUrl);
 	}
 
 	public Date getPublishDate()
@@ -185,7 +190,7 @@ public class Book
 
 	public void setDescription(String description)
 	{
-		this.description = description;
+		this.description = replace(description);
 	}
 
 	public String getEditorReviews()
@@ -195,7 +200,7 @@ public class Book
 
 	public void setEditorReviews(String editorReviews)
 	{
-		this.editorReviews = editorReviews;
+		this.editorReviews = replace(editorReviews);
 	}
 
 	public int getPages()
@@ -215,7 +220,7 @@ public class Book
 
 	public void setLanguage(String language)
 	{
-		this.language = language;
+		this.language = replace(language);
 	}
 
 	public String getDimensions()
@@ -225,7 +230,7 @@ public class Book
 
 	public void setDimensions(String dimensions)
 	{
-		this.dimensions = dimensions;
+		this.dimensions = replace(dimensions);
 	}
 
 	public String getWeight()
@@ -235,7 +240,7 @@ public class Book
 
 	public void setWeight(String weight)
 	{
-		this.weight = weight;
+		this.weight = replace(weight);
 	}
 
 	public float getAverageRating()
@@ -255,7 +260,7 @@ public class Book
 
 	public void setRanking(String ranking)
 	{
-		this.ranking = ranking;
+		this.ranking = replace(ranking);
 	}
 
 	public String getPrice()
@@ -265,7 +270,7 @@ public class Book
 
 	public void setPrice(String price)
 	{
-		this.price = price;
+		this.price = replace(price);
 	}
 
 	@Override

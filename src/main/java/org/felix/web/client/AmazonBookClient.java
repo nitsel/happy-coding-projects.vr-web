@@ -8,7 +8,6 @@ import java.util.List;
 import org.apache.http.client.methods.HttpGet;
 import org.felix.db.Book;
 import org.felix.db.Review;
-import org.felix.web.ws.AmazonBookLookup;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -19,14 +18,18 @@ import org.jsoup.select.Elements;
 
 public class AmazonBookClient extends DefaultWebClient
 {
-	public Book searchBook(String isbn) throws Exception
+	/**
+	 * Search and update book information from Amazon web site According to the <i>amazon url</i> retrieved from Amazon
+	 * Web Service
+	 * 
+	 * @param book
+	 * @throws Exception
+	 */
+	public void searchBook(Book book) throws Exception
 	{
-		Book book = AmazonBookLookup.retrieveBook(isbn);
+
 		String amazonUrl = book.getAmazonUrl();
 		String html = super.query(new HttpGet(amazonUrl));
-
-		// Book book = new Book(isbn);
-		// String html = FileOperUtil.read("amazonBook.html");
 
 		Document doc = Jsoup.parse(html);
 		Elements es = null;
@@ -39,9 +42,14 @@ public class AmazonBookClient extends DefaultWebClient
 		content = content.substring(0, content.indexOf(' '));
 		book.setAverageRating(Float.parseFloat(content));
 
-		e = doc.select("span#actualPriceValue b").first();
-		content = e.ownText();
-		book.setPrice(content);
+		// price could be empty
+		es = doc.select("span#actualPriceValue b");
+		if (es != null && es.size() > 0)
+		{
+			e = es.first();
+			content = e.ownText();
+			book.setPrice(content);
+		}
 
 		/* Section: Book Description */
 		es = doc.select("div#ps-content .buying span");
@@ -107,15 +115,14 @@ public class AmazonBookClient extends DefaultWebClient
 			}
 		}
 
-		return book;
 	}
 
-	public List<Review> searchReviews(String isbn, String reviewUrl) throws Exception
+	public List<Review> searchReviews(Book book) throws Exception
 	{
 		// int max = 20; // 20 reviews for each product is good enough
 		List<Review> reviews = new ArrayList<Review>();
 
-		String html = super.query(new HttpGet(reviewUrl));
+		String html = super.query(new HttpGet(book.getReviewUrl()));
 		// FileOperUtil.write("reviews.html", html);
 		// String html = FileOperUtil.read("reviews.html");
 
@@ -187,7 +194,7 @@ public class AmazonBookClient extends DefaultWebClient
 				review.setUserName(node.text());
 			}
 
-			review.setIsbn(isbn);
+			review.setIsbn(book.getIsbn());
 			reviews.add(review);
 		}
 
@@ -198,8 +205,10 @@ public class AmazonBookClient extends DefaultWebClient
 	{
 		AmazonBookClient amazon = new AmazonBookClient();
 		String isbn = "1558746226";
-		Book book = amazon.searchBook(isbn);
-		List<Review> reviews = amazon.searchReviews(isbn, book.getReviewUrl());
+
+		Book book = new Book(isbn);
+		amazon.searchBook(book);
+		List<Review> reviews = amazon.searchReviews(book);
 
 		// String reviewUrl =
 		// "http://www.amazon.com/review/product/1558746226%3FSubscriptionId%3DAKIAIWHTQU7L3LARWXKA%26tag%3Dvrweb-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3D1558746226";

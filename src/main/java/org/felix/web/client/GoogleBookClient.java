@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
+import org.felix.db.Book;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -31,30 +32,38 @@ public class GoogleBookClient extends DefaultWebClient
 	}
 
 	/**
-	 * Search Google Books by using title and isbn
+	 * Search Google Books by using book's title and isbn
 	 * 
-	 * @param title
-	 * @param isbn
-	 * @return JSON response codes
+	 * @param book
+	 * @return JSON response codes; if no response, then return null
 	 * @throws Exception
 	 */
-	public String searchBook(String title, String isbn) throws Exception
+	public String searchBook(Book book) throws Exception
 	{
 		URIBuilder builder = new URIBuilder();
 
-		builder.setScheme("https").setHost("www.googleapis.com").setPath("/books/v1/volumes").setParameter("q", title)
-				.setParameter("isbn", "ISBN" + isbn);
+		builder.setScheme("https").setHost("www.googleapis.com").setPath("/books/v1/volumes")
+				.setParameter("q", book.getTitle())
+				.setParameter("isbn", "ISBN" + book.getIsbn());
 		URI uri = builder.build();
 		logger.info("Google book search url: {}", uri.toString());
 
 		return super.query(new HttpGet(uri));
 	}
 
-	public String searchBookId(String title, String isbn) throws Exception
+	/**
+	 * Search Google Book Using Title and ISBN
+	 * 
+	 * @param book
+	 * @return Google Book ID
+	 * @throws Exception
+	 */
+	public String searchBookId(Book book) throws Exception
 	{
-		String jsons = this.searchBook(title, isbn);
+		String jsons = this.searchBook(book);
+		if (jsons == null) return null;
 
-		String googleId = this.parseBookJson(jsons, isbn);
+		String googleId = this.parseBookJson(jsons, book.getIsbn());
 
 		logger.info("Google Book Id = {}", googleId);
 
@@ -82,11 +91,14 @@ public class GoogleBookClient extends DefaultWebClient
 	{
 		JSONObject obj = (JSONObject) object;
 		JSONArray items = (JSONArray) obj.get("items");
+		if (items == null) return null;
+
 		for (int i = 0; i < items.size(); i++)
 		{
 			JSONObject item = (JSONObject) items.get(i);
 			JSONObject volumeInfo = (JSONObject) item.get("volumeInfo");
 			List<Object> isbnArray = (List<Object>) volumeInfo.get("industryIdentifiers");
+			if (isbnArray == null) continue;
 
 			JSONObject isbnItem = (JSONObject) isbnArray.get(0);
 			if (isbnItem.get("type").equals("ISBN_10"))
@@ -97,26 +109,6 @@ public class GoogleBookClient extends DefaultWebClient
 
 		}
 		return null;
-	}
-
-	/**
-	 * @param args
-	 * @throws Exception
-	 */
-	public static void main(String[] args) throws Exception
-	{
-		String title = "A Second Chicken Soup for the Woman's";
-		// String subTitle = "Soul Chicken Soup for the Soul Series";
-		String isbn = "1558746226";
-		GoogleBookClient book = new GoogleBookClient();
-		String jsons = book.searchBook(title, isbn);
-
-		// String file = "googleBookResponse.json";
-		// InputStream in = GoogleBook.class.getClassLoader().getResourceAsStream(file);
-		// String googleId = book.parseBookJson(new InputStreamReader(in), isbn);
-
-		String googleId = book.parseBookJson(jsons, isbn);
-		logger.info("Google Book Id = {}", googleId);
 	}
 
 }

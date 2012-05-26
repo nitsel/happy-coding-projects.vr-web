@@ -66,15 +66,15 @@ public class AmazonBookLookup
 	 * ecs.amazonaws.de FR: ecs.amazonaws.fr JP: ecs.amazonaws.jp
 	 */
 	private static final String ENDPOINT = "ecs.amazonaws.com";
-	
-	/*
-	 * The Item ID to lookup. The value below was selected for the US locale.
-	 * You can choose a different value if this value does not work in the
-	 * locale of your choice.
+
+	/**
+	 * Retrieve Book Information from Amazon Web Service
+	 * 
+	 * @param book
+	 * @throws Exception
 	 */
-	public static Book retrieveBook(String isbn) throws Exception
+	public static void retrieveBook(Book book) throws Exception
 	{
-		Book book = new Book(isbn);
 		/*
 		 * Set up the signed requests helper
 		 */
@@ -95,7 +95,7 @@ public class AmazonBookLookup
 		params.put("Version", date);
 		params.put("Operation", "ItemLookup");
 		params.put("AssociateTag", ASSOCIATE_TAG);
-		params.put("ItemId", isbn);
+		params.put("ItemId", book.getIsbn());
 		params.put("ResponseGroup", "Small");
 		
 		String requestUrl = helper.sign(params);
@@ -103,7 +103,6 @@ public class AmazonBookLookup
 		
 		fetchBook(book, requestUrl);
 
-		return book;
 	}
 	
 	/*
