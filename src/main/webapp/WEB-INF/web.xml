@@ -11,7 +11,7 @@
   
   <servlet>
       <servlet-name>rating</servlet-name>
-      <servlet-class>org.felix.web.RatingServlet</servlet-class>
+      <servlet-class>org.felix.web.servlet.RatingServlet</servlet-class>
   </servlet>
   <servlet-mapping>
       <servlet-name>rating</servlet-name>
