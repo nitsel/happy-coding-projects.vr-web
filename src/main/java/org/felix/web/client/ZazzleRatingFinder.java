@@ -26,6 +26,8 @@ public class ZazzleRatingFinder extends DefaultWebClient
 			page++;
 			if (page > 1) pageUrl += "&pg=" + page;
 
+			logger.info("Current progress: page = {}", page);
+
 			String html = super.query(new HttpGet(pageUrl));
 			if (html == null) continue;
 
