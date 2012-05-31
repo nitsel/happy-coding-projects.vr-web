@@ -11,3 +11,5 @@ syntax: regexp
 ^BookDB$
 syntax: regexp
 ^target$
+syntax: regexp
+^target$
