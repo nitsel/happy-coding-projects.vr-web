@@ -11,7 +11,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class ZazzleRatingFinder extends DefaultWebClient
+public class ZazzleShirtClient extends DefaultWebClient
 {
 
 	public void findRatings() throws Exception
@@ -21,12 +21,13 @@ public class ZazzleRatingFinder extends DefaultWebClient
 
 		BufferedWriter bw = new BufferedWriter(new FileWriter(new File("results.txt"), true));
 
-		while (page < 10)
+		while (page < 60)
 		{
 			page++;
 			if (page > 1) pageUrl += "&pg=" + page;
 
 			logger.info("Current progress: page = {}", page);
+			bw.write("\n page = " + page + "\n");
 
 			String html = super.query(new HttpGet(pageUrl));
 			if (html == null) continue;
@@ -50,6 +51,7 @@ public class ZazzleRatingFinder extends DefaultWebClient
 
 					String result = text + "|" + url;
 					bw.write(result + "\n");
+					bw.flush();
 				}
 
 			}
@@ -85,7 +87,7 @@ public class ZazzleRatingFinder extends DefaultWebClient
 
 	public static void main(String[] args) throws Exception
 	{
-		new ZazzleRatingFinder().findRatings();
+		new ZazzleShirtClient().filterRatings("results.txt");
 	}
 
 }

@@ -1,0 +1,8 @@
+http://search.80stees.com/?category=80s+Cartoons&i=1&sort=averagerating&u1=category
+http://search.80stees.com/?category=80s+Movies&i=1&sort=averagerating&u1=category
+http://search.80stees.com/?category=80s+TV&i=1&sort=averagerating&u1=category
+http://search.80stees.com/?category=Music&i=1&sort=averagerating&u1=category
+http://search.80stees.com/?category=Video+Games&i=1&sort=averagerating&u1=category
+http://search.80stees.com/?category=Super+Heroes&i=1&sort=averagerating&u1=category
+http://search.80stees.com/?q=Non+80s&i=1&sort=averagerating&u1=q
+http://search.80stees.com/?q=Junk+Food&i=1&sort=averagerating&u1=q
