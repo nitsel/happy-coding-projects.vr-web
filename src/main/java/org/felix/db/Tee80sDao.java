@@ -141,7 +141,7 @@ public class Tee80sDao extends Dao
 	{
 		Tee80sDao dao = new Tee80sDao();
 		// dao.dropTable();
-		// dao.createTable();
+		dao.createTable();
 
 		Tee80sShirtClient client = new Tee80sShirtClient();
 		List<String> links = FileUtils.readAsList("links.txt");
