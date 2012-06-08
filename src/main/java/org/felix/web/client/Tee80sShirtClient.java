@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.util.List;
 
 import org.apache.http.client.methods.HttpGet;
-import org.felix.util.io.FileOperUtil;
+import org.felix.util.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -17,7 +17,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 	public void getLinks() throws Exception
 	{
 		String source = "categories.txt";
-		List<String> categories = FileOperUtil.readAsList(source);
+		List<String> categories = FileUtils.readAsList(source);
 		int max = 20;
 
 		BufferedWriter bw = new BufferedWriter(new FileWriter(new File("tee80s-links.txt")));

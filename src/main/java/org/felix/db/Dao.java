@@ -18,10 +18,12 @@ public abstract class Dao
 {
 	protected static Logger		logger	= null;
 	private final static String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
-	private final static String URL = "jdbc:derby:BookDB";
+	private static String		URL		= "jdbc:derby:";
 	
 	protected static Connection	conn;
 	protected static Statement	stmt;
+	protected static String		database;
+	protected static String		tableElements;
 	
 	static
 	{
@@ -41,12 +43,17 @@ public abstract class Dao
 		if (conn != null) conn.close();
 	}
 
+	protected String sqlString(String normalStr)
+	{
+		return normalStr == null ? "" : normalStr;
+	}
+
 	protected static void getConn()
 	{
 		try
 		{
 			Class.forName(DRIVER).newInstance();
-			conn = DriverManager.getConnection(URL + ";create=true");
+			conn = DriverManager.getConnection(URL + database + ";create=true");
 			stmt = conn.createStatement();
 
 		} catch (Exception e)

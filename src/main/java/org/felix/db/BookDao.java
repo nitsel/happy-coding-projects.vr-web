@@ -12,7 +12,11 @@ import au.com.bytecode.opencsv.CSVReader;
 
 public class BookDao extends Dao
 {
-	private final static String	tableElements	= "isbn, isbn13, googleId, title, subTitle, authors, pages, price, language, publishDate, publisher, edition, dimensions, weight, description, editorReviews, imgUrlS, imgUrlM, imgUrlL, amazonUrl, reviewUrl, averageRating, ranking";
+	static
+	{
+		database = "BookDB";
+		tableElements = "isbn, isbn13, googleId, title, subTitle, authors, pages, price, language, publishDate, publisher, edition, dimensions, weight, description, editorReviews, imgUrlS, imgUrlM, imgUrlL, amazonUrl, reviewUrl, averageRating, ranking";
+	}
 
 	void update(Book book) throws Exception
 	{
@@ -32,11 +36,6 @@ public class BookDao extends Dao
 		logger.info("Update book: {}", sql);
 		stmt.executeUpdate(sql);
 	}
-
-	private String sqlString(String normalStr)
-	{
-		return normalStr == null ? "" : normalStr;
-	};
 
 	void insert(Book book) throws Exception
 	{
