@@ -2,7 +2,7 @@ package org.felix.db;
 
 import java.sql.Date;
 
-public class Book
+public class Book extends Product
 {
 	private final static int	MAX_LENGTH	= 200;
 	/*
@@ -37,13 +37,6 @@ public class Book
 	public Book(String _isbn)
 	{
 		isbn = _isbn;
-	}
-
-	protected String replace(String old)
-	{
-		if (old == null) return null;
-		// SQL String
-		return old.replace("\'", "''");
 	}
 
 	private String subString(String str, int length)

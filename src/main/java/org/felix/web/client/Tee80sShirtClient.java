@@ -57,6 +57,10 @@ public class Tee80sShirtClient extends DefaultWebClient
 			}
 		}
 
+		/* gender */
+		e = doc.select("div#prodMainContent table td[width=32%]").first();
+		t.setGender(e.text());
+
 		/* image */
 		e = doc.select("img[itemprop=image]").first();
 		t.setImage(e.attr("src"));
@@ -95,7 +99,10 @@ public class Tee80sShirtClient extends DefaultWebClient
 		e = doc.select("meta[itemprop=ratingValue], [name=averagerating]").first();
 		t.setAvgRating(Float.parseFloat(e.attr("content")));
 
-		System.out.println();
+		e = doc.select("p.pr-snippet-review-count").first();
+		String num = e.text();
+		t.setNumRating(Integer.parseInt(num.substring(num.indexOf('(') + 1, num.indexOf(' '))));
+
 	}
 
 	public void getLinks() throws Exception
@@ -164,16 +171,15 @@ public class Tee80sShirtClient extends DefaultWebClient
 	public static void main(String[] args) throws Exception
 	{
 		Tee80sShirtClient client = new Tee80sShirtClient();
-		// client.getLinks();
-		// client.filterRatings("tee80s-links.txt");
-		List<String> links = FileUtils.readAsList("rating-3.txt");
+		List<String> links = FileUtils.readAsList("links.txt");
 		for (String link : links)
 		{
 			String[] data = link.split("::");
 			Tee80s t = new Tee80s();
 			t.setName(data[2]);
+
 			client.searchTee80s(t);
-			logger.info(t.toString());
+			logger.info(t.toString() + "\n");
 		}
 	}
 }

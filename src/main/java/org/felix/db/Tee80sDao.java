@@ -4,6 +4,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.felix.util.io.FileUtils;
+import org.felix.web.client.Tee80sShirtClient;
+
 public class Tee80sDao extends Dao
 {
 	static
@@ -137,8 +140,19 @@ public class Tee80sDao extends Dao
 	public static void main(String[] args) throws Exception
 	{
 		Tee80sDao dao = new Tee80sDao();
-		dao.dropTable();
-		dao.createTable();
+		// dao.dropTable();
+		// dao.createTable();
+
+		Tee80sShirtClient client = new Tee80sShirtClient();
+		List<String> links = FileUtils.readAsList("links.txt");
+		for (String link : links)
+		{
+			Tee80s t = new Tee80s();
+			t.setName(link.split("::")[2]);
+
+			client.searchTee80s(t);
+			dao.insert(t);
+		}
 	}
 
 }

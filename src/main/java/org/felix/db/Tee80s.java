@@ -1,6 +1,6 @@
 package org.felix.db;
 
-public class Tee80s
+public class Tee80s extends Product
 {
 	private String	id;
 	private String	name;
@@ -21,9 +21,9 @@ public class Tee80s
 	public String toString()
 	{
 		return " id = " + id + "\n name = " + name + "\n sizes = " + sizes + "\n price = " + price + "\n features = "
-				+ features + "\n type = " + type + "\n url = " + url + "\n description = " + description
-				+ "\n image = " + image + "\n admins = " + admins + "\n locale = " + locale + "\n avgRating = "
-				+ avgRating + "\n numRating = " + numRating;
+				+ features + "\n gender = " + gender + "\n type = " + type + "\n url = " + url + "\n description = "
+				+ description + "\n image = " + image + "\n admins = " + admins + "\n locale = " + locale
+				+ "\n avgRating = " + avgRating + "\n numRating = " + numRating;
 	}
 
 	public String getId()
@@ -43,7 +43,7 @@ public class Tee80s
 
 	public void setName(String name)
 	{
-		this.name = name;
+		this.name = replace(name);
 	}
 
 	public String getSizes()
@@ -53,7 +53,7 @@ public class Tee80s
 
 	public void setSizes(String sizes)
 	{
-		this.sizes = sizes;
+		this.sizes = replace(sizes);
 	}
 
 	public String getPrice()
@@ -63,7 +63,7 @@ public class Tee80s
 
 	public void setPrice(String price)
 	{
-		this.price = price;
+		this.price = replace(price);
 	}
 
 	public String getFeatures()
@@ -73,7 +73,7 @@ public class Tee80s
 
 	public void setFeatures(String features)
 	{
-		this.features = features;
+		this.features = replace(features);
 	}
 
 	public String getType()
@@ -83,7 +83,7 @@ public class Tee80s
 
 	public void setType(String type)
 	{
-		this.type = type;
+		this.type = replace(type);
 	}
 
 	public String getUrl()
@@ -93,7 +93,7 @@ public class Tee80s
 
 	public void setUrl(String url)
 	{
-		this.url = url;
+		this.url = replace(url);
 	}
 
 	public String getDescription()
@@ -103,7 +103,7 @@ public class Tee80s
 
 	public void setDescription(String description)
 	{
-		this.description = description;
+		this.description = replace(description);
 	}
 
 	public String getImage()
@@ -113,7 +113,7 @@ public class Tee80s
 
 	public void setImage(String image)
 	{
-		this.image = image;
+		this.image = replace(image);
 	}
 
 	public String getAdmins()
@@ -123,7 +123,7 @@ public class Tee80s
 
 	public void setAdmins(String admins)
 	{
-		this.admins = admins;
+		this.admins = replace(admins);
 	}
 
 	public String getLocale()
@@ -133,7 +133,7 @@ public class Tee80s
 
 	public void setLocale(String locale)
 	{
-		this.locale = locale;
+		this.locale = replace(locale);
 	}
 
 	public float getAvgRating()
@@ -163,7 +163,7 @@ public class Tee80s
 
 	public void setGender(String gender)
 	{
-		this.gender = gender;
+		this.gender = replace(gender);
 	}
 
 }
