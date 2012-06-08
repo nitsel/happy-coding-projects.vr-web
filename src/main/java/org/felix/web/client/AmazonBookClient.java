@@ -30,7 +30,7 @@ public class AmazonBookClient extends DefaultWebClient
 	{
 
 		String amazonUrl = book.getAmazonUrl();
-		String html = super.query(new HttpGet(amazonUrl));
+		String html = super.extractHtml(new HttpGet(amazonUrl));
 
 		Document doc = Jsoup.parse(html);
 		Elements es = null;
@@ -129,7 +129,7 @@ public class AmazonBookClient extends DefaultWebClient
 		// int max = 20; // 20 reviews for each product is good enough
 		List<Review> reviews = new ArrayList<Review>();
 
-		String html = super.query(new HttpGet(book.getReviewUrl()));
+		String html = super.extractHtml(new HttpGet(book.getReviewUrl()));
 		// FileOperUtil.write("reviews.html", html);
 		// String html = FileOperUtil.read("reviews.html");
 

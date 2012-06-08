@@ -9,19 +9,22 @@ public class Tee80sDao extends Dao
 	static
 	{
 		database = "Tee80sDB";
-		tableElements = "id, name, sizes, price, color, material, features, type, url, description, image, admins, locale, avgRating, numRating";
+	}
+	public Tee80sDao()
+	{
+
+		tableElements = "id, name, sizes, price, features, gender, type, url, description, image, admins, locale, avgRating, numRating";
 	}
 
 	void update(Tee80s t) throws Exception
 	{
 		String sql = "UPDATE tee80s SET name='" + sqlString(t.getName()) + "', sizes='"
-				+ sqlString(t.getSizes()) + "', price = '" + sqlString(t.getPrice()) + "', color='" 
-				+ sqlString(t.getColor()) + "', material ="	+ sqlString(t.getMaterial()) + ", features = '" 
-				+ sqlString(t.getFeatures()) + "', type ='"	+ sqlString(t.getType()) + "', url='" 
-				+ sqlString(t.getUrl()) + "', description ='"+ sqlString(t.getDescription()) + "', image=" 
-				+ sqlString(t.getImage()) + ", admins='"+ sqlString(t.getAdmins()) + "', locale='" 
-				+ sqlString(t.getLocale()) + "', avgRating = "+ t.getAvgRating() + ", numRating = " 
-				+ t.getNumRating() + " WHERE id='" + t.getId() + "'";
+				+ sqlString(t.getSizes()) + "', price = '" + sqlString(t.getPrice()) + "', features = '" 
+				+ sqlString(t.getFeatures()) + "', gender = '"+sqlString(t.getGender())+"', type ='"	
+				+ sqlString(t.getType()) + "', url='" + sqlString(t.getUrl()) + "', description ='"
+				+ sqlString(t.getDescription()) + "', image='" + sqlString(t.getImage()) + "', admins='"
+				+ sqlString(t.getAdmins()) + "', locale='" + sqlString(t.getLocale()) + "', avgRating = "
+				+ t.getAvgRating() + ", numRating = "+ t.getNumRating() + " WHERE id='" + t.getId() + "'";
 
 		logger.info("Update tee80s: {}", sql);
 		stmt.executeUpdate(sql);
@@ -40,12 +43,11 @@ public class Tee80sDao extends Dao
 		// insert into database
 		String sql = "INSERT INTO tee80s (" + tableElements + ") VALUES ('" + t.getId() + "', '"
 				+ sqlString(t.getName()) + "', '" + sqlString(t.getSizes()) + "', '"
-				+ sqlString(t.getPrice()) + "', '" + sqlString(t.getColor()) + "', '"
-				+ sqlString(t.getMaterial()) + "', '" + sqlString(t.getFeatures()) + "', '" 
-				+ sqlString(t.getType()) + "', '" + sqlString(t.getUrl()) + "', '"
-				+ sqlString(t.getDescription()) + "', '" + sqlString(t.getImage()) + "', '" 
-				+ sqlString(t.getAdmins()) + "', '" + sqlString(t.getLocale()) + "', "
-				+ t.getAvgRating() + ", " + t.getNumRating() + ")";
+				+ sqlString(t.getPrice()) + "', '" + sqlString(t.getFeatures()) + "', '" 
+				+ sqlString(t.getGender())+"', '"  + sqlString(t.getType()) + "', '" 
+				+ sqlString(t.getUrl()) + "', '"   + sqlString(t.getDescription()) + "', '" 
+				+ sqlString(t.getImage()) + "', '" + sqlString(t.getAdmins()) + "', '" 
+				+ sqlString(t.getLocale()) + "', " + t.getAvgRating() + ", " + t.getNumRating() + ")";
 
 		logger.info("Insert book: {}", sql);
 
@@ -98,9 +100,8 @@ public class Tee80sDao extends Dao
 			t.setName(rs.getString("name"));
 			t.setSizes(rs.getString("sizes"));
 			t.setPrice(rs.getString("price"));
-			t.setColor(rs.getString("color"));
-			t.setMaterial(rs.getString("material"));
 			t.setType(rs.getString("type"));
+			t.setGender(rs.getString("gender"));
 			t.setUrl(rs.getString("url"));
 			t.setDescription(rs.getString("description"));
 			t.setImage(rs.getString("image"));
@@ -118,7 +119,7 @@ public class Tee80sDao extends Dao
 	{
 
 		String sql = "CREATE TABLE tee80s (id VARCHAR(20) PRIMARY KEY, name VARCHAR(50), sizes VARCHAR(50), price VARCHAR(50),"
-				+ "color VARCHAR(50), material VARCHAR(50), featires VARCHAR(100), type VARCHAR(50), url VARCHAR(500), "
+				+ "features VARCHAR(200), gender VARCHAR(10) DEFAULT 'mens', type VARCHAR(50), url VARCHAR(500), "
 				+ "description VARCHAR(2000), image VARCHAR(500), admins VARCHAR(50), locale VARCHAR(50), avgRating FLOAT, numRating INTEGER )";
 
 		logger.info("Create table tee80s: {}", sql);
@@ -136,6 +137,7 @@ public class Tee80sDao extends Dao
 	public static void main(String[] args) throws Exception
 	{
 		Tee80sDao dao = new Tee80sDao();
+		dao.dropTable();
 		dao.createTable();
 	}
 

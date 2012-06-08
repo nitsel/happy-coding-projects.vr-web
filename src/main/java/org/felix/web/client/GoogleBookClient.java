@@ -28,7 +28,7 @@ public class GoogleBookClient extends DefaultWebClient
 	{
 		String url = "http://books.google.com.sg/books?vid=ISBN" + isbn;
 
-		return super.query(new HttpGet(url));
+		return super.extractHtml(new HttpGet(url));
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class GoogleBookClient extends DefaultWebClient
 		URI uri = builder.build();
 		logger.info("Google book search url: {}", uri.toString());
 
-		return super.query(new HttpGet(uri));
+		return super.extractHtml(new HttpGet(uri));
 	}
 
 	/**

@@ -29,7 +29,7 @@ public class ZazzleShirtClient extends DefaultWebClient
 			logger.info("Current progress: page = {}", page);
 			bw.write("\n page = " + page + "\n");
 
-			String html = super.query(new HttpGet(pageUrl));
+			String html = super.extractHtml(new HttpGet(pageUrl));
 			if (html == null) continue;
 
 			// retrieve t-shirts urls from html
@@ -38,7 +38,7 @@ public class ZazzleShirtClient extends DefaultWebClient
 			// check each t-shirt
 			for (String url : urls)
 			{
-				String content = super.query(new HttpGet(url));
+				String content = super.extractHtml(new HttpGet(url));
 
 				Document doc = Jsoup.parse(content);
 				Elements es = doc.select("#page_overallRatingCart-detailLabel");

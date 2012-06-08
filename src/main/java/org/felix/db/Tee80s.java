@@ -6,9 +6,8 @@ public class Tee80s
 	private String	name;
 	private String	sizes;
 	private String	price;
-	private String	color;
-	private String	material;
 	private String	features;
+	private String	gender;
 	private String	type;
 	private String	url;
 	private String	description;
@@ -17,6 +16,15 @@ public class Tee80s
 	private String	locale;
 	private float	avgRating;
 	private int		numRating;
+
+	@Override
+	public String toString()
+	{
+		return " id = " + id + "\n name = " + name + "\n sizes = " + sizes + "\n price = " + price + "\n features = "
+				+ features + "\n type = " + type + "\n url = " + url + "\n description = " + description
+				+ "\n image = " + image + "\n admins = " + admins + "\n locale = " + locale + "\n avgRating = "
+				+ avgRating + "\n numRating = " + numRating;
+	}
 
 	public String getId()
 	{
@@ -56,26 +64,6 @@ public class Tee80s
 	public void setPrice(String price)
 	{
 		this.price = price;
-	}
-
-	public String getColor()
-	{
-		return color;
-	}
-
-	public void setColor(String color)
-	{
-		this.color = color;
-	}
-
-	public String getMaterial()
-	{
-		return material;
-	}
-
-	public void setMaterial(String material)
-	{
-		this.material = material;
 	}
 
 	public String getFeatures()
@@ -166,6 +154,16 @@ public class Tee80s
 	public void setNumRating(int numRating)
 	{
 		this.numRating = numRating;
+	}
+
+	public String getGender()
+	{
+		return gender;
+	}
+
+	public void setGender(String gender)
+	{
+		this.gender = gender;
 	}
 
 }

@@ -16,27 +16,30 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class Dao
 {
-	protected static Logger		logger	= null;
-	private final static String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+	private final static String	DRIVER	= "org.apache.derby.jdbc.EmbeddedDriver";
 	private static String		URL		= "jdbc:derby:";
-	
-	protected static Connection	conn;
-	protected static Statement	stmt;
+	protected static Logger		logger	= null;
+	protected static Connection	conn	= null;
+	protected static Statement	stmt	= null;
+
 	protected static String		database;
-	protected static String		tableElements;
-	
+	protected String			tableElements;
+
 	static
 	{
 		System.setProperty("Password", "through@pass");
 		logger = LoggerFactory.getLogger(Dao.class);
+	}
 
+	public Dao()
+	{
 		getConn();
 	}
 
 	protected abstract boolean createTable() throws Exception;
 
 	protected abstract boolean dropTable() throws Exception;
-	
+
 	protected void closeConn() throws SQLException
 	{
 		if (stmt != null) stmt.close();
@@ -48,13 +51,16 @@ public abstract class Dao
 		return normalStr == null ? "" : normalStr;
 	}
 
-	protected static void getConn()
+	protected void getConn()
 	{
 		try
 		{
 			Class.forName(DRIVER).newInstance();
-			conn = DriverManager.getConnection(URL + database + ";create=true");
+			String sql = URL + database + ";create=true";
+			conn = DriverManager.getConnection(sql);
 			stmt = conn.createStatement();
+
+			logger.info("Get connection: {}", sql);
 
 		} catch (Exception e)
 		{

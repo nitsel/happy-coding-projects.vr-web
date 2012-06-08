@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.util.List;
 
 import org.apache.http.client.methods.HttpGet;
+import org.felix.db.Tee80s;
 import org.felix.util.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,6 +15,89 @@ import org.jsoup.select.Elements;
 
 public class Tee80sShirtClient extends DefaultWebClient
 {
+	public void searchTee80s(Tee80s t) throws Exception
+	{
+		// String html = super.extractHtml(new HttpGet(t.getUrl()));
+		// String html = URLReader.read(t.getUrl());
+		String html = FileUtils.read("./Htmls/" + t.getName() + ".htm");
+		Document doc = Jsoup.parse(html);
+
+		Elements es = doc.select("meta[property]");
+		Element e = null;
+		for (int i = 0; i < es.size(); i++)
+		{
+			e = es.get(i);
+			String item = e.attr("property");
+			String value = e.attr("content");
+			if ("og:title".equals(item)) t.setName(value);
+			else if ("og:type".equals(item)) t.setType(value);
+			else if ("og:url".equals(item)) t.setUrl(value);
+			else if ("og:description".equals(item)) t.setDescription(value);
+			else if ("og:image".equals(item)) t.setImage(value);
+			else if ("fb:admins".equals(item)) t.setAdmins(value);
+		}
+
+		es = doc.select("script");
+		for (int i = 0; i < es.size(); i++)
+		{
+			e = es.get(i);
+			String data = e.data();
+			if (data == null || data.trim().isEmpty()) continue;
+
+			if (data.contains("pr_locale"))
+			{
+				String[] items = data.split(";");
+				for(String item: items)
+				{
+					if(item.contains("pr_locale"))
+						t.setLocale(item.substring(item.indexOf('\'') + 1, item.lastIndexOf('\'')));
+					else if(item.contains("pr_page_id"))
+						t.setId(item.substring(item.indexOf('\'') + 1, item.lastIndexOf('\'')));
+				}
+			}
+		}
+
+		/* image */
+		e = doc.select("img[itemprop=image]").first();
+		t.setImage(e.attr("src"));
+
+		/* sizes */
+		es = doc.select("label[for]");
+		String sizes = "";
+		for (int i = 0; i < es.size(); i++)
+		{
+			sizes += es.get(i).text();
+			if (i < es.size() - 1) sizes += "::";
+		}
+		t.setSizes(sizes);
+
+		/* price */
+		String price = "";
+		e = doc.select("meta[itemprop=priceCurrency]").first();
+		price += e.attr("content");
+
+		e = doc.select("span[itemprop=price]").first();
+		price += e.text();
+		t.setPrice(price);
+
+		/* features */
+		es = doc.select("ul[type=disc] li");
+		String features = "";
+		for (int i = 0; i < es.size(); i++)
+		{
+			e = es.get(i);
+			features += e.text();
+			if (i < es.size() - 1) features += "::";
+		}
+		t.setFeatures(features);
+
+		/* rating */
+		e = doc.select("meta[itemprop=ratingValue], [name=averagerating]").first();
+		t.setAvgRating(Float.parseFloat(e.attr("content")));
+
+		System.out.println();
+	}
+
 	public void getLinks() throws Exception
 	{
 		String source = "categories.txt";
@@ -28,7 +112,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 			for (int i = 1; i <= max; i++)
 			{
 				logger.info("Current Progress: page = {}", i);
-				String html = super.query(new HttpGet(c + "&page=" + i));
+				String html = super.extractHtml(new HttpGet(c + "&page=" + i));
 				if (html == null) break;
 
 				Document doc = Jsoup.parse(html);
@@ -80,7 +164,16 @@ public class Tee80sShirtClient extends DefaultWebClient
 	public static void main(String[] args) throws Exception
 	{
 		Tee80sShirtClient client = new Tee80sShirtClient();
-		client.getLinks();
-		client.filterRatings("tee80s-links.txt");
+		// client.getLinks();
+		// client.filterRatings("tee80s-links.txt");
+		List<String> links = FileUtils.readAsList("rating-3.txt");
+		for (String link : links)
+		{
+			String[] data = link.split("::");
+			Tee80s t = new Tee80s();
+			t.setName(data[2]);
+			client.searchTee80s(t);
+			logger.info(t.toString());
+		}
 	}
 }

@@ -15,6 +15,10 @@ public class BookDao extends Dao
 	static
 	{
 		database = "BookDB";
+	}
+
+	public BookDao()
+	{
 		tableElements = "isbn, isbn13, googleId, title, subTitle, authors, pages, price, language, publishDate, publisher, edition, dimensions, weight, description, editorReviews, imgUrlS, imgUrlM, imgUrlL, amazonUrl, reviewUrl, averageRating, ranking";
 	}
 
