@@ -2,7 +2,7 @@ package org.felix.db;
 
 import java.sql.Date;
 
-public class BookReview extends Review
+public class BookReview extends Product
 {
 	private String	userId;
 	private String	userName;

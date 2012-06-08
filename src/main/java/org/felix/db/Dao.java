@@ -36,9 +36,9 @@ public abstract class Dao
 		getConn();
 	}
 
-	protected abstract boolean createTable() throws Exception;
+	protected abstract boolean createTables() throws Exception;
 
-	protected abstract boolean dropTable() throws Exception;
+	protected abstract boolean dropTables() throws Exception;
 
 	protected void closeConn() throws SQLException
 	{

@@ -139,7 +139,7 @@ public class BookDao extends Dao
 	}
 
 	@Override
-	protected boolean createTable() throws Exception
+	protected boolean createTables() throws Exception
 	{
 
 		String sql = "CREATE TABLE books (isbn VARCHAR(20) PRIMARY KEY, isbn13 VARCHAR(20), googleId VARCHAR(30), title VARCHAR(500) NOT NULL,"
@@ -176,7 +176,7 @@ public class BookDao extends Dao
 	}
 
 	@Override
-	protected boolean dropTable() throws Exception
+	protected boolean dropTables() throws Exception
 	{
 		String sql = "DROP TABLE books";
 		return stmt.execute(sql);
@@ -185,7 +185,7 @@ public class BookDao extends Dao
 	public static void main(String[] args) throws Exception
 	{
 		BookDao dao = new BookDao();
-		dao.createTable();
+		dao.createTables();
 		dao.initDataTable();
 	}
 

@@ -13,21 +13,16 @@ public class Tee80sDao extends Dao
 	{
 		database = "Tee80sDB";
 	}
-	public Tee80sDao()
-	{
-
-		tableElements = "id, name, sizes, price, features, gender, type, url, description, image, admins, locale, avgRating, numRating";
-	}
 
 	void update(Tee80s t) throws Exception
 	{
-		String sql = "UPDATE tee80s SET name='" + sqlString(t.getName()) + "', sizes='"
-				+ sqlString(t.getSizes()) + "', price = '" + sqlString(t.getPrice()) + "', features = '" 
-				+ sqlString(t.getFeatures()) + "', gender = '"+sqlString(t.getGender())+"', type ='"	
-				+ sqlString(t.getType()) + "', url='" + sqlString(t.getUrl()) + "', description ='"
-				+ sqlString(t.getDescription()) + "', image='" + sqlString(t.getImage()) + "', admins='"
-				+ sqlString(t.getAdmins()) + "', locale='" + sqlString(t.getLocale()) + "', avgRating = "
-				+ t.getAvgRating() + ", numRating = "+ t.getNumRating() + " WHERE id='" + t.getId() + "'";
+		String sql = "UPDATE tee80s SET name='" + sqlString(t.getName()) + "', sizes='" + sqlString(t.getSizes())
+				+ "', price = '" + sqlString(t.getPrice()) + "', features = '" + sqlString(t.getFeatures())
+				+ "', gender = '" + sqlString(t.getGender()) + "', type ='" + sqlString(t.getType()) + "', url='"
+				+ sqlString(t.getUrl()) + "', description ='" + sqlString(t.getDescription()) + "', image='"
+				+ sqlString(t.getImage()) + "', admins='" + sqlString(t.getAdmins()) + "', locale='"
+				+ sqlString(t.getLocale()) + "', avgRating = " + t.getAvgRating() + ", numRating = " + t.getNumRating()
+				+ " WHERE id='" + t.getId() + "'";
 
 		logger.info("Update tee80s: {}", sql);
 		stmt.executeUpdate(sql);
@@ -44,13 +39,13 @@ public class Tee80sDao extends Dao
 		}
 
 		// insert into database
+		tableElements = "id, name, sizes, price, features, gender, type, url, description, image, admins, locale, avgRating, numRating";
 		String sql = "INSERT INTO tee80s (" + tableElements + ") VALUES ('" + t.getId() + "', '"
-				+ sqlString(t.getName()) + "', '" + sqlString(t.getSizes()) + "', '"
-				+ sqlString(t.getPrice()) + "', '" + sqlString(t.getFeatures()) + "', '" 
-				+ sqlString(t.getGender())+"', '"  + sqlString(t.getType()) + "', '" 
-				+ sqlString(t.getUrl()) + "', '"   + sqlString(t.getDescription()) + "', '" 
-				+ sqlString(t.getImage()) + "', '" + sqlString(t.getAdmins()) + "', '" 
-				+ sqlString(t.getLocale()) + "', " + t.getAvgRating() + ", " + t.getNumRating() + ")";
+				+ sqlString(t.getName()) + "', '" + sqlString(t.getSizes()) + "', '" + sqlString(t.getPrice()) + "', '"
+				+ sqlString(t.getFeatures()) + "', '" + sqlString(t.getGender()) + "', '" + sqlString(t.getType())
+				+ "', '" + sqlString(t.getUrl()) + "', '" + sqlString(t.getDescription()) + "', '"
+				+ sqlString(t.getImage()) + "', '" + sqlString(t.getAdmins()) + "', '" + sqlString(t.getLocale())
+				+ "', " + t.getAvgRating() + ", " + t.getNumRating() + ")";
 
 		logger.info("Insert book: {}", sql);
 
@@ -118,7 +113,7 @@ public class Tee80sDao extends Dao
 	}
 
 	@Override
-	protected boolean createTable() throws Exception
+	protected boolean createTables() throws Exception
 	{
 
 		String sql = "CREATE TABLE tee80s (id VARCHAR(20) PRIMARY KEY, name VARCHAR(50), sizes VARCHAR(50), price VARCHAR(50),"
@@ -126,14 +121,25 @@ public class Tee80sDao extends Dao
 				+ "description VARCHAR(2000), image VARCHAR(500), admins VARCHAR(50), locale VARCHAR(50), avgRating FLOAT, numRating INTEGER )";
 
 		logger.info("Create table tee80s: {}", sql);
+		stmt.execute(sql);
+		
+		sql = "CREATE TABLE reviews (id GENERATED ALWAYS AS IDENTITY, productId VARCHAR(20) NOT NULL, rating FLOAT, userName VARCHAR(50), userLocation VARCHAR(100), tags VARCHAR(100),"
+				+ "title VARCHAR(100), details VARCHAR(2000), pros VARCHAR(200), cons VARCHAR(200), "
+				+ "bestUses VARCHAR(200), fit VARCHAR(100), length VARCHAR(100), gift VARCHAR(100), recommendation VARCHAR(200) )";
+		
+		logger.info("Create table reviews: {}", sql);
+
 		return stmt.execute(sql);
 
 	};
 
 	@Override
-	protected boolean dropTable() throws Exception
+	protected boolean dropTables() throws Exception
 	{
 		String sql = "DROP TABLE tee80s";
+		stmt.execute(sql);
+		
+		sql = "DROP TABLE reviews";
 		return stmt.execute(sql);
 	}
 
@@ -141,7 +147,7 @@ public class Tee80sDao extends Dao
 	{
 		Tee80sDao dao = new Tee80sDao();
 		// dao.dropTable();
-		dao.createTable();
+		dao.createTables();
 
 		Tee80sShirtClient client = new Tee80sShirtClient();
 		List<String> links = FileUtils.readAsList("links.txt");
