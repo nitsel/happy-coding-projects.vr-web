@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.apache.http.client.methods.HttpGet;
 import org.felix.db.Book;
-import org.felix.db.Review;
+import org.felix.db.BookReview;
 import org.felix.util.system.DateTimeUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -124,10 +124,10 @@ public class AmazonBookClient extends DefaultWebClient
 
 	}
 
-	public List<Review> searchReviews(Book book) throws Exception
+	public List<BookReview> searchReviews(Book book) throws Exception
 	{
 		// int max = 20; // 20 reviews for each product is good enough
-		List<Review> reviews = new ArrayList<Review>();
+		List<BookReview> reviews = new ArrayList<BookReview>();
 
 		String html = super.extractHtml(new HttpGet(book.getReviewUrl()));
 		// FileOperUtil.write("reviews.html", html);
@@ -145,7 +145,7 @@ public class AmazonBookClient extends DefaultWebClient
 			e = es.get(i);
 			Elements nodes = e.children();
 
-			Review review = new Review();
+			BookReview review = new BookReview();
 
 			Element node = nodes.get(1);
 			content = node.select("span[title]").get(0).attr("title");
@@ -215,13 +215,13 @@ public class AmazonBookClient extends DefaultWebClient
 
 		Book book = new Book(isbn);
 		amazon.searchBook(book);
-		List<Review> reviews = amazon.searchReviews(book);
+		List<BookReview> reviews = amazon.searchReviews(book);
 
 		// String reviewUrl =
 		// "http://www.amazon.com/review/product/1558746226%3FSubscriptionId%3DAKIAIWHTQU7L3LARWXKA%26tag%3Dvrweb-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3D1558746226";
 		// List<Review> reviews = amazon.searchReviews(isbn, reviewUrl);
 
-		for (Review r : reviews)
+		for (BookReview r : reviews)
 		{
 			System.out.println(r);
 			System.out.println(" ------------------------------------------- ");
