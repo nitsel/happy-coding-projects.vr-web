@@ -23,7 +23,6 @@ public abstract class Dao
 	protected static Statement	stmt	= null;
 
 	protected static String		database;
-	protected String			tableElements;
 
 	static
 	{

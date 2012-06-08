@@ -17,12 +17,7 @@ public class BookDao extends Dao
 		database = "BookDB";
 	}
 
-	public BookDao()
-	{
-		tableElements = "isbn, isbn13, googleId, title, subTitle, authors, pages, price, language, publishDate, publisher, edition, dimensions, weight, description, editorReviews, imgUrlS, imgUrlM, imgUrlL, amazonUrl, reviewUrl, averageRating, ranking";
-	}
-
-	void update(Book book) throws Exception
+	public void update(Book book) throws Exception
 	{
 		String sql = "UPDATE books SET isbn13='" + sqlString(book.getIsbn13()) + "', googleId='"
 				+ sqlString(book.getGoogleId()) + "', title='" + sqlString(book.getTitle()) + "', subTitle = '"
@@ -41,7 +36,7 @@ public class BookDao extends Dao
 		stmt.executeUpdate(sql);
 	}
 
-	void insert(Book book) throws Exception
+	public void insert(Book book) throws Exception
 	{
 		// check if it is already exist
 		ResultSet rs = query(book);
@@ -52,6 +47,7 @@ public class BookDao extends Dao
 		}
 
 		// insert into database
+		String tableElements = "isbn, isbn13, googleId, title, subTitle, authors, pages, price, language, publishDate, publisher, edition, dimensions, weight, description, editorReviews, imgUrlS, imgUrlM, imgUrlL, amazonUrl, reviewUrl, averageRating, ranking";
 		String sql = "INSERT INTO books (" + tableElements + ") VALUES ('" + book.getIsbn() + "', '"
 				+ sqlString(book.getIsbn13()) + "', '" + sqlString(book.getGoogleId()) + "', '"
 				+ sqlString(book.getTitle()) + "', '" + sqlString(book.getSubTitle()) + "', '"
@@ -67,7 +63,7 @@ public class BookDao extends Dao
 		logger.info("Insert book: {}", sql);
 
 		stmt.executeUpdate(sql);
-	};
+	}
 
 	public void delete(Book book) throws Exception
 	{
@@ -75,7 +71,7 @@ public class BookDao extends Dao
 
 		logger.info("Delete book: {}", sql);
 		stmt.executeUpdate(sql);
-	};
+	}
 
 	public List<String> retrieveAllBooks() throws Exception
 	{

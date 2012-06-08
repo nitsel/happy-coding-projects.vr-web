@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.http.client.methods.HttpGet;
 import org.felix.db.Tee80s;
+import org.felix.db.Tee80sReview;
 import org.felix.util.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,11 +16,8 @@ import org.jsoup.select.Elements;
 
 public class Tee80sShirtClient extends DefaultWebClient
 {
-	public void searchTee80s(Tee80s t) throws Exception
+	public void parseTee80s(String html, Tee80s t) throws Exception
 	{
-		// String html = super.extractHtml(new HttpGet(t.getUrl()));
-		// String html = URLReader.read(t.getUrl());
-		String html = FileUtils.read("./Htmls/" + t.getName() + ".htm");
 		Document doc = Jsoup.parse(html);
 
 		Elements es = doc.select("meta[property]");
@@ -104,6 +102,13 @@ public class Tee80sShirtClient extends DefaultWebClient
 		t.setNumRating(Integer.parseInt(num.substring(num.indexOf('(') + 1, num.indexOf(' '))));
 
 	}
+	
+	public List<Tee80sReview> parseReview(String html) throws Exception
+	{
+		// TODO: parse html to obtain reviews;
+		List<Tee80sReview> reviews = null;
+		return reviews;
+	}
 
 	public void getLinks() throws Exception
 	{
@@ -168,18 +173,4 @@ public class Tee80sShirtClient extends DefaultWebClient
 		bw.close();
 	}
 
-	public static void main(String[] args) throws Exception
-	{
-		Tee80sShirtClient client = new Tee80sShirtClient();
-		List<String> links = FileUtils.readAsList("links.txt");
-		for (String link : links)
-		{
-			String[] data = link.split("::");
-			Tee80s t = new Tee80s();
-			t.setName(data[2]);
-
-			client.searchTee80s(t);
-			logger.info(t.toString() + "\n");
-		}
-	}
 }
