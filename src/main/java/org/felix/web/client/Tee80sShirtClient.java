@@ -289,5 +289,36 @@ public class Tee80sShirtClient extends DefaultWebClient
 
 		bw.close();
 	}
+	
+	public List<String> parseImages(String html) throws Exception
+	{
+		List<String> images = new ArrayList<String>();
+		Document doc = Jsoup.parse(html);
+		Elements es = doc.select("div#imageBar td a");
+		Element e = null;
+		for (int i = 0; i < es.size() - 1; i++)
+		{
+			e = es.get(i);
+			String image = e.attr("onclick");
+			int start = image.indexOf('\'');
+			image = image.substring(start + 1, image.indexOf('\'', start + 1));
+			String[] data = image.split("&");
+			for (String d : data)
+			{
+				if (d.startsWith("lgimage"))
+				{
+					image = d.substring(d.indexOf('=') + 1);
+					break;
+				}
+			}
+			// http://media.80stees.com/images/extraLarge/PEAN022_LG1.jpg
+			String uri = "http://media.80stees.com/images/extraLarge/";
+			image = uri + image;
+			
+			images.add(image);
+		}
+		
+		return images;
+	}
 
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.felix.util.io.FileUtils;
+import org.felix.util.io.URLReader;
 import org.felix.util.system.DateUtils;
 import org.felix.web.client.Tee80sShirtClient;
 
@@ -304,6 +305,15 @@ public class Tee80sDao extends Dao
 						dao.insert(r);
 					}
 				}
+			}
+			
+			for (String link : links)
+			{
+				String url = link.split("::")[4];
+				String html = URLReader.read(url);
+				
+				List<String> imageList = client.parseImages(html);
+				FileUtils.writeList("test.txt", imageList);
 			}
 		}
 	}
