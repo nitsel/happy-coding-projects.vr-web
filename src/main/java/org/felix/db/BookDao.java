@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.felix.util.system.DateTimeUtil;
+import org.felix.util.system.DateUtils;
 
 import au.com.bytecode.opencsv.CSVReader;
 
@@ -115,7 +115,7 @@ public class BookDao extends Dao
 			book.setPages(Integer.parseInt(rs.getString("pages")));
 			book.setPrice(rs.getString("price"));
 			book.setLanguage(rs.getString("language"));
-			book.setPublishDate(DateTimeUtil.parseStrFromDb(rs.getString("publishDate")));
+			book.setPublishDate(DateUtils.parseString(rs.getString("publishDate")));
 			book.setPublisher(rs.getString("publisher"));
 			book.setEdition(Integer.parseInt(rs.getString("edition")));
 			book.setDimensions(rs.getString("dimensions"));
@@ -163,7 +163,7 @@ public class BookDao extends Dao
 			book.setImgUrlS(data[5]);
 			book.setImgUrlM(data[6]);
 			book.setImgUrlL(data[7]);
-			book.setPublishDate(DateTimeUtil.parseStrToDb("Jan 1, " + data[3]));
+			book.setPublishDate(DateUtils.parseStrToDb("Jan 1, " + data[3]));
 
 			insert(book);
 		}
@@ -183,6 +183,13 @@ public class BookDao extends Dao
 		BookDao dao = new BookDao();
 		dao.createTables();
 		dao.initDataTable();
+	}
+
+	@Override
+	protected boolean clearTables() throws Exception
+	{
+		String sql = "DELETE FROM books";
+		return stmt.execute(sql);
 	}
 
 }
