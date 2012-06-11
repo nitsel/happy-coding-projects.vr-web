@@ -38,6 +38,14 @@ public abstract class Dao
 	protected abstract boolean createTables() throws Exception;
 
 	protected abstract boolean dropTables() throws Exception;
+	
+	/**
+	 * Clear the tables' data
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	protected abstract boolean clearTables() throws Exception;
 
 	protected void closeConn() throws SQLException
 	{

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.felix.util.io.FileUtils;
+import org.felix.util.system.DateUtils;
 import org.felix.web.client.Tee80sShirtClient;
 
 public class Tee80sDao extends Dao
@@ -36,8 +37,8 @@ public class Tee80sDao extends Dao
 				+ sqlString(r.getDetails()) + "', pros ='" + sqlString(r.getPros()) + "', cons='"
 				+ sqlString(r.getCons()) + "', bestUses ='" + sqlString(r.getBestUses()) + "', fit='"
 				+ sqlString(r.getFit()) + "', length='" + sqlString(r.getLength()) + "', gift='"
-				+ sqlString(r.getGift()) + "', recommendation = '" + sqlString(r.getRecommendation()) + "' WHERE id='"
-				+ r.getId() + "'";
+				+ sqlString(r.getGift()) + "', recommendation = '" + sqlString(r.getRecommendation()) + "', vDate = '"
+				+ r.getvDate() + "' WHERE id='" + r.getId() + "'";
 		
 		logger.info("Update reviews: {}", sql);
 		stmt.executeUpdate(sql);
@@ -79,13 +80,14 @@ public class Tee80sDao extends Dao
 		}
 		
 		// insert into database
-		String tableElements = "productId, rating, userName, userLocation, tags, title, details, pros, cons, bestUses, fit, length, gift, recommendation";
+		String tableElements = "productId, rating, userName, userLocation, tags, title, details, pros, cons, bestUses, fit, length, gift, recommendation, vDate";
 		String sql = "INSERT INTO reviews (" + tableElements + ") VALUES ('" + r.getProductId() + "', " + r.getRating()
 				+ ", '" + sqlString(r.getUserName()) + "', '" + sqlString(r.getUserLocation()) + "', '"
 				+ sqlString(r.getTags()) + "', '" + sqlString(r.getTitle()) + "', '" + sqlString(r.getDetails())
 				+ "', '" + sqlString(r.getPros()) + "', '" + sqlString(r.getCons()) + "', '"
 				+ sqlString(r.getBestUses()) + "', '" + sqlString(r.getFit()) + "', '" + sqlString(r.getLength())
-				+ "', '" + sqlString(r.getGift()) + "', '" + sqlString(r.getRecommendation()) + "')";
+				+ "', '" + sqlString(r.getGift()) + "', '" + sqlString(r.getRecommendation()) + "', '" + r.getvDate()
+				+ "')";
 		
 		logger.info("Insert review: {}", sql);
 		
@@ -162,7 +164,7 @@ public class Tee80sDao extends Dao
 	
 	public ResultSet queryReview(Tee80sReview r) throws Exception
 	{
-		String sql = "SELECT * FROM tee80s WHERE productId = '" + r.getProductId() + "' AND userName = '"
+		String sql = "SELECT * FROM reviews WHERE productId = '" + r.getProductId() + "' AND userName = '"
 				+ r.getUserName() + "'";
 		
 		logger.info("Query reviews: {}", sql);
@@ -194,6 +196,7 @@ public class Tee80sDao extends Dao
 			r.setLength(rs.getString("length"));
 			r.setGift(rs.getString("gift"));
 			r.setRecommendation(rs.getString("recommendation"));
+			r.setvDate(DateUtils.parseString(rs.getString("vDate")));
 		}
 		
 		return r;
@@ -224,6 +227,7 @@ public class Tee80sDao extends Dao
 			r.setLength(rs.getString("length"));
 			r.setGift(rs.getString("gift"));
 			r.setRecommendation(rs.getString("recommendation"));
+			r.setvDate(DateUtils.parseString(rs.getString("vDate")));
 			
 			ls.add(r);
 		}
@@ -243,8 +247,7 @@ public class Tee80sDao extends Dao
 		stmt.execute(sql);
 		
 		sql = "CREATE TABLE reviews (id INT GENERATED ALWAYS AS IDENTITY, productId VARCHAR(20) NOT NULL, rating FLOAT, userName VARCHAR(50), userLocation VARCHAR(100), tags VARCHAR(100),"
-				+ "title VARCHAR(100), details VARCHAR(2000), pros VARCHAR(200), cons VARCHAR(200), "
-				+ "bestUses VARCHAR(200), fit VARCHAR(100), length VARCHAR(100), gift VARCHAR(100), recommendation VARCHAR(200) )";
+				+ "title VARCHAR(100), details VARCHAR(2000), pros VARCHAR(200), cons VARCHAR(200), bestUses VARCHAR(200), fit VARCHAR(100), length VARCHAR(100), gift VARCHAR(100), recommendation VARCHAR(200), vDate DATE )";
 		
 		logger.info("Create table reviews: {}", sql);
 
@@ -265,17 +268,19 @@ public class Tee80sDao extends Dao
 	public static void main(String[] args) throws Exception
 	{
 		boolean meta = true;
-		boolean data = false;
+		boolean data = true;
 
 		Tee80sDao dao = new Tee80sDao();
-		if (meta)
+		if (!meta)
 		{
+			dao.clearTables();
 			dao.dropTables();
 			dao.createTables();
 		}
 		
 		if (data)
 		{
+			// dao.clearTables();
 			Tee80sShirtClient client = new Tee80sShirtClient();
 			List<String> links = FileUtils.readAsList("links.txt");
 			for (String link : links)
@@ -286,8 +291,34 @@ public class Tee80sDao extends Dao
 				String html = FileUtils.read("./Htmls/" + t.getName() + ".htm");
 				client.parseTee80s(html, t);
 				dao.insert(t);
+
+				int pages = t.getNumRating() / 10 + (t.getNumRating() % 10 == 0 ? 0 : 1);
+				for (int i = 1; i < pages + 1; i++)
+				{
+					String page = i == 1 ? "" : "-" + i;
+					html = FileUtils.read("./Htmls/" + t.getName() + page + ".htm");
+					List<Tee80sReview> rs = client.parseReview(html);
+					for (Tee80sReview r : rs)
+					{
+						r.setProductId(t.getId());
+						dao.insert(r);
+					}
+				}
 			}
 		}
+	}
+
+	@Override
+	protected boolean clearTables() throws Exception
+	{
+		String sql = "DELETE FROM reviews";
+		stmt.execute(sql);
+		logger.info("Clear data: {}", sql);
+		
+		sql = "DELETE FROM tee80s";
+		logger.info("Clear data: {}", sql);
+
+		return stmt.execute(sql);
 	}
 
 }

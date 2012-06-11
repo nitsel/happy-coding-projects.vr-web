@@ -1,5 +1,7 @@
 package org.felix.db;
 
+import java.sql.Date;
+
 public class Tee80sReview extends Product
 {
 	private int id;
@@ -17,6 +19,7 @@ public class Tee80sReview extends Product
 	private String length;
 	private String gift;
 	private String recommendation;
+	private Date vDate;
 	
 	@Override
 	public String toString()
@@ -24,7 +27,8 @@ public class Tee80sReview extends Product
 		return " id = " + id + "\n product id = " + productId + "\n rating = " + rating + "\n userName = " + userName
 				+ "\n userLocation = " + userLocation + "\n tags = " + tags + "\n title = " + title + "\n pros = "
 				+ pros + "\n cons = " + cons + "\n best uses = " + bestUses + "\n details = " + details + "\n fit = "
-				+ fit + "\n length = " + length + "\n gift = " + gift + "\n recommendation = " + recommendation;
+				+ fit + "\n length = " + length + "\n gift = " + gift + "\n recommendation = " + recommendation
+				+ "\n vDate = " + vDate;
 	}
 
 	public String getProductId()
@@ -175,5 +179,15 @@ public class Tee80sReview extends Product
 	public void setId(int id)
 	{
 		this.id = id;
+	}
+	
+	public Date getvDate()
+	{
+		return vDate;
+	}
+	
+	public void setvDate(Date vDate)
+	{
+		this.vDate = vDate;
 	}
 }
