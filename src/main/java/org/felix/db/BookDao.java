@@ -10,15 +10,16 @@ import org.felix.util.system.DateUtils;
 
 import au.com.bytecode.opencsv.CSVReader;
 
-public class BookDao extends Dao
+public class BookDao extends DerbyDao
 {
 	static
 	{
 		database = "BookDB";
 	}
 
-	public void update(Book book) throws Exception
+	protected void update(Book book) throws Exception
 	{
+
 		String sql = "UPDATE books SET isbn13='" + sqlString(book.getIsbn13()) + "', googleId='"
 				+ sqlString(book.getGoogleId()) + "', title='" + sqlString(book.getTitle()) + "', subTitle = '"
 				+ sqlString(book.getSubTitle()) + "', authors='" + sqlString(book.getAuthors()) + "', pages="

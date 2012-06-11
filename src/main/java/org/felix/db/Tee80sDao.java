@@ -9,7 +9,7 @@ import org.felix.util.io.URLReader;
 import org.felix.util.system.DateUtils;
 import org.felix.web.client.Tee80sShirtClient;
 
-public class Tee80sDao extends Dao
+public class Tee80sDao extends DerbyDao
 {
 	static
 	{
