@@ -1,0 +1,9 @@
+Book-Crossing Record: 
+"1558746226";"A Second Chicken Soup for the Woman's Soul (Chicken Soup for the Soul Series)";"Jack Canfield";"1998";"Health Communications";"http://images.amazon.com/images/P/1558746226.01.THUMBZZZ.jpg";"http://images.amazon.com/images/P/1558746226.01.MZZZZZZZ.jpg";"http://images.amazon.com/images/P/1558746226.01.LZZZZZZZ.jpg"
+
+Aamazon Request: http://ecs.amazonaws.com/onca/xml?AWSAccessKeyId=AKIAIWHTQU7L3LARWXKA&AssociateTag=vrweb-20&ItemId=1558746226&Operation=ItemLookup&ResponseGroup=Small&Service=AWSECommerceService&Timestamp=2012-05-21T08%3A04%3A11Z&Version=2012-05-21&Signature=2HjhGsjxGVWw2jz4USYhCNH%2B28ksdsRbuxclJnUYyfs%3D
+
+Google Search:
+http://books.google.com/books?vid=ISBN1558746226
+
+https://www.googleapis.com/books/v1/volumes?q=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&isbn=1558746226

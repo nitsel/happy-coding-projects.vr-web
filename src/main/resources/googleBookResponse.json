@@ -1,0 +1,661 @@
+{
+ "kind": "books#volumes",
+ "totalItems": 1163,
+ "items": [
+  {
+   "kind": "books#volume",
+   "id": "OhDPN_-oeNsC",
+   "etag": "Lq7wE1kvRFc",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/OhDPN_-oeNsC",
+   "volumeInfo": 
+   {
+   	 	"title": "A Second Chicken Soup for the Woman's Soul",
+     	"subtitle": "101 More Stories to Open the Hearts and Rekindle the Spirits of Women",
+	    "authors": [
+	     "Jack Canfield",
+	     "Jennifer Read Hawthorne",
+	     "Marci Shimoff"
+	    ],
+	    "publisher": "Hci",
+	    "publishedDate": "1998-10-01",
+	    "description": "An uplifting, intimate celebration of the experiences that connect women contains a new collection of inspirational true stories about love, marriage, friendship, overcoming obstacles, and achieving life dreams. Simultaneous. 1,000,000 first printing.",
+	    "industryIdentifiers": [
+		     {
+		      "type": "ISBN_10",
+		      "identifier": "1558746226"
+		     },
+		     {
+		      "type": "ISBN_13",
+		      "identifier": "9781558746220"
+		     }
+	    ],
+	    "pageCount": 407,
+	    "printType": "BOOK",
+	    "averageRating": 3.0,
+	    "ratingsCount": 4,
+	    "contentVersion": "0.0.1.0.preview.2",
+	    "imageLinks": {
+	     "smallThumbnail": "http://bks9.books.google.com/books?id=OhDPN_-oeNsC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+	     "thumbnail": "http://bks9.books.google.com/books?id=OhDPN_-oeNsC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+	 	},
+    	"language": "en",
+    	"previewLink": "http://books.google.com/books?id=OhDPN_-oeNsC&printsec=frontcover&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&cd=1&source=gbs_api",
+    	"infoLink": "http://books.google.com/books?id=OhDPN_-oeNsC&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&source=gbs_api",
+    	"canonicalVolumeLink": "http://books.google.com/books/about/A_Second_Chicken_Soup_for_the_Woman_s_So.html?id=OhDPN_-oeNsC"
+   },
+   "saleInfo": {
+    "country": "SG",
+    "saleability": "NOT_FOR_SALE",
+    "isEbook": false
+   },
+   "accessInfo": {
+    "country": "SG",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED_FOR_ACCESSIBILITY",
+    "epub": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.com/books/download/A_Second_Chicken_Soup_for_the_Woman_s_So-sample-epub.acsm?id=OhDPN_-oeNsC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": false
+    },
+    "webReaderLink": "http://books.google.com/books/reader?id=OhDPN_-oeNsC&printsec=frontcover&output=reader&source=gbs_api",
+    "accessViewStatus": "SAMPLE"
+   },
+   "searchInfo": {
+    "textSnippet": "An uplifting, intimate celebration of the experiences that connect women contains a new collection of inspirational true stories about love, marriage, friendship, overcoming obstacles, and achieving life dreams."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "OfGULZM9OzEC",
+   "etag": "gAt/gV6sErI",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/OfGULZM9OzEC",
+   "volumeInfo": {
+    "title": "Chicken Soup for the Single's Soul",
+    "subtitle": "Stories of Love and Inspiration for the Single, Divorced and Widowed",
+    "authors": [
+     "Jack Canfield",
+     "Mark Victor Hansen",
+     "Jennifer Read Hawthorne",
+     "Marci Shimoff"
+    ],
+    "publisher": "Hci",
+    "publishedDate": "1999-09-01",
+    "description": "A collection of inspiration, wisdom, and humor about the single life explores a range of pertinent topics, including dating, single parenting, family, friends, overcoming obstacles, finding happiness, and much more. Original. 1,000,000 first printing.",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_10",
+      "identifier": "1558747060"
+     },
+     {
+      "type": "ISBN_13",
+      "identifier": "9781558747067"
+     }
+    ],
+    "pageCount": 350,
+    "printType": "BOOK",
+    "averageRating": 3.0,
+    "ratingsCount": 12,
+    "contentVersion": "0.0.1.0.preview.0",
+    "imageLinks": {
+     "smallThumbnail": "http://bks4.books.google.com/books?id=OfGULZM9OzEC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://bks4.books.google.com/books?id=OfGULZM9OzEC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.com/books?id=OfGULZM9OzEC&pg=PA393&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&cd=2&source=gbs_api",
+    "infoLink": "http://books.google.com/books?id=OfGULZM9OzEC&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&source=gbs_api",
+    "canonicalVolumeLink": "http://books.google.com/books/about/Chicken_Soup_for_the_Single_s_Soul.html?id=OfGULZM9OzEC"
+   },
+   "saleInfo": {
+    "country": "SG",
+    "saleability": "NOT_FOR_SALE",
+    "isEbook": false
+   },
+   "accessInfo": {
+    "country": "SG",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED_FOR_ACCESSIBILITY",
+    "epub": {
+     "isAvailable": false
+    },
+    "pdf": {
+     "isAvailable": false
+    },
+    "webReaderLink": "http://books.google.com/books/reader?id=OfGULZM9OzEC&printsec=frontcover&output=reader&source=gbs_api",
+    "accessViewStatus": "SAMPLE"
+   },
+   "searchInfo": {
+    "textSnippet": "\u003cb\u003e...\u003c/b\u003e \u003cb\u003eSoup for the Woman&#39;s Soul Chicken Soup for the\u003c/b\u003e Mother&#39;s \u003cb\u003eSoul Chicken Soup\u003c/b\u003e \u003cbr\u003e  \u003cb\u003efor the\u003c/b\u003e Teenage \u003cb\u003eSoul\u003c/b\u003e II \u003cb\u003eA Second Chicken Soup\u003c/b\u003e \u003cb\u003e...\u003c/b\u003e of the proceeds from the sale \u003cbr\u003e  of every title in the \u003cb\u003eChicken Soup for the Soul series\u003c/b\u003e is donated to charity."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "jxEG-X0_6YUC",
+   "etag": "CwWhiTZx8DQ",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/jxEG-X0_6YUC",
+   "volumeInfo": {
+    "title": "Chicken Soup for the Woman's Soul",
+    "subtitle": "101 Stories to Open the Hearts and Rekindle the Spirits of Women",
+    "authors": [
+     "Jack Canfield",
+     "Jennifer Read Hawthorne",
+     "Marci Shimoff"
+    ],
+    "publisher": "Hci",
+    "publishedDate": "1996-10-01",
+    "description": "Featuring contributions by such authors as Robert Fulghum, Kathy Lee Gifford, and Ann Landers, an addition to the Chicken Soup for the Soul series offers women inspiration on such subjects as love, motherhood, and aging. Simultaneous. 500,000 first printing.",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_10",
+      "identifier": "1558744150"
+     },
+     {
+      "type": "ISBN_13",
+      "identifier": "9781558744158"
+     }
+    ],
+    "pageCount": 350,
+    "printType": "BOOK",
+    "averageRating": 3.5,
+    "ratingsCount": 43,
+    "contentVersion": "preview-1.0.0",
+    "imageLinks": {
+     "smallThumbnail": "http://bks0.books.google.com/books?id=jxEG-X0_6YUC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://bks0.books.google.com/books?id=jxEG-X0_6YUC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.com/books?id=jxEG-X0_6YUC&pg=PA352&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&cd=3&source=gbs_api",
+    "infoLink": "http://books.google.com/books?id=jxEG-X0_6YUC&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&source=gbs_api",
+    "canonicalVolumeLink": "http://books.google.com/books/about/Chicken_Soup_for_the_Woman_s_Soul.html?id=jxEG-X0_6YUC"
+   },
+   "saleInfo": {
+    "country": "SG",
+    "saleability": "NOT_FOR_SALE",
+    "isEbook": false
+   },
+   "accessInfo": {
+    "country": "SG",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED_FOR_ACCESSIBILITY",
+    "epub": {
+     "isAvailable": false
+    },
+    "pdf": {
+     "isAvailable": false
+    },
+    "webReaderLink": "http://books.google.com/books/reader?id=jxEG-X0_6YUC&printsec=frontcover&output=reader&source=gbs_api",
+    "accessViewStatus": "SAMPLE"
+   },
+   "searchInfo": {
+    "textSnippet": "forthe oup hicken oul eries forthe oup hicken oul eries ® \u003cb\u003eChicken Soup for the\u003c/b\u003e \u003cbr\u003e  Teenage \u003cb\u003eSoul Chicken Soup for the\u003c/b\u003e Mother&#39;s \u003cb\u003eSoul Chicken Soup for the\u003c/b\u003e Teenage \u003cbr\u003e  \u003cb\u003eSoul\u003c/b\u003e II \u003cb\u003eA Second Chicken Soup for the Woman&#39;s Soul Chicken Soup for the\u003c/b\u003e Preteen \u003cb\u003e...\u003c/b\u003e"
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "T9TOZ02zILwC",
+   "etag": "kwM2Ipbk8Cc",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/T9TOZ02zILwC",
+   "volumeInfo": {
+    "title": "Chicken Soup for the Christian Woman's Soul",
+    "subtitle": "Stories to Open the Heart and Rekindle the Spirit",
+    "authors": [
+     "Jack Canfield",
+     "Mark Victor Hansen",
+     "Patty Aubery"
+    ],
+    "publisher": "Hci",
+    "publishedDate": "2002-09-01",
+    "description": "Shares inspirational stories of women from a range of denominations who found strength in their faith during painful challenges, in a collection that follows such themes as friendship, healing, making a difference, and family life. Simultaneous. 300,000 first printing.",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_10",
+      "identifier": "0757300189"
+     },
+     {
+      "type": "ISBN_13",
+      "identifier": "9780757300189"
+     }
+    ],
+    "pageCount": 400,
+    "printType": "BOOK",
+    "averageRating": 4.0,
+    "ratingsCount": 10,
+    "contentVersion": "preview-1.0.0",
+    "imageLinks": {
+     "smallThumbnail": "http://bks3.books.google.com/books?id=T9TOZ02zILwC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://bks3.books.google.com/books?id=T9TOZ02zILwC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.com/books?id=T9TOZ02zILwC&pg=PA389&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&cd=4&source=gbs_api",
+    "infoLink": "http://books.google.com/books?id=T9TOZ02zILwC&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&source=gbs_api",
+    "canonicalVolumeLink": "http://books.google.com/books/about/Chicken_Soup_for_the_Christian_Woman_s_S.html?id=T9TOZ02zILwC"
+   },
+   "saleInfo": {
+    "country": "SG",
+    "saleability": "NOT_FOR_SALE",
+    "isEbook": false
+   },
+   "accessInfo": {
+    "country": "SG",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED_FOR_ACCESSIBILITY",
+    "epub": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.com/books/download/Chicken_Soup_for_the_Christian_Woman_s_S-sample-epub.acsm?id=T9TOZ02zILwC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": false
+    },
+    "webReaderLink": "http://books.google.com/books/reader?id=T9TOZ02zILwC&printsec=frontcover&output=reader&source=gbs_api",
+    "accessViewStatus": "SAMPLE"
+   },
+   "searchInfo": {
+    "textSnippet": "\u003cb\u003e...\u003c/b\u003e \u003cb\u003eSoup for the Woman&#39;s Soul Chicken Soup for the\u003c/b\u003e Mother&#39;s \u003cb\u003eSoul Chicken Soup\u003c/b\u003e \u003cbr\u003e  \u003cb\u003efor the\u003c/b\u003e Teenage \u003cb\u003eSoul\u003c/b\u003e II \u003cb\u003eA Second Chicken Soup\u003c/b\u003e \u003cb\u003e...\u003c/b\u003e of the proceeds from the sale \u003cbr\u003e  of every title in the \u003cb\u003eChicken Soup for the Soul series\u003c/b\u003e is donated to charity."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "2-JPFahOhIEC",
+   "etag": "QeXoZVC69Sk",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/2-JPFahOhIEC",
+   "volumeInfo": {
+    "title": "Chicken Soup for the Teenage Soul III",
+    "subtitle": "More Stories of Life, Love and Learning",
+    "authors": [
+     "Jack Canfield",
+     "Mark Victor Hansen",
+     "Kimberly Kirberger"
+    ],
+    "publisher": "HCI Teens",
+    "publishedDate": "2000",
+    "description": "Inspirational stories on life, love, and learning for teens, including contributions by teens.",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_10",
+      "identifier": "1558747613"
+     },
+     {
+      "type": "ISBN_13",
+      "identifier": "9781558747616"
+     }
+    ],
+    "pageCount": 400,
+    "printType": "BOOK",
+    "averageRating": 4.0,
+    "ratingsCount": 65,
+    "contentVersion": "preview-1.0.0",
+    "imageLinks": {
+     "smallThumbnail": "http://bks5.books.google.com/books?id=2-JPFahOhIEC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://bks5.books.google.com/books?id=2-JPFahOhIEC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.com/books?id=2-JPFahOhIEC&pg=PA370&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&cd=5&source=gbs_api",
+    "infoLink": "http://books.google.com/books?id=2-JPFahOhIEC&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&source=gbs_api",
+    "canonicalVolumeLink": "http://books.google.com/books/about/Chicken_Soup_for_the_Teenage_Soul_III.html?id=2-JPFahOhIEC"
+   },
+   "saleInfo": {
+    "country": "SG",
+    "saleability": "NOT_FOR_SALE",
+    "isEbook": false
+   },
+   "accessInfo": {
+    "country": "SG",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED_FOR_ACCESSIBILITY",
+    "epub": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.com/books/download/Chicken_Soup_for_the_Teenage_Soul_III-sample-epub.acsm?id=2-JPFahOhIEC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": false
+    },
+    "webReaderLink": "http://books.google.com/books/reader?id=2-JPFahOhIEC&printsec=frontcover&output=reader&source=gbs_api",
+    "accessViewStatus": "SAMPLE"
+   },
+   "searchInfo": {
+    "textSnippet": "Teens/Self-Help/Inspiration forthe oup hicken oul eries forthe oup hicken oul \u003cbr\u003e  eries ® \u003cb\u003eChicken Soup for the\u003c/b\u003e Teenage \u003cb\u003eSoul Chicken Soup for the Woman&#39;s Soul\u003c/b\u003e \u003cbr\u003e  \u003cb\u003eChicken Soup for the\u003c/b\u003e Mother&#39;s \u003cb\u003eSoul Chicken Soup for the\u003c/b\u003e Teenage \u003cb\u003eSoul\u003c/b\u003e II \u003cb\u003eA Second\u003c/b\u003e \u003cb\u003e...\u003c/b\u003e"
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "LrljpJRjq10C",
+   "etag": "3r9C0ljdkoA",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/LrljpJRjq10C",
+   "volumeInfo": {
+    "title": "A 2nd Helping of Chicken Soup for the Soul",
+    "subtitle": "101 More Stories to Open the Heart and Rekindle the Spirit",
+    "authors": [
+     "Jack Canfield",
+     "Mark Victor Hansen"
+    ],
+    "publisher": "Hci",
+    "publishedDate": "1995-04-01",
+    "description": "A collection of inspirational writings follows themes of love, developing a positive attitude, humor, and healthy relationships, and features the works of such authors as Tony Robbins, Art Buchwald, Gloria Steinem, and more. Simultaneous. 200,000 first printing.",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_10",
+      "identifier": "1558743316"
+     },
+     {
+      "type": "ISBN_13",
+      "identifier": "9781558743311"
+     }
+    ],
+    "pageCount": 329,
+    "printType": "BOOK",
+    "averageRating": 4.5,
+    "ratingsCount": 16,
+    "contentVersion": "preview-1.0.0",
+    "imageLinks": {
+     "smallThumbnail": "http://bks1.books.google.com/books?id=LrljpJRjq10C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://bks1.books.google.com/books?id=LrljpJRjq10C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.com/books?id=LrljpJRjq10C&pg=PA330&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&cd=6&source=gbs_api",
+    "infoLink": "http://books.google.com/books?id=LrljpJRjq10C&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&source=gbs_api",
+    "canonicalVolumeLink": "http://books.google.com/books/about/A_2nd_Helping_of_Chicken_Soup_for_the_So.html?id=LrljpJRjq10C"
+   },
+   "saleInfo": {
+    "country": "SG",
+    "saleability": "NOT_FOR_SALE",
+    "isEbook": false
+   },
+   "accessInfo": {
+    "country": "SG",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED_FOR_ACCESSIBILITY",
+    "epub": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.com/books/download/A_2nd_Helping_of_Chicken_Soup_for_the_So-sample-epub.acsm?id=LrljpJRjq10C&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": false
+    },
+    "webReaderLink": "http://books.google.com/books/reader?id=LrljpJRjq10C&printsec=frontcover&output=reader&source=gbs_api",
+    "accessViewStatus": "SAMPLE"
+   },
+   "searchInfo": {
+    "textSnippet": "\u003cb\u003e...\u003c/b\u003e \u003cb\u003eSoup for the Woman&#39;s Soul Chicken Soup for the\u003c/b\u003e Mother&#39;s \u003cb\u003eSoul Chicken Soup\u003c/b\u003e \u003cbr\u003e  \u003cb\u003efor the\u003c/b\u003e Teenage \u003cb\u003eSoul\u003c/b\u003e II \u003cb\u003eA Second Chicken Soup\u003c/b\u003e \u003cb\u003e...\u003c/b\u003e of the proceeds from the sale \u003cbr\u003e  of every title in the \u003cb\u003eChicken Soup for the Soul series\u003c/b\u003e is donated to charity."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "pWB3wVZFpocC",
+   "etag": "/8ZEqZ7nWKE",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/pWB3wVZFpocC",
+   "volumeInfo": {
+    "title": "Chicken Soup for the Golden Soul",
+    "subtitle": "Heartwarming Stories for People 60 and Over",
+    "authors": [
+     "Jack Canfield",
+     "Mark Victor Hansen",
+     "Barbara Russell Chesser",
+     "Amy Seeger",
+     "Paul J. Meyer"
+    ],
+    "publisher": "Hci",
+    "publishedDate": "2000-01-27",
+    "description": "Anecdotes about middle aged people cover letting go, reaching goals, overcoming obstacles, and finding happiness",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_10",
+      "identifier": "1558747338"
+     },
+     {
+      "type": "ISBN_13",
+      "identifier": "9781558747333"
+     }
+    ],
+    "pageCount": 505,
+    "printType": "BOOK",
+    "categories": [
+     "Self-Help"
+    ],
+    "averageRating": 3.5,
+    "ratingsCount": 5,
+    "contentVersion": "1.0.1.0.preview.2",
+    "imageLinks": {
+     "smallThumbnail": "http://bks7.books.google.com/books?id=pWB3wVZFpocC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://bks7.books.google.com/books?id=pWB3wVZFpocC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.com/books?id=pWB3wVZFpocC&pg=PA512&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&cd=7&source=gbs_api",
+    "infoLink": "http://books.google.com/books?id=pWB3wVZFpocC&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&source=gbs_api",
+    "canonicalVolumeLink": "http://books.google.com/books/about/Chicken_Soup_for_the_Golden_Soul.html?id=pWB3wVZFpocC"
+   },
+   "saleInfo": {
+    "country": "SG",
+    "saleability": "NOT_FOR_SALE",
+    "isEbook": false
+   },
+   "accessInfo": {
+    "country": "SG",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED_FOR_ACCESSIBILITY",
+    "epub": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.com/books/download/Chicken_Soup_for_the_Golden_Soul-sample-epub.acsm?id=pWB3wVZFpocC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": false
+    },
+    "webReaderLink": "http://books.google.com/books/reader?id=pWB3wVZFpocC&printsec=frontcover&output=reader&source=gbs_api",
+    "accessViewStatus": "SAMPLE"
+   },
+   "searchInfo": {
+    "textSnippet": "iphicken Soup ^^ \u003cb\u003eSoul Series Chicken Soup for the\u003c/b\u003e Teenage Soul \u003cb\u003eChicken Soup for\u003c/b\u003e \u003cbr\u003e  \u003cb\u003ethe\u003c/b\u003e Woman&#39;s Soul \u003cb\u003eChicken Soup for the\u003c/b\u003e Mother&#39;s Soul \u003cb\u003eChicken Soup for the\u003c/b\u003e Teenage \u003cbr\u003e  Soul II \u003cb\u003eA Second Chicken Soup for the Woman&#39;s Soul Chicken Soup for the\u003c/b\u003e \u003cb\u003e...\u003c/b\u003e"
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "tlK2gPU7bdMC",
+   "etag": "YIJFttX3Yck",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/tlK2gPU7bdMC",
+   "volumeInfo": {
+    "title": "Chicken Soup for the Teenage Soul on Love & Friendship",
+    "authors": [
+     "Jack Canfield",
+     "Mark Victor Hansen",
+     "Kimberly Kirberger"
+    ],
+    "publisher": "HCI Teens",
+    "publishedDate": "2002-10-01",
+    "description": "Presents inspirational readings for teenagers on aspects of friendship and love.",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_10",
+      "identifier": "0757300227"
+     },
+     {
+      "type": "ISBN_13",
+      "identifier": "9780757300226"
+     }
+    ],
+    "pageCount": 400,
+    "printType": "BOOK",
+    "averageRating": 4.0,
+    "ratingsCount": 85,
+    "contentVersion": "0.0.1.0.preview.0",
+    "imageLinks": {
+     "smallThumbnail": "http://bks4.books.google.com/books?id=tlK2gPU7bdMC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://bks4.books.google.com/books?id=tlK2gPU7bdMC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.com/books?id=tlK2gPU7bdMC&pg=PA302&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&cd=8&source=gbs_api",
+    "infoLink": "http://books.google.com/books?id=tlK2gPU7bdMC&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&source=gbs_api",
+    "canonicalVolumeLink": "http://books.google.com/books/about/Chicken_Soup_for_the_Teenage_Soul_on_Lov.html?id=tlK2gPU7bdMC"
+   },
+   "saleInfo": {
+    "country": "SG",
+    "saleability": "NOT_FOR_SALE",
+    "isEbook": false
+   },
+   "accessInfo": {
+    "country": "SG",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED_FOR_ACCESSIBILITY",
+    "epub": {
+     "isAvailable": false
+    },
+    "pdf": {
+     "isAvailable": false
+    },
+    "webReaderLink": "http://books.google.com/books/reader?id=tlK2gPU7bdMC&printsec=frontcover&output=reader&source=gbs_api",
+    "accessViewStatus": "SAMPLE"
+   },
+   "searchInfo": {
+    "textSnippet": "\u003cb\u003e...\u003c/b\u003e the \u003cb\u003eWoman&#39;s Soul Chicken Soup for the\u003c/b\u003e Mother&#39;s \u003cb\u003eSoul Chicken Soup for the\u003c/b\u003e \u003cbr\u003e  Teenage \u003cb\u003eSoul\u003c/b\u003e II \u003cb\u003eA Second Chicken Soup\u003c/b\u003e \u003cb\u003e...\u003c/b\u003e Lives of Others A portion of the \u003cbr\u003e  proceeds from the sale of every title in the \u003cb\u003eChicken Soup for the Soul series\u003c/b\u003e is \u003cbr\u003e  donated \u003cb\u003e...\u003c/b\u003e"
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "qRLlHRQfdRcC",
+   "etag": "DYN0sDeoXg0",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/qRLlHRQfdRcC",
+   "volumeInfo": {
+    "title": "Chicken Soup for the Teenage Soul on Tough Stuff",
+    "subtitle": "Stories of Tough Times and Lessons Learned",
+    "authors": [
+     "Jack Canfield",
+     "Mark Victor Hansen",
+     "Kimberly Kirberger"
+    ],
+    "publisher": "HCI Teens",
+    "publishedDate": "2001-10-01",
+    "description": "With stories by: Amy Jo Johnson, C. S. Dweck, Tal Vigderson, Teal Henderson.",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_10",
+      "identifier": "155874942X"
+     },
+     {
+      "type": "ISBN_13",
+      "identifier": "9781558749429"
+     }
+    ],
+    "pageCount": 400,
+    "printType": "BOOK",
+    "categories": [
+     "Self-Help"
+    ],
+    "averageRating": 4.0,
+    "ratingsCount": 75,
+    "contentVersion": "preview-1.0.0",
+    "imageLinks": {
+     "smallThumbnail": "http://bks0.books.google.com/books?id=qRLlHRQfdRcC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://bks0.books.google.com/books?id=qRLlHRQfdRcC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.com/books?id=qRLlHRQfdRcC&pg=PA347&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&cd=9&source=gbs_api",
+    "infoLink": "http://books.google.com/books?id=qRLlHRQfdRcC&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&source=gbs_api",
+    "canonicalVolumeLink": "http://books.google.com/books/about/Chicken_Soup_for_the_Teenage_Soul_on_Tou.html?id=qRLlHRQfdRcC"
+   },
+   "saleInfo": {
+    "country": "SG",
+    "saleability": "NOT_FOR_SALE",
+    "isEbook": false
+   },
+   "accessInfo": {
+    "country": "SG",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED_FOR_ACCESSIBILITY",
+    "epub": {
+     "isAvailable": false
+    },
+    "pdf": {
+     "isAvailable": false
+    },
+    "webReaderLink": "http://books.google.com/books/reader?id=qRLlHRQfdRcC&printsec=frontcover&output=reader&source=gbs_api",
+    "accessViewStatus": "SAMPLE"
+   },
+   "searchInfo": {
+    "textSnippet": "\u003cb\u003e...\u003c/b\u003e \u003cb\u003eSoup for the Woman&#39;s Soul Chicken Soup for the\u003c/b\u003e Mother&#39;s \u003cb\u003eSoul Chicken Soup\u003c/b\u003e \u003cbr\u003e  \u003cb\u003efor the\u003c/b\u003e Teenage \u003cb\u003eSoul\u003c/b\u003e II \u003cb\u003eA Second Chicken Soup\u003c/b\u003e \u003cb\u003e...\u003c/b\u003e of the proceeds from the sale \u003cbr\u003e  of every title in the \u003cb\u003eChicken Soup for the Soul series\u003c/b\u003e is donated to charity."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "2ldKkWA4lZUC",
+   "etag": "yBpmJh3Mu3E",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/2ldKkWA4lZUC",
+   "volumeInfo": {
+    "title": "Chicken Soup for the Preteen Soul",
+    "subtitle": "101 Stories of Changes, Choices and Growing Up for Kids Ages 9-13",
+    "authors": [
+     "Jack Canfield",
+     "Mark Victor Hansen",
+     "Patty Hansen",
+     "Irene Dunlap"
+    ],
+    "publisher": "Hci",
+    "publishedDate": "2000-10-01",
+    "description": "Filled with stories from and about readers between the ages of nine and thirteen, this inspirational book covers issues such as personal identity, violence, family issues, and the opposite sex.",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_10",
+      "identifier": "1558748008"
+     },
+     {
+      "type": "ISBN_13",
+      "identifier": "9781558748002"
+     }
+    ],
+    "pageCount": 386,
+    "printType": "BOOK",
+    "averageRating": 4.0,
+    "ratingsCount": 115,
+    "contentVersion": "preview-1.0.0",
+    "imageLinks": {
+     "smallThumbnail": "http://bks4.books.google.com/books?id=2ldKkWA4lZUC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://bks4.books.google.com/books?id=2ldKkWA4lZUC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.com/books?id=2ldKkWA4lZUC&pg=PA389&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&cd=10&source=gbs_api",
+    "infoLink": "http://books.google.com/books?id=2ldKkWA4lZUC&dq=A+Second+Chicken+Soup+for+the+Woman's+Soul+(Chicken+Soup+for+the+Soul+Series)&source=gbs_api",
+    "canonicalVolumeLink": "http://books.google.com/books/about/Chicken_Soup_for_the_Preteen_Soul.html?id=2ldKkWA4lZUC"
+   },
+   "saleInfo": {
+    "country": "SG",
+    "saleability": "NOT_FOR_SALE",
+    "isEbook": false
+   },
+   "accessInfo": {
+    "country": "SG",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED_FOR_ACCESSIBILITY",
+    "epub": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.com/books/download/Chicken_Soup_for_the_Preteen_Soul-sample-epub.acsm?id=2ldKkWA4lZUC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": false
+    },
+    "webReaderLink": "http://books.google.com/books/reader?id=2ldKkWA4lZUC&printsec=frontcover&output=reader&source=gbs_api",
+    "accessViewStatus": "SAMPLE"
+   },
+   "searchInfo": {
+    "textSnippet": "\u003cb\u003e...\u003c/b\u003e \u003cb\u003eSoup for the Woman&#39;s Soul Chicken Soup for the\u003c/b\u003e Mother&#39;s \u003cb\u003eSoul Chicken Soup\u003c/b\u003e \u003cbr\u003e  \u003cb\u003efor the\u003c/b\u003e Teenage \u003cb\u003eSoul\u003c/b\u003e II \u003cb\u003eA Second Chicken Soup\u003c/b\u003e \u003cb\u003e...\u003c/b\u003e of the proceeds from the sale \u003cbr\u003e  of every title in the \u003cb\u003eChicken Soup for the Soul series\u003c/b\u003e is donated to charity."
+   }
+  }
+ ]
+}
