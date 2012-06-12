@@ -2,7 +2,7 @@ package org.felix.db;
 
 import java.sql.Date;
 
-public class Book extends Product
+public class Book extends DBObject
 {
 	private final static int	MAX_LENGTH	= 200;
 	/*

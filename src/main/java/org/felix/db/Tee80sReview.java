@@ -2,7 +2,7 @@ package org.felix.db;
 
 import java.sql.Date;
 
-public class Tee80sReview extends Product
+public class Tee80sReview extends DBObject
 {
 	private int id;
 	private String productId;
