@@ -1,0 +1,76 @@
+﻿#MainNavigation
+{ 
+margin: 1px 2px 1px 1px;
+background-color: White;
+border: 1px solid Navy;
+width: 150px;
+}
+
+#Promo1
+{
+	border: 1px solid Navy;
+	margin: 1px 2px 1px 1px;
+	width: 150px;
+}
+
+#Promo2
+{
+	text-align: center;
+	border: 0px solid Navy;
+	margin: 1px 2px 1px 1px;
+}
+#Promo-tw, #Promo-Fb, #Promo-Contest, #Promo-Chat
+{
+	text-align: center;
+	border: 0px solid Navy;
+	margin: 1px 2px 1px 1px;
+}
+#Promo3
+{
+	
+	text-align: center;
+	border: 0px solid Navy;
+	margin: 1px 2px 1px 1px;
+}
+
+#Promo4
+{
+	text-align: center;
+	margin: 1px 2px 1px 1px;
+}
+
+#MainContent
+{
+	margin-top: 2px;
+	text-align: center;
+	border: 1px solid Gray;
+}
+
+#MainContent_NB
+{
+	margin-top: 2px;
+	text-align: center;
+}
+
+#SubMainContent
+{
+	
+}
+
+.heroLinks
+{
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #0000FF;
+	font-weight: bolder;
+	text-align:center;
+	width: 20%;
+}
+.heroLinks a:visited
+{
+	color: #0000FF;
+}
+.heroLinks a:hover
+{
+background-color:#CCFFFF
+}

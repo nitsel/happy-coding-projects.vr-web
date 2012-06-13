@@ -1,0 +1,54 @@
+.rockyPromo {
+	position: absolute;
+	top: 100px;
+	right: 100px;
+	height: 450px;
+	width: 640px;
+	border-style: solid;
+	border-color: black;
+	border-width: 3px;
+	text-align: center;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: bold;
+	color: #FFFFFF;
+	background:#001CA9;
+	z-index:1;
+}
+
+.bigYellow {
+	
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: bold;
+	color:#FFFF00;
+}
+
+.promoArea {
+	margin-top: 15px;
+}
+
+.bigNo {
+
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	font-style: normal;
+	color:#FFFFFF;
+}
+
+.OrderNormText {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+.OrderSmallText {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-style: normal;
+	color: #FFFFFF;
+}
