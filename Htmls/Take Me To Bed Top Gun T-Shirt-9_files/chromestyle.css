@@ -1,0 +1,65 @@
+﻿#MiniCart{
+	padding:0 0 0 0; margin:0 0 0 0; width:351px; background:transparent;
+}
+.Cartbar a, #Cartdown {
+	height: 19px;
+	list-style: none;
+	margin: 0 5px 0 0;
+	padding: 0;
+	z-index: 200;
+}
+.Cartbar, #Cartdown ul {
+	background: none;
+	list-style: none outside none;
+	margin: 0 0 0 0;
+	padding: 0;
+}
+#Cartdown li li {
+    margin-left:-250px;
+}
+.Cartbar a, #Cartdown li a, #Cartdown li a span.carttotals{
+    height: 19px;
+    line-height: 19px;
+    padding: 0 0px;
+}
+#Cartdown li li a {
+    padding: 0 0px;
+    margin:0;
+    color:navy;
+    white-space:normal;
+    line-height:normal;
+    height:auto;
+}
+.Cartbar a:hover, #Cartdown li:hover {
+    position: relative;
+    z-index: 300;
+}
+.Cartbar a:hover {
+    position: relative;
+    z-index: 300;
+}
+#Cartdown li:hover ul {
+    left: 8px;
+    top: 19px;
+    z-index: 500;
+}
+#Cartdown ul {
+    left: -9999px;
+    position: absolute;
+    top: -9999px;
+}
+* html #Cartdown ul {
+    width: 2px;
+}
+#Cartdown li:hover li:hover > ul {
+    left: -30px;
+    margin-right: 100%;
+    top: -1px;
+    z-index: 500;
+}
+#Cartdown li:hover > ul ul {
+    left: -9999px;
+    position: absolute;
+    top: -9999px;
+    width: auto;
+}
