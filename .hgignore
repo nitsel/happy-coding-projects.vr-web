@@ -17,3 +17,5 @@ syntax: regexp
 ^results\.txt$
 syntax: regexp
 ^Tee80sDB$
+syntax: regexp
+^test\.txt$

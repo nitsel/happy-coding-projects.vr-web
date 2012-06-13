@@ -11,3 +11,20 @@
 3.5::(4 Customer Reviews)::The Gumby Show Shirt::Now $9.99::http://www.80stees.com/products/Gumby-Show-Shirt.asp::http://media.80stees.com/images/products/Gumby-Shirt-link.jpg
 3.5::(5 Customer Reviews)::Mouse Rat Shirt::$20::http://www.80stees.com/products/Mouse-Rat-Shirt.asp::http://media.80stees.com/images/products/Mouse-Rat-Parks-and-Recreation-Shirt-link.jpg
 3.5::(10 Customer Reviews)::Zero Big Lebowski T-Shirt::$20::http://www.80stees.com/products/Make-It-Zero-Big-Lebowski-T-shirt.asp::http://media.80stees.com/images/products/The_Big_Lebowski_Mark_It_Zero-T-link.jpg
+4::(92 Customer Reviews)::Distressed Thundercats Logo T-Shirt::$24::http://www.80stees.com/products/Thundercats-Distressed-Logo-T-shirt.asp::http://media.80stees.com/images/products/Thundercats_Grey-Tee-link.jpg
+4::(25 Customer Reviews)::Red M.A.S.K. T-Shirt::$22::http://www.80stees.com/products/Red-MASK-T-shirt.asp::http://media.80stees.com/images/products/Red-Mask-Shirt-link.jpg
+4::(21 Customer Reviews)::Smurf Costume Shirt By Junk Food::$28::http://www.80stees.com/products/Smurf-Body-T-shirt.asp::http://media.80stees.com/images/products/Smurfs_Body_Without_Head-T-link.jpg
+4::(19 Customer Reviews)::84 Voltron Shirt::$26::http://www.80stees.com/products/84-Voltron-Shirt.asp::http://media.80stees.com/images/products/Swinging-Sword-Voltron-Shirt-link.jpg
+4::(20 Customer Reviews)::I Heart Optimus Prime Transformers T-Shirt::$20::http://www.80stees.com/products/I-Heart-Optimus-Prime-Transformers-T-shirt.asp::http://media.80stees.com/images/products/Transformers_I_Heart_Optimus_Prime-T-link.jpg
+4::(25 Customer Reviews)::Sunglasses Yoda Shirt::$20::http://www.80stees.com/products/Cool-Yoda-Star-Wars-T-shirt.asp::http://media.80stees.com/images/products/Star_Wars_Green_Yoda_Wearing_Glasses-T-link.jpg
+4::(124 Customer Reviews)::Save Ferris Mens T-Shirt::$20::http://www.80stees.com/products/Save_Ferris_Bueller_t-shirt.asp::http://media.80stees.com/images/products/Save_Ferris_t-shirt-link.jpg
+4::(14 Customer Reviews)::I Carried a Watermelon T-Shirt::Now $11.99::http://www.80stees.com/products/Baby-Watermelon-Dirty-Dancing-T-shirt.asp::http://media.80stees.com/images/products/I_Carried_a_Watermellon_Photo-T-link.jpg
+4::(81 Customer Reviews)::Take Me To Bed Top Gun T-Shirt::$20::http://www.80stees.com/products/Take-Me-To-Bed-Top-Gun-T-shirt.asp::http://media.80stees.com/images/products/Top_Gun_Take_me_to_Bed-T-link.jpg
+4::(17 Customer Reviews)::Vintage Karate Kid T-Shirt::$22::http://www.80stees.com/products/Vintage-Karate-Kid-T-shirt.asp::http://media.80stees.com/images/products/Karate_Kid-Sun-T-link.jpg
+4::(19 Customer Reviews)::Rocky Mickey T-Shirt::$20::http://www.80stees.com/products/Rocky_t-shirt_Mickey_Bum.asp::http://media.80stees.com/images/products/Rocky_t-shirt_bum-link.jpg
+4::(19 Customer Reviews)::Bushwood C.C. Caddyshack T-Shirt::$20::http://www.80stees.com/products/Bushwood-C-C-Caddyshack-T-shirt.asp::http://media.80stees.com/images/products/Bushwoods_CC-T-link.jpg
+4::(19 Customer Reviews)::Sketch Teen Wolf T-Shirt::$24::http://www.80stees.com/products/Sketch-Teen-Wolf-T-shirt.asp::http://media.80stees.com/images/products/Teen_Wolf_Face-T-link.jpg
+4::(21 Customer Reviews)::Darth Vader Costume T-Shirt by Junk Food::$30::http://www.80stees.com/products/Darth-Vader-Costume-T-shirt.asp::http://media.80stees.com/images/products/Star_Wars_Darth_Vader_Costume-T-link.jpg
+4::(33 Customer Reviews)::Captain Kirk costume T-Shirt::$24::http://www.80stees.com/products/Kirk-Command-Uniform-Star-Trek-T-shirt.asp::http://media.80stees.com/images/products/Star_Trek_Yellow-T-link.jpg
+4::(18 Customer Reviews)::Vince Lauria The Color Of Money T-Shirt::$20::http://www.80stees.com/products/Vince-The-Color-Of-Money-T-shirt.asp::http://media.80stees.com/images/products/VINCE_Black-T-link.jpg
+4::(23 Customer Reviews)::Flippin The Bird Top Gun T-Shirt::$20::http://www.80stees.com/products/Flippin-Bird-Top-Gun-T-shirt.asp::http://media.80stees.com/images/products/Top_Gun_Flippin_the_Bird-T-link.jpg
