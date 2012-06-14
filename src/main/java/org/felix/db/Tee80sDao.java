@@ -290,7 +290,7 @@ public class Tee80sDao extends DerbyDao
 				t.setName(link.split("::")[2]);
 
 				/* Tees */
-				String html = FileUtils.read("./Htmls/" + t.getName() + ".htm");
+				String html = FileUtils.readAsString("./Htmls/" + t.getName() + ".htm");
 				client.parseTee80s(html, t);
 				dao.insert(t);
 
@@ -302,7 +302,7 @@ public class Tee80sDao extends DerbyDao
 					for (int i = 1; i < pages + 1; i++)
 					{
 						String page = i == 1 ? "" : "-" + i;
-						html = FileUtils.read("./Htmls/" + t.getName() + page + ".htm");
+						html = FileUtils.readAsString("./Htmls/" + t.getName() + page + ".htm");
 						List<Tee80sReview> rs = client.parseReview(html);
 						for (Tee80sReview r : rs)
 						{
@@ -316,10 +316,13 @@ public class Tee80sDao extends DerbyDao
 			/* Images of Tees */
 			for (String link : links)
 			{
-				String url = link.split("::")[4];
+				String[] d = link.split("::");
+				String url = d[4];
 				String html = URLReader.read(url);
 
 				List<String> imageList = client.parseImages(html);
+
+				FileUtils.writeString("images.txt", "\n" + url, true);
 				FileUtils.writeList("images.txt", imageList, true);
 			}
 		}
