@@ -1,0 +1,13 @@
+.ssdiv {
+  font: 11pt Rockwell;
+  color: #ffffff;
+  font-weight: none;
+  font-style:normal;
+  
+}
+
+.ssdiv A:link {text-decoration: none}
+.ssdiv A:visited {text-decoration: none}
+.ssdiv A:active {text-decoration: none}
+.ssdiv A:hover {text-decoration: underline; color: red;}
+

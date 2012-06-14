@@ -1,0 +1,19 @@
+﻿.rollover {width:450px; filter: alpha(opacity:90); KHTMLOpacity: 0.90; MozOpacity: 0.90; opacity: 0.90;}
+.rollover-left {width:450px; position: absolute;top: -200px;left:10px;filter: alpha(opacity:90); KHTMLOpacity: 0.90; MozOpacity: 0.90; opacity: 0.90;}
+.rollover-right {width:450px; position: absolute;top: -200px;left:-475px;filter: alpha(opacity:90); KHTMLOpacity: 0.90; MozOpacity: 0.90; opacity: 0.90;}
+.rollover-small {width:201px; filter: alpha(opacity:90); KHTMLOpacity: 0.90; MozOpacity: 0.90; opacity: 0.90;}
+.rollover-top {	width:450px; height:27px; background: url(/images/balloons/rolloverTop.gif) no-repeat top;}
+.rollover-middle {width: 434px; padding: 0 8px 0 8px; background: url(/images/balloons/rolloverMiddle.gif);}
+.rollover-bottom {width: 450px; height: 10px; background: url(/images/balloons/rolloverTop.gif) no-repeat bottom;}
+.rollover-top-small {width:201px; height: 20px; background: url(/images/balloons/rolloverTopSmall.gif) no-repeat top;}
+.rollover-middle-small {width: 201px; padding: 0 8px 0 8px; background: url(/images/balloons/rolloverMiddleSmall.gif);}
+.rollover-bottom-small {width: 201px; height: 10px; background: url(/images/balloons/rolloverTopSmall.gif) no-repeat bottom;}
+.rollover-thumbnail {float: left; margin-right: 0px;}
+.rollover-name {font-weight: bold; font-size: 18px;}
+.rollover-price {font-weight: bold; color: #C60;}
+.rollover-desc {color: #333;}
+.rollover-desc-small {padding-left: 5px; padding-right: 5px; color: #333;}
+.rollover-top-left {width:450px; height:10px; background: url(/images/balloons/rolloverTopSpeakLeft.gif) no-repeat top;}
+.rollover-bottom-left {width: 450px; height: 27px; background: url(/images/balloons/rolloverTopSpeakLeft.gif) no-repeat bottom;}
+.rollover-top-right {width:450px; height:10px; background: url(/images/balloons/rolloverTopSpeakRight.gif) no-repeat top;}
+.rollover-bottom-right {width: 450px; height: 27px; background: url(/images/balloons/rolloverTopSpeakRight.gif) no-repeat bottom;}

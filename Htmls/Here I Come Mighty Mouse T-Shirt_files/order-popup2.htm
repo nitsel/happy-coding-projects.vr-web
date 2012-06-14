@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0039)http://www.80stees.com/order-popup2.asp -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<meta http-equiv="Pragma" content="no-cache">
+	
+	<title>80sTees.com - Shopping Cart</title>
+	<!--Header Begin -->
+	<link rel="stylesheet" href="sfcss.css" type="text/css">
+	<link rel="stylesheet" href="order.css" type="text/css">
+<style type="text/css">
+#MiniOrder{
+	width:351px; background:transparent;
+}
+</style>
+</head>
+<body style="padding:0 0 0 0; margin:0 0 0 0; background:transparent;">
+<script type="text/javascript">
+var browsersType;
+if (document.layers) {browsersType = "nn4"}
+if (document.all) {browsersType = "ie"}
+if (window.navigator.userAgent.toLowerCase().match("gecko")) {
+   browsersType= "gecko"
+}
+function hideCart() {
+  if (browsersType == "gecko" )
+     document.poppedLayer =
+         eval('document.getElementById("MiniCart")');
+  else if (browsersType == "ie")
+     document.poppedLayer =
+        eval('document.getElementById("MiniCart")');
+  else
+     document.poppedLayer =
+        eval('document.layers["MiniCart"]');
+  document.poppedLayer.style.display = "none";
+}
+</script>
+<div id="MiniOrder" style="width:351px; background:transparent;">
+<table cellpadding="0" cellspacing="0" style="width:351px; height:auto;">
+<tbody><tr><td style="background:url(&#39;http://www.80stees.com/images/Cart-Topper.png&#39;); height:35px; width:351px; text-align:right;"><a id="orderclose" style="text-decoration:none; color:black; font:bold 14px verdana;" href="javascript:void(0);" onclick="hideCart();">&nbsp;X&nbsp;</a>&nbsp;&nbsp;</td></tr>
+<tr><td>
+<table style="border-right:8px solid #4695D0; border-left:8px #4695D0 solid;" cellpadding="0" cellspacing="0" class="tdbackgrnd" width="337px">
+		<tbody><tr>
+			<td>
+				<table width="335px" border="0" cellspacing="0" cellpadding="1">
+					<tbody><tr>
+						<td class="tdContent2" style="font:9px verdana;">
+							<form method="post" name="frmQty" id="frmQty" action="http://www.80stees.com/order.asp" onsubmit="reCalc();">
+							<table border="0" width="320px" cellspacing="0" cellpadding="2" style="font:9px verdana; width:320px;">
+								<tbody><tr>
+									<td class="tdContentBar" style="font:bold 10px verdana; width:141px;" colspan="2">product ordered</td>
+									<td align="center" class="tdContentBar" style="font:bold 10px verdana; width:51px;">unit price</td>
+									<td align="center" class="tdContentBar" style="font:bold 10px verdana; width:51px;">qty</td>
+									<td align="center" class="tdContentBar" style="font:bold 10px verdana; width:61px;">price</td>
+								</tr>
+
+
+								<tr>
+									<td colspan="5" width="310px" class="tdAltFont1">
+										
+											<p style="margin-top:35px;margin-bottom:35px;width:310px; text-align:center;" class="TopBanner_Large">
+												
+													<b>No Items in Order</b>
+													
+											</p>
+										
+									</td>			
+								</tr>					
+               
+								<tr>
+									<td width="100%" colspan="6" align="center">
+										
+											<input type="hidden" name="REFERER" value="">
+											<input type="hidden" name="Promotions" value=""> 
+											<input type="hidden" name="HTTP_REFERER" value="">
+											<input type="hidden" name="ssGiftCertificate" value=""> 
+                							<input type="hidden" name="REMOTE_ADDRESS" value="155.69.203.3">
+                   							<input type="hidden" name="LoggedSessionID" value="">
+                   							<input type="hidden" name="TotalPrice" value="">
+                   							<input type="hidden" id="IsPreOrderItem" name="IsPreOrderItem" value="False">
+                   							
+                   							<input type="hidden" id="City" name="City" value="">
+                   							<input type="hidden" id="State" name="State" value="">
+                   							<input type="hidden" id="PostalCode" name="PostalCode" value="">
+                   							<input type="hidden" id="Country" name="Country" value="">
+                   							<input type="hidden" id="Email" name="Email" value="">
+                   							<input type="hidden" id="IsGiftCertificate" name="IsGiftCertificate" value="False">
+
+                   							
+                   							</td></tr></tbody></table>
+
+
+
+									</form></td>
+								</tr>
+
+							</tbody></table>
+						</td>
+					</tr>
+				</tbody></table>
+				
+</td></tr>
+<tr><td style="background:url(&#39;http://www.80stees.com/images/Cart-Bottom.png&#39;); height:18px; width:351px;"></td></tr>
+</tbody></table>
+				</div>
+	<div id="cs-recslot"></div>
+
+
+<script language="javascript" type="text/javascript">
+	try		// Added try..catch may not be present if there are no items in cart
+	{
+		document.getElementById("ContinueDiv").style.visibility = "visible";
+	}
+	catch (e) {}
+</script>
+
+
+</body><link rel="stylesheet" type="text/css" href="data:text/css,"></html>
