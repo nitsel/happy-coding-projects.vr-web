@@ -314,15 +314,17 @@ public class Tee80sDao extends DerbyDao
 			}
 
 			/* Images of Tees */
+			int j = 0;
 			for (String link : links)
 			{
+				j++;
 				String[] d = link.split("::");
 				String url = d[4];
 				String html = URLReader.read(url);
 
 				List<String> imageList = client.parseImages(html);
 
-				FileUtils.writeString("images.txt", "\n" + url, true);
+				FileUtils.writeString("images.txt", j + "\n" + url, true);
 				FileUtils.writeList("images.txt", imageList, true);
 			}
 		}
