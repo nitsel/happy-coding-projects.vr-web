@@ -3,10 +3,11 @@ package org.felix.db;
 import java.io.File;
 import java.io.FileReader;
 import java.sql.ResultSet;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.felix.util.system.DateUtils;
+import org.felix.system.DateUtils;
 
 import au.com.bytecode.opencsv.CSVReader;
 
@@ -20,17 +21,15 @@ public class BookDao extends DerbyDao
 	protected void update(Book book) throws Exception
 	{
 
-		String sql = "UPDATE books SET isbn13='" + sqlString(book.getIsbn13()) + "', googleId='"
-				+ sqlString(book.getGoogleId()) + "', title='" + sqlString(book.getTitle()) + "', subTitle = '"
-				+ sqlString(book.getSubTitle()) + "', authors='" + sqlString(book.getAuthors()) + "', pages="
-				+ book.getPages() + ", price = '" + sqlString(book.getPrice()) + "', language ='"
-				+ sqlString(book.getLanguage()) + "', publishDate='" + sqlString(book.getPublishDate().toString())
-				+ "', publisher ='" + sqlString(book.getPublisher()) + "', edition=" + book.getEdition()
-				+ ", dimensions='" + sqlString(book.getDimensions()) + "', weight='" + sqlString(book.getWeight())
-				+ "', description = '" + sqlString(book.getDescription()) + "', editorReviews='"
-				+ sqlString(book.getEditorReviews()) + "', imgUrlS='" + sqlString(book.getImgUrlS()) + "', imgUrlM='"
-				+ sqlString(book.getImgUrlM()) + "', imgUrlL='" + sqlString(book.getImgUrlL()) + "', averageRating ="
-				+ book.getAverageRating() + ", ranking='" + sqlString(book.getRanking()) + "' WHERE isbn='"
+		String sql = "UPDATE books SET isbn13='" + book.getIsbn13() + "', googleId='" + book.getGoogleId()
+				+ "', title='" + book.getTitle() + "', subTitle = '" + book.getSubTitle() + "', authors='"
+				+ book.getAuthors() + "', pages=" + book.getPages() + ", price = '" + book.getPrice()
+				+ "', language ='" + book.getLanguage() + "', publishDate='" + book.getPublishDate().toString()
+				+ "', publisher ='" + book.getPublisher() + "', edition=" + book.getEdition() + ", dimensions='"
+				+ book.getDimensions() + "', weight='" + book.getWeight() + "', description = '"
+				+ book.getDescription() + "', editorReviews='" + book.getEditorReviews() + "', imgUrlS='"
+				+ book.getImgUrlS() + "', imgUrlM='" + book.getImgUrlM() + "', imgUrlL='" + book.getImgUrlL()
+				+ "', averageRating =" + book.getAverageRating() + ", ranking='" + book.getRanking() + "' WHERE isbn='"
 				+ book.getIsbn() + "'";
 
 		logger.info("Update book: {}", sql);
@@ -49,17 +48,14 @@ public class BookDao extends DerbyDao
 
 		// insert into database
 		String tableElements = "isbn, isbn13, googleId, title, subTitle, authors, pages, price, language, publishDate, publisher, edition, dimensions, weight, description, editorReviews, imgUrlS, imgUrlM, imgUrlL, amazonUrl, reviewUrl, averageRating, ranking";
-		String sql = "INSERT INTO books (" + tableElements + ") VALUES ('" + book.getIsbn() + "', '"
-				+ sqlString(book.getIsbn13()) + "', '" + sqlString(book.getGoogleId()) + "', '"
-				+ sqlString(book.getTitle()) + "', '" + sqlString(book.getSubTitle()) + "', '"
-				+ sqlString(book.getAuthors()) + "', " + book.getPages() + ", '" + sqlString(book.getPrice()) + "', '"
-				+ sqlString(book.getLanguage()) + "', '" + sqlString(book.getPublishDate().toString()) + "', '"
-				+ sqlString(book.getPublisher()) + "', " + book.getEdition() + ", '" + sqlString(book.getDimensions())
-				+ "', '" + sqlString(book.getWeight()) + "', '" + sqlString(book.getDescription()) + "', '"
-				+ sqlString(book.getEditorReviews()) + "', '" + sqlString(book.getImgUrlS()) + "', '"
-				+ sqlString(book.getImgUrlM()) + "', '" + sqlString(book.getImgUrlL()) + "', '"
-				+ sqlString(book.getAmazonUrl()) + "', '" + sqlString(book.getReviewUrl()) + "', "
-				+ book.getAverageRating() + ", '" + sqlString(book.getRanking()) + "')";
+		String sql = "INSERT INTO books (" + tableElements + ") VALUES ('" + book.getIsbn() + "', '" + book.getIsbn13()
+				+ "', '" + book.getGoogleId() + "', '" + book.getTitle() + "', '" + book.getSubTitle() + "', '"
+				+ book.getAuthors() + "', " + book.getPages() + ", '" + book.getPrice() + "', '" + book.getLanguage()
+				+ "', '" + book.getPublishDate().toString() + "', '" + book.getPublisher() + "', " + book.getEdition()
+				+ ", '" + book.getDimensions() + "', '" + book.getWeight() + "', '" + book.getDescription() + "', '"
+				+ book.getEditorReviews() + "', '" + book.getImgUrlS() + "', '" + book.getImgUrlM() + "', '"
+				+ book.getImgUrlL() + "', '" + book.getAmazonUrl() + "', '" + book.getReviewUrl() + "', "
+				+ book.getAverageRating() + ", '" + book.getRanking() + "')";
 
 		logger.info("Insert book: {}", sql);
 
@@ -149,6 +145,34 @@ public class BookDao extends DerbyDao
 
 	};
 
+	/**
+	 * Parse string in pattern "September 1, 2004" to java.sql.Date
+	 * 
+	 * @param date
+	 * @return
+	 * @throws Exception
+	 */
+	public java.sql.Date parseString(String date) throws Exception
+	{
+		/* check if in the pattern "September 01, 2004" */
+		if (date.indexOf(',') < 0)
+		{
+			// take care "September 2004" or "2004"
+			if (date.indexOf(' ') < 0)
+			{
+				date = "Jan 01, " + date;
+			} else
+			{
+				String month = date.substring(0, date.indexOf(' '));
+				String year = date.substring(date.indexOf(' ') + 1);
+				date = month + " 01, " + year;
+			}
+		}
+
+		DateFormat format = DateFormat.getDateInstance(DateFormat.LONG);
+		return new java.sql.Date(format.parse(date).getTime());
+	}
+
 	protected void initDataTable() throws Exception
 	{
 		CSVReader br = new CSVReader(new FileReader(new File("Book-Crossing/BX-Books.csv")), ';', '"', 1);
@@ -164,7 +188,7 @@ public class BookDao extends DerbyDao
 			book.setImgUrlS(data[5]);
 			book.setImgUrlM(data[6]);
 			book.setImgUrlL(data[7]);
-			book.setPublishDate(DateUtils.parseStrToDb("Jan 1, " + data[3]));
+			book.setPublishDate(parseString("Jan 1, " + data[3]));
 
 			insert(book);
 		}

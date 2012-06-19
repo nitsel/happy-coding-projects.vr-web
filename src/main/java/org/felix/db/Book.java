@@ -10,29 +10,29 @@ public class Book extends DBObject
 	 * isbn-13) and a google book id
 	 */
 	private String	isbn;
-	private String	isbn13;
-	private String	googleId;
-	private String	title;
-	private String	subTitle;
+	private String				isbn13			= "";
+	private String				googleId		= "";
+	private String				title			= "";
+	private String				subTitle		= "";
 	/* authors format: authorA|authorB|authorC */
-	private String	authors;
+	private String				authors			= "";
 	private int		pages;
-	private String	price;
-	private String	language;
+	private String				price			= "";
+	private String				language		= "";
 	private Date	publishDate;
-	private String	publisher;
+	private String				publisher		= "";
 	private int		edition;
-	private String	dimensions;
-	private String	weight;
-	private String	description;
-	private String	editorReviews;
-	private String	imgUrlS;
-	private String	imgUrlM;
-	private String	imgUrlL;
-	private String	amazonUrl;
-	private String	reviewUrl;
+	private String				dimensions		= "";
+	private String				weight			= "";
+	private String				description		= "";
+	private String				editorReviews	= "";
+	private String				imgUrlS			= "";
+	private String				imgUrlM			= "";
+	private String				imgUrlL			= "";
+	private String				amazonUrl		= "";
+	private String				reviewUrl		= "";
 	private float	averageRating;
-	private String	ranking;
+	private String				ranking			= "";
 
 	public Book(String _isbn)
 	{
