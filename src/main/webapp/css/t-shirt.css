@@ -1,0 +1,66 @@
+body{
+	font-family: "Times New Roman", "Times", "serif";
+	font-size: 16px;
+	line-height: 1.5;
+	margin: 0px;
+}
+
+h4{font-size:20px;}
+h3{font-size:22px;}
+h2{font-size:24px; color: #E47911;}
+h1{font-size:28px;}
+
+.entry{
+	min-height:100px;
+	height:auto;
+	padding-bottom: 10px;
+	border-bottom:1px dashed #999999;
+}
+
+.float-info{
+	margin:0px 10px 10px 0px;
+	float:left; 
+	width:500px;
+	height:100%
+}
+.float-rating{
+	float:left;
+	margin-top:0px;
+}
+.float-rating:after{clear:both;}
+
+#basic{
+	float:left;
+	min-height:300px;
+	height:auto;
+	width:100%;
+}
+
+#basic:after{
+	clear:both;
+}
+
+.p-review{margin-left:50px;}
+.ul-list{list-style:none;}
+
+.averageRating{
+	float:left; 
+	margin:-8px 10px -5px 0px;
+	font-weight:bold;
+}
+
+.review{
+	margin-top:10px;
+	padding:10px;
+	padding-bottom:0px;
+	border:3px solid RGB(179,197,226);
+	/*background-color: RGB(179,197,226);*/
+}
+
+.review2{
+	margin-top:10px;
+	padding:10px;
+	padding-bottom:0px;
+	border:3px solid #95c9c5;
+	/*background-color: #95c9c5;*/
+}

@@ -9,8 +9,8 @@ import java.util.List;
 import org.apache.http.client.methods.HttpGet;
 import org.felix.db.Tee80s;
 import org.felix.db.Tee80sReview;
-import org.felix.util.io.FileUtils;
-import org.felix.util.system.DateUtils;
+import org.felix.io.FileUtils;
+import org.felix.system.DateUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -30,7 +30,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 		Document doc = Jsoup.parse(html);
 
 		Elements es = doc.select("meta[property]");
-		Element e = null;
+		Element e = null, el = null;
 		for (int i = 0; i < es.size(); i++)
 		{
 			e = es.get(i);
@@ -114,6 +114,58 @@ public class Tee80sShirtClient extends DefaultWebClient
 		e = doc.select("p.pr-snippet-review-count").first();
 		String num = e.text();
 		t.setNumRating(Integer.parseInt(num.substring(num.indexOf('(') + 1, num.indexOf(' '))));
+
+		/* review */
+		e = doc.select("div.pr-snapshot-consensus").first();
+		t.setRecommendation(e.text());
+
+		e = doc.select("div.pr-attribute-group.pr-rounded.pr-attribute-pros").first();
+		es = e.select("div.pr-attribute-value li");
+		String pros = "";
+		for (int i = 0; i < es.size(); i++)
+		{
+			e = es.get(i);
+			pros += e.text();
+			if (i < es.size() - 1) pros += "::";
+		}
+		t.setPros(pros);
+
+		e = doc.select("div.pr-attribute-group.pr-rounded.pr-attribute-cons").first();
+		es = e.select("div.pr-attribute-value li");
+		String cons = "";
+		for (int i = 0; i < es.size(); i++)
+		{
+			e = es.get(i);
+			cons += e.text();
+			if (i < es.size() - 1) cons += "::";
+		}
+		t.setCons(cons);
+
+		e = doc.select("div.pr-attribute-group.pr-rounded.pr-attribute-bestuses.pr-last").first();
+		es = e.select("div.pr-attribute-value li");
+		String bestUses = "";
+		for (int i = 0; i < es.size(); i++)
+		{
+			e = es.get(i);
+			bestUses += e.text();
+			if (i < es.size() - 1) bestUses += "::";
+		}
+		t.setBestUses(bestUses);
+
+		e = doc.select("div.pr-other-attributes").first();
+		el = e.select("li.pr-other-attributes-group.pr-other-attribute-describeyourself").first();
+		if (el != null)
+		{
+			el = el.select("li.pr-other-attribute-value").first();
+			t.setReviewerProfile(el.text());
+		}
+
+		el = e.select("li.pr-other-attributes-group.pr-other-attribute-wasthisagift").first();
+		if (el != null)
+		{
+			el = el.select("li.pr-other-attribute-value").first();
+			t.setGift(el.text());
+		}
 
 	}
 	

@@ -3,19 +3,27 @@ package org.felix.db;
 public class Tee80s extends DBObject
 {
 	private String	id;
-	private String	name;
-	private String	sizes;
-	private String	price;
-	private String	features;
-	private String	gender;
-	private String	type;
-	private String	url;
-	private String	description;
-	private String	image;
-	private String	admins;
-	private String	locale;
+	private String	name			= "";
+	private String	sizes			= "";
+	private String	price			= "";
+	private String	features		= "";
+	private String	gender			= "";
+	private String	type			= "";
+	private String	url				= "";
+	private String	description		= "";
+	private String	image			= "";
+	private String	admins			= "";
+	private String	locale			= "";
+
+	/* info about overall rating and review */
 	private float	avgRating;
 	private int		numRating;
+	private String	pros			= "";
+	private String	cons			= "";
+	private String	bestUses		= "";
+	private String	reviewerProfile	= "";
+	private String	gift			= "";
+	private String	recommendation	= "";
 
 	@Override
 	public String toString()
@@ -23,7 +31,9 @@ public class Tee80s extends DBObject
 		return " id = " + id + "\n name = " + name + "\n sizes = " + sizes + "\n price = " + price + "\n features = "
 				+ features + "\n gender = " + gender + "\n type = " + type + "\n url = " + url + "\n description = "
 				+ description + "\n image = " + image + "\n admins = " + admins + "\n locale = " + locale
-				+ "\n avgRating = " + avgRating + "\n numRating = " + numRating;
+				+ "\n avgRating = " + avgRating + "\n numRating = " + numRating + "\n recommendation = "
+				+ recommendation + "\n pros = " + pros + "\n cons = " + cons + "\n bestUses = " + bestUses
+				+ "\n reviewerProfile = " + reviewerProfile + "\n gift = " + gift;
 	}
 
 	public String getId()
@@ -164,6 +174,66 @@ public class Tee80s extends DBObject
 	public void setGender(String gender)
 	{
 		this.gender = replace(gender);
+	}
+
+	public String getPros()
+	{
+		return pros;
+	}
+
+	public void setPros(String pros)
+	{
+		this.pros = replace(pros);
+	}
+
+	public String getCons()
+	{
+		return cons;
+	}
+
+	public void setCons(String cons)
+	{
+		this.cons = replace(cons);
+	}
+
+	public String getBestUses()
+	{
+		return bestUses;
+	}
+
+	public void setBestUses(String bestUses)
+	{
+		this.bestUses = replace(bestUses);
+	}
+
+	public String getReviewerProfile()
+	{
+		return reviewerProfile;
+	}
+
+	public void setReviewerProfile(String reviewerProfile)
+	{
+		this.reviewerProfile = replace(reviewerProfile);
+	}
+
+	public String getGift()
+	{
+		return gift;
+	}
+
+	public void setGift(String gift)
+	{
+		this.gift = replace(gift);
+	}
+
+	public String getRecommendation()
+	{
+		return recommendation;
+	}
+
+	public void setRecommendation(String recommendation)
+	{
+		this.recommendation = replace(recommendation);
 	}
 
 }

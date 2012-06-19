@@ -5,20 +5,21 @@ import java.sql.Date;
 public class Tee80sReview extends DBObject
 {
 	private int id;
-	private String productId;
 	private float rating;
-	private String userName;
-	private String userLocation;
-	private String tags;
-	private String title;
-	private String details;
-	private String pros;
-	private String cons;
-	private String bestUses;
-	private String fit;
-	private String length;
-	private String gift;
-	private String recommendation;
+	private String	productId		= "";
+
+	private String	userName		= "";
+	private String	userLocation	= "";
+	private String	tags			= "";
+	private String	title			= "";
+	private String	details			= "";
+	private String	pros			= "";
+	private String	cons			= "";
+	private String	bestUses		= "";
+	private String	fit				= "";
+	private String	length			= "";
+	private String	gift			= "";
+	private String	recommendation	= "";
 	private Date vDate;
 	
 	@Override

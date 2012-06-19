@@ -3,7 +3,6 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<title>Product Page</title>
-	<link rel="stylesheet" type="text/css" href="css/html.css" />
 	<link rel="stylesheet" type="text/css" href="css/main.css" />
 	<link rel="stylesheet" type="text/css"  href='js/jquery.rating.css' />
 	<script type="text/javascript" language="javascript" src='js/jquery.js'></script>	
@@ -40,7 +39,7 @@
 			{
 				//AJAX code: submit rating to server action
 				//ajax_submit(rating);
-				$.get("rating.do?action=submit", {uId: userId, pId:productId, rating:rating}, function(data){
+				$.get("./rating.do?action=submit", {uId: userId, pId:productId, rating:rating}, function(data){
 					$(resultSelector).html("&nbsp;"+data);
 				});
 			}							

@@ -4,27 +4,24 @@ import java.sql.Date;
 
 public class BookReview extends DBObject
 {
-	private String	userId;
-	private String	userName;
-	private String	userProfileUrl;
-	private String	isbn;			// book id
+	private String	userId			= "";
+	private String	userName		= "";
+	private String	userProfileUrl	= "";
+	private String	isbn			= "";	// book id
 	private float	rating;
-	private String	title;
-	private String	content;
+	private String	title			= "";
+	private String	content			= "";
 	private Date	publishDate;
 
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("userId = ").append(userId).append("\n")
-		  .append("userName = ").append(userName).append("\n")
-		  .append("userProfileUrl = ").append(userProfileUrl).append("\n")
-		  .append("isbn = ").append(isbn).append("\n")
-		  .append("rating = ").append(rating).append("\n")
-		  .append("title = ").append(title).append("\n")
-		  .append("publishDate = ").append(publishDate).append("\n")
-		  .append("content = ").append(content).append("\n");
+		sb.append("userId = ").append(userId).append("\n").append("userName = ").append(userName).append("\n")
+				.append("userProfileUrl = ").append(userProfileUrl).append("\n").append("isbn = ").append(isbn)
+				.append("\n").append("rating = ").append(rating).append("\n").append("title = ").append(title)
+				.append("\n").append("publishDate = ").append(publishDate).append("\n").append("content = ")
+				.append(content).append("\n");
 
 		return sb.toString();
 	}
