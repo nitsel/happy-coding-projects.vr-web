@@ -34,7 +34,7 @@ public class Tee80sDao extends DerbyDao
 
 	public void update(Tee80sRating r)
 	{
-		String sql = "UPDATE ratings SET rating = " + r.getRating() + ", comments = " + r.getComments()
+		String sql = "UPDATE ratings SET rating = " + r.getRating() + ", comments = '" + r.getComments()
 				+ "', rDate = '" + r.getrDate() + "' WHERE userId = '" + r.getUserId() + "' AND teeId = '"
 				+ r.getTeeId() + "'";
 
