@@ -270,9 +270,16 @@ public class Tee80sDao extends DerbyDao
 
 	public List<Tee80sReview> queryReviews(String productId)
 	{
-		String sql = "SELECT * FROM reviews WHERE productId = '" + productId + "'";
+		return queryReviews(productId, 0, 0);
+	}
+	
+	public List<Tee80sReview> queryReviews(String productId, int page, int pageSize)
+	{
+		String sql = "SELECT * FROM reviews WHERE productId = '" + productId + "' ORDER BY vDate DESC"
+				+ (page > 0 ? " OFFSET " + (page - 1) * pageSize + " ROWS" : "")
+				+ (pageSize > 0 ? " FETCH NEXT " + pageSize + " ROWS ONLY" : "");
 		logger.info("Query reviews: {}", sql);
-
+		
 		ResultSet rs = null;
 		List<Tee80sReview> ls = new ArrayList<Tee80sReview>();
 		try
@@ -298,14 +305,14 @@ public class Tee80sDao extends DerbyDao
 				r.setGift(rs.getString("gift"));
 				r.setRecommendation(rs.getString("recommendation"));
 				r.setvDate(DateUtils.parseString(rs.getString("vDate")));
-
+				
 				ls.add(r);
 			}
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-
+		
 		return ls;
 	}
 
@@ -354,8 +361,8 @@ public class Tee80sDao extends DerbyDao
 		Tee80sDao dao = new Tee80sDao();
 		if (meta)
 		{
-			dao.clearTables();
-			dao.dropTables();
+			// dao.clearTables();
+			// dao.dropTables();
 			dao.createTables();
 		}
 

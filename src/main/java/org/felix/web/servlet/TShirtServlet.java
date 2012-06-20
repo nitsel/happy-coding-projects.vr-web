@@ -20,10 +20,10 @@ import org.slf4j.LoggerFactory;
 
 public class TShirtServlet extends HttpServlet
 {
-	private final static Tee80sDao	dao					= new Tee80sDao();
-	private final static Logger		logger				= LoggerFactory.getLogger(TShirtServlet.class);
-
-	private static final long		serialVersionUID	= 1L;
+	private final static Tee80sDao dao = new Tee80sDao();
+	private final static Logger logger = LoggerFactory.getLogger(TShirtServlet.class);
+	
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
@@ -35,15 +35,16 @@ public class TShirtServlet extends HttpServlet
 		{
 			String id = req.getParameter("id");
 			String page = req.getParameter("page");
-			int p = 0;
+			int p = 1;
 			if (id == null) id = "TREK025";
 			if (page != null) p = Integer.parseInt(page);
+			req.setAttribute("page", p);
 
 			Tee80s t = dao.queryTee80s(id);
 			req.setAttribute("tee", t);
-			logger.info(t.toString());
 			
-			List<Tee80sReview> rs = dao.queryReviews(id);
+			int pageSize = 10;
+			List<Tee80sReview> rs = dao.queryReviews(id, p, pageSize);
 			req.setAttribute("reviews", rs);
 
 			RequestDispatcher rd = req.getRequestDispatcher("t-shirt.jsp");

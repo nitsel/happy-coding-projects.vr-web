@@ -167,7 +167,18 @@
 
 	<div class="entry2">
 		<h2>Customer Reviews</h2>
-		<h4>Reviewed by ${tee.numRating} Customers</h4>
+		<p><strong>Reviewed by ${tee.numRating} Customers</strong>
+			<span class="pages"><c:forEach var="page" begin="1" end="${tee.numRating/10 +1}">
+				<a href="t-shirt?action=info&page=${page }">
+				<span
+					<c:choose>
+						<c:when test="${param.page==page }">class="block-reco"</c:when>
+						<c:when test="${requestScope.page==page }">class="block-reco"</c:when>
+						<c:otherwise>class="block-rating"</c:otherwise>
+					</c:choose>
+				>${page}</span></a>
+			</c:forEach></span>
+		</p>
 
 		<c:forEach var="r" items="${requestScope.reviews}">
 			<div class="entry">

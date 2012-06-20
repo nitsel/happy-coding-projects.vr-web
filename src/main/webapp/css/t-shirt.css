@@ -39,7 +39,7 @@ div, table{
 	box-shadow: 3px 3px 0 #ddd;	
 }
 
-.entry:after, .stars:after{
+.entry:after, .stars:after, .pages:after{
 	clear:both;
 	content:"";
 	display:block;	 /* Rendered as a DIV */
@@ -143,4 +143,6 @@ table td{
 	font-weight:bold;
 }
 
+.pages{float:right;}
+.pages span{margin-left:5px;}
 
