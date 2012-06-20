@@ -18,6 +18,8 @@ import org.jsoup.select.Elements;
 
 public class Tee80sShirtClient extends DefaultWebClient
 {
+	private final static String	SEPARATOR	= "<br/>";
+
 	/**
 	 * parse html to obtain properties of tee80s
 	 * 
@@ -36,16 +38,11 @@ public class Tee80sShirtClient extends DefaultWebClient
 			e = es.get(i);
 			String item = e.attr("property");
 			String value = e.attr("content");
-			if ("og:title".equals(item))
-				t.setName(value);
-			else if ("og:type".equals(item))
-				t.setType(value);
-			else if ("og:url".equals(item))
-				t.setUrl(value);
-			else if ("og:description".equals(item))
-				t.setDescription(value);
-			else if ("og:image".equals(item))
-				t.setImage(value);
+			if ("og:title".equals(item)) t.setName(value);
+			else if ("og:type".equals(item)) t.setType(value);
+			else if ("og:url".equals(item)) t.setUrl(value);
+			else if ("og:description".equals(item)) t.setDescription(value);
+			else if ("og:image".equals(item)) t.setImage(value);
 			else if ("fb:admins".equals(item)) t.setAdmins(value);
 		}
 
@@ -61,10 +58,10 @@ public class Tee80sShirtClient extends DefaultWebClient
 				String[] items = data.split(";");
 				for (String item : items)
 				{
-					if (item.contains("pr_locale"))
-						t.setLocale(item.substring(item.indexOf('\'') + 1, item.lastIndexOf('\'')));
-					else if (item.contains("pr_page_id"))
-						t.setId(item.substring(item.indexOf('\'') + 1, item.lastIndexOf('\'')));
+					if (item.contains("pr_locale")) t.setLocale(item.substring(item.indexOf('\'') + 1,
+							item.lastIndexOf('\'')));
+					else if (item.contains("pr_page_id")) t.setId(item.substring(item.indexOf('\'') + 1,
+							item.lastIndexOf('\'')));
 				}
 			}
 		}
@@ -103,7 +100,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 		{
 			e = es.get(i);
 			features += e.text();
-			if (i < es.size() - 1) features += "::";
+			if (i < es.size() - 1) features += "</li><li>";
 		}
 		t.setFeatures(features);
 
@@ -117,7 +114,9 @@ public class Tee80sShirtClient extends DefaultWebClient
 
 		/* review */
 		e = doc.select("div.pr-snapshot-consensus").first();
-		t.setRecommendation(e.text());
+		String reco = e.text();
+		reco = reco.substring(0, reco.indexOf('%') + 1);
+		t.setRecommendation(reco);
 
 		e = doc.select("div.pr-attribute-group.pr-rounded.pr-attribute-pros").first();
 		es = e.select("div.pr-attribute-value li");
@@ -126,7 +125,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 		{
 			e = es.get(i);
 			pros += e.text();
-			if (i < es.size() - 1) pros += "::";
+			if (i < es.size() - 1) pros += SEPARATOR;
 		}
 		t.setPros(pros);
 
@@ -137,7 +136,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 		{
 			e = es.get(i);
 			cons += e.text();
-			if (i < es.size() - 1) cons += "::";
+			if (i < es.size() - 1) cons += SEPARATOR;
 		}
 		t.setCons(cons);
 
@@ -148,7 +147,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 		{
 			e = es.get(i);
 			bestUses += e.text();
-			if (i < es.size() - 1) bestUses += "::";
+			if (i < es.size() - 1) bestUses += SEPARATOR;
 		}
 		t.setBestUses(bestUses);
 
@@ -168,7 +167,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 		}
 
 	}
-	
+
 	/**
 	 * parse html to obtain reviews
 	 * 
@@ -179,30 +178,30 @@ public class Tee80sShirtClient extends DefaultWebClient
 	public List<Tee80sReview> parseReview(String html) throws Exception
 	{
 		List<Tee80sReview> reviews = new ArrayList<Tee80sReview>();
-		
+
 		Document doc = Jsoup.parse(html);
 		Elements es = null, els = null;
 		Element e = null, el = null;
-		
+
 		es = doc.select("div.pr-review-wrap");
 		for (int i = 0; i < es.size(); i++)
 		{
 			e = es.get(i);
 			Tee80sReview review = new Tee80sReview();
-			
+
 			el = e.select("span.pr-rating.pr-rounded").first();
 			review.setRating(Float.parseFloat(el.text()));
 			review.setTitle(el.nextElementSibling().text());
-			
+
 			el = e.select("p.pr-review-author-name span").first();
 			review.setUserName(el.text());
-			
+
 			el = e.select("p.pr-review-author-location span").first();
 			review.setUserLocation(el.text());
-			
+
 			els = e.select("p.pr-review-author-affinities span");
 			if (els != null && els.size() > 0) review.setTags(els.first().text());
-			
+
 			els = e.select("div.pr-attribute-group.pr-rounded.pr-attribute-pros li");
 			String pros = "";
 			if (els != null && els.size() > 0)
@@ -210,11 +209,11 @@ public class Tee80sShirtClient extends DefaultWebClient
 				for (int j = 0; j < els.size(); j++)
 				{
 					pros += els.get(j).text();
-					if (j < els.size() - 1) pros += "::";
+					if (j < els.size() - 1) pros += SEPARATOR;
 				}
 			}
 			review.setPros(pros);
-			
+
 			els = e.select("div.pr-attribute-group.pr-rounded.pr-attribute-cons li");
 			String cons = "";
 			if (els != null && els.size() > 0)
@@ -222,11 +221,11 @@ public class Tee80sShirtClient extends DefaultWebClient
 				for (int j = 0; j < els.size(); j++)
 				{
 					cons += els.get(j).text();
-					if (j < els.size() - 1) cons += "::";
+					if (j < els.size() - 1) cons += SEPARATOR;
 				}
 			}
 			review.setCons(cons);
-			
+
 			els = e.select("div.pr-attribute-group.pr-rounded.pr-attribute-bestuses.pr-last li");
 			String bestUses = "";
 			if (els != null && els.size() > 0)
@@ -234,14 +233,11 @@ public class Tee80sShirtClient extends DefaultWebClient
 				for (int j = 0; j < els.size(); j++)
 				{
 					bestUses += els.get(j).text();
-					if (j < els.size() - 1) bestUses += "::";
+					if (j < els.size() - 1) bestUses += SEPARATOR;
 				}
 			}
 			review.setBestUses(bestUses);
 
-			el = e.select("div.pr-review-text").first();
-			review.setDetails(el.text());
-			
 			els = e.select("ul.pr-other-attributes-list li");
 			for (int j = 0; j < els.size(); j += 2)
 			{
@@ -260,16 +256,39 @@ public class Tee80sShirtClient extends DefaultWebClient
 					review.setGift(el.text());
 				}
 			}
-			
+
 			els = e.select("div.pr-review-bottom-line-wrapper p");
 			if (els != null && els.size() > 0)
 			{
 				String bl = els.first().text();
 				review.setRecommendation(bl.substring(bl.indexOf("Bottom Line") + "Bottom Line ".length()));
 			}
-			
+
 			el = e.select("div.pr-review-author-date.pr-rounded").first();
 			review.setvDate(DateUtils.parseString(el.text(), DateUtils.PATTERN_MM_dd_yyyy));
+
+			els = e.select("div.pr-review-text");
+			if (els != null && els.size() > 0)
+			{
+				for (int j = 0; j < els.size(); j++)
+				{
+					el = els.get(j);
+
+					Elements cs = el.select("p.pr-comments-header");
+					if (cs == null || cs.size() < 1) review.setComments(el.text());
+					else
+					{
+						String header = cs.first().text();
+						String value = el.select("p.pr-comments").first().text();
+
+						if (header.startsWith("Comments about")) review.setComments(value);
+						else if (header.startsWith("Service and delivery")) review.setServices(value);
+					}
+				}
+			}
+
+			el = e.select("p.pr-comments").first();
+			review.setComments(el.text());
 
 			reviews.add(review);
 		}
@@ -341,7 +360,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 
 		bw.close();
 	}
-	
+
 	public List<String> parseImages(String html) throws Exception
 	{
 		List<String> images = new ArrayList<String>();
@@ -366,10 +385,10 @@ public class Tee80sShirtClient extends DefaultWebClient
 			// http://media.80stees.com/images/extraLarge/PEAN022_LG1.jpg
 			String uri = "http://media.80stees.com/images/extraLarge/";
 			image = uri + image;
-			
+
 			images.add(image);
 		}
-		
+
 		return images;
 	}
 

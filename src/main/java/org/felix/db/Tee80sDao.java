@@ -34,8 +34,9 @@ public class Tee80sDao extends DerbyDao
 
 	public void update(Tee80sRating r)
 	{
-		String sql = "UPDATE ratings SET rating = " + r.getRating() + ", rDate = '" + r.getrDate()
-				+ "' WHERE userId = '" + r.getUserId() + "' AND teeId = '" + r.getTeeId() + "'";
+		String sql = "UPDATE ratings SET rating = " + r.getRating() + ", comments = " + r.getComments()
+				+ "', rDate = '" + r.getrDate() + "' WHERE userId = '" + r.getUserId() + "' AND teeId = '"
+				+ r.getTeeId() + "'";
 
 		logger.info("Update ratings: {}", sql);
 		try
@@ -51,10 +52,11 @@ public class Tee80sDao extends DerbyDao
 	{
 		String sql = "UPDATE tee80s SET productId='" + r.getProductId() + "', rating=" + r.getRating() + ", userName='"
 				+ r.getUserName() + "', userLocation='" + r.getUserLocation() + "', tags = '" + r.getTags()
-				+ "', title = '" + r.getTitle() + "', details = '" + r.getDetails() + "', pros ='" + r.getPros()
-				+ "', cons='" + r.getCons() + "', bestUses ='" + r.getBestUses() + "', fit='" + r.getFit()
-				+ "', length='" + r.getLength() + "', gift='" + r.getGift() + "', recommendation = '"
-				+ r.getRecommendation() + "', vDate = '" + r.getvDate() + "' WHERE id='" + r.getId() + "'";
+				+ "', title = '" + r.getTitle() + "', comments = '" + r.getComments() + ", services = '"
+				+ r.getServices() + "', pros ='" + r.getPros() + "', cons='" + r.getCons() + "', bestUses ='"
+				+ r.getBestUses() + "', fit='" + r.getFit() + "', length='" + r.getLength() + "', gift='" + r.getGift()
+				+ "', recommendation = '" + r.getRecommendation() + "', vDate = '" + r.getvDate() + "' WHERE id='"
+				+ r.getId() + "'";
 
 		logger.info("Update reviews: {}", sql);
 		stmt.executeUpdate(sql);
@@ -63,8 +65,8 @@ public class Tee80sDao extends DerbyDao
 	public void insert(Tee80s t) throws Exception
 	{
 		// check if it is already exist
-		ResultSet rs = queryTee80s(t);
-		if (rs.next())
+		Tee80s tt = queryTee80s(t.getId());
+		if (tt != null)
 		{
 			logger.debug("Tee80s (id = {}) has already been existing in the database. ", t.getId());
 			return;
@@ -87,9 +89,9 @@ public class Tee80sDao extends DerbyDao
 
 	public void insert(Tee80sRating r)
 	{
-		String tableElements = "userId, teeId, rating, rDate";
+		String tableElements = "userId, teeId, rating, comments, rDate";
 		String sql = "INSERT INTO ratings (" + tableElements + ") VALUES ('" + r.getUserId() + "', '" + r.getTeeId()
-				+ "', " + r.getRating() + ", '" + r.getrDate() + "')";
+				+ "', " + r.getRating() + ", '" + r.getComments() + "', '" + r.getrDate() + "')";
 
 		logger.info("Insert rating: {}", sql);
 
@@ -116,6 +118,7 @@ public class Tee80sDao extends DerbyDao
 				r.setUserId(rs.getString("userId"));
 				r.setTeeId(rs.getString("teeId"));
 				r.setRating(Float.parseFloat(rs.getString("rating")));
+				r.setComments(rs.getString("comments"));
 				r.setrDate(DateUtils.parseString(rs.getString("rDate")));
 			}
 		} catch (Exception e)
@@ -138,12 +141,12 @@ public class Tee80sDao extends DerbyDao
 		}
 
 		// insert into database
-		String tableElements = "productId, rating, userName, userLocation, tags, title, details, pros, cons, bestUses, fit, length, gift, recommendation, vDate";
+		String tableElements = "productId, rating, userName, userLocation, tags, title, comments, services, pros, cons, bestUses, fit, length, gift, recommendation, vDate";
 		String sql = "INSERT INTO reviews (" + tableElements + ") VALUES ('" + r.getProductId() + "', " + r.getRating()
 				+ ", '" + r.getUserName() + "', '" + r.getUserLocation() + "', '" + r.getTags() + "', '" + r.getTitle()
-				+ "', '" + r.getDetails() + "', '" + r.getPros() + "', '" + r.getCons() + "', '" + r.getBestUses()
-				+ "', '" + r.getFit() + "', '" + r.getLength() + "', '" + r.getGift() + "', '" + r.getRecommendation()
-				+ "', '" + r.getvDate() + "')";
+				+ "', '" + r.getComments() + "', '" + r.getServices() + "', '" + r.getPros() + "', '" + r.getCons()
+				+ "', '" + r.getBestUses() + "', '" + r.getFit() + "', '" + r.getLength() + "', '" + r.getGift()
+				+ "', '" + r.getRecommendation() + "', '" + r.getvDate() + "')";
 
 		logger.info("Insert review: {}", sql);
 
@@ -182,14 +185,6 @@ public class Tee80sDao extends DerbyDao
 		return results;
 	}
 
-	public ResultSet queryTee80s(Tee80s t) throws Exception
-	{
-		String sql = "SELECT * FROM tee80s WHERE id = '" + t.getId() + "'";
-
-		logger.info("Query tee80s: {}", sql);
-		return stmt.executeQuery(sql);
-	}
-
 	public Tee80s queryTee80s(String id)
 	{
 		String sql = "SELECT * FROM tee80s WHERE id = '" + id + "'";
@@ -207,6 +202,7 @@ public class Tee80sDao extends DerbyDao
 				t.setName(rs.getString("name"));
 				t.setSizes(rs.getString("sizes"));
 				t.setPrice(rs.getString("price"));
+				t.setFeatures(rs.getString("features"));
 				t.setType(rs.getString("type"));
 				t.setGender(rs.getString("gender"));
 				t.setUrl(rs.getString("url"));
@@ -257,7 +253,8 @@ public class Tee80sDao extends DerbyDao
 			r.setUserLocation(rs.getString("userLocation"));
 			r.setTags(rs.getString("tags"));
 			r.setTitle(rs.getString("title"));
-			r.setDetails(rs.getString("details"));
+			r.setComments(rs.getString("comments"));
+			r.setServices(rs.getString("services"));
 			r.setPros(rs.getString("pros"));
 			r.setCons(rs.getString("cons"));
 			r.setBestUses(rs.getString("bestUses"));
@@ -291,7 +288,8 @@ public class Tee80sDao extends DerbyDao
 				r.setUserLocation(rs.getString("userLocation"));
 				r.setTags(rs.getString("tags"));
 				r.setTitle(rs.getString("title"));
-				r.setDetails(rs.getString("details"));
+				r.setComments(rs.getString("comments"));
+				r.setServices(rs.getString("services"));
 				r.setPros(rs.getString("pros"));
 				r.setCons(rs.getString("cons"));
 				r.setBestUses(rs.getString("bestUses"));
@@ -322,12 +320,12 @@ public class Tee80sDao extends DerbyDao
 		logger.info("Create table tee80s: {}", sql);
 		stmt.execute(sql);
 
-		sql = "CREATE TABLE ratings (userId VARCHAR(50) PRIMARY KEY, teeId VARCHAR(50) NOT NULL, rating FLOAT NOT NULL, rDate DATE)";
+		sql = "CREATE TABLE ratings (userId VARCHAR(50) PRIMARY KEY, teeId VARCHAR(50) NOT NULL, rating FLOAT NOT NULL, comments VARCHAR(2000), rDate DATE)";
 		logger.info("Create table ratings: {}", sql);
 		stmt.execute(sql);
 
 		sql = "CREATE TABLE reviews (id INT GENERATED ALWAYS AS IDENTITY, productId VARCHAR(20) NOT NULL, rating FLOAT, userName VARCHAR(50), userLocation VARCHAR(100), tags VARCHAR(100),"
-				+ "title VARCHAR(100), details VARCHAR(2000), pros VARCHAR(200), cons VARCHAR(200), bestUses VARCHAR(200), fit VARCHAR(100), length VARCHAR(100), gift VARCHAR(100), recommendation VARCHAR(200), vDate DATE )";
+				+ "title VARCHAR(100), comments VARCHAR(2000), services VARCHAR(1000), pros VARCHAR(200), cons VARCHAR(200), bestUses VARCHAR(200), fit VARCHAR(100), length VARCHAR(100), gift VARCHAR(100), recommendation VARCHAR(200), vDate DATE )";
 
 		logger.info("Create table reviews: {}", sql);
 
@@ -356,8 +354,8 @@ public class Tee80sDao extends DerbyDao
 		Tee80sDao dao = new Tee80sDao();
 		if (meta)
 		{
-			// dao.clearTables();
-			// dao.dropTables();
+			dao.clearTables();
+			dao.dropTables();
 			dao.createTables();
 		}
 
@@ -396,18 +394,22 @@ public class Tee80sDao extends DerbyDao
 			}
 
 			/* Images of Tees */
-			int j = 0;
-			for (String link : links)
+			boolean images = true;
+			if (!images)
 			{
-				j++;
-				String[] d = link.split("::");
-				String url = d[4];
-				String html = URLReader.read(url);
+				int j = 0;
+				for (String link : links)
+				{
+					j++;
+					String[] d = link.split("::");
+					String url = d[4];
+					String html = URLReader.read(url);
 
-				List<String> imageList = client.parseImages(html);
+					List<String> imageList = client.parseImages(html);
 
-				FileUtils.writeString("images.txt", j + "\n" + url, true);
-				FileUtils.writeList("images.txt", imageList, true);
+					FileUtils.writeString("images.txt", j + "\n" + url, true);
+					FileUtils.writeList("images.txt", imageList, true);
+				}
 			}
 		}
 	}
@@ -416,6 +418,10 @@ public class Tee80sDao extends DerbyDao
 	protected boolean clearTables() throws Exception
 	{
 		String sql = "DELETE FROM reviews";
+		stmt.execute(sql);
+		logger.info("Clear data: {}", sql);
+
+		sql = "DELETE FROM ratings";
 		stmt.execute(sql);
 		logger.info("Clear data: {}", sql);
 
