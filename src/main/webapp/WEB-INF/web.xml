@@ -5,7 +5,6 @@
 	     xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		 id="vr-web" version="2.5">
-	<display-name>T-Shirt Store</display-name>
 	<context-param>
 		<param-name>Password</param-name>
 		<param-value>through@pass</param-value>

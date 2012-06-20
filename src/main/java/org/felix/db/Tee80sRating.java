@@ -7,6 +7,7 @@ public class Tee80sRating extends DBObject
 	private String	userId;
 	private String	teeId;
 	private float	rating;
+	private String	comments	= "";
 	private Date	rDate;
 
 	public String getUserId()
@@ -47,5 +48,15 @@ public class Tee80sRating extends DBObject
 	public void setrDate(Date rDate)
 	{
 		this.rDate = rDate;
+	}
+
+	public String getComments()
+	{
+		return comments;
+	}
+
+	public void setComments(String comments)
+	{
+		this.comments = replace(comments);
 	}
 }
