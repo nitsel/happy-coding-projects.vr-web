@@ -107,6 +107,8 @@ public class Tee80sDao extends DerbyDao
 	public Tee80sRating queryTee80sRating(String userId, String teeId)
 	{
 		String sql = "SELECT * FROM ratings WHERE userId = '" + userId + "' AND teeId ='" + teeId + "'";
+		logger.info("Query ratings: {}", sql);
+
 		ResultSet rs = null;
 		Tee80sRating r = null;
 		try

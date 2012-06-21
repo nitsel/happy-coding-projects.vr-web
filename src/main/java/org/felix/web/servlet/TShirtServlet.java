@@ -15,14 +15,10 @@ import org.felix.db.Tee80s;
 import org.felix.db.Tee80sDao;
 import org.felix.db.Tee80sRating;
 import org.felix.db.Tee80sReview;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class TShirtServlet extends HttpServlet
 {
 	private final static Tee80sDao dao = new Tee80sDao();
-	private final static Logger logger = LoggerFactory.getLogger(TShirtServlet.class);
-	
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -31,20 +27,32 @@ public class TShirtServlet extends HttpServlet
 		String action = req.getParameter("action");
 		if (action == null) action = "info";
 
+		String teeId = req.getParameter("teeId");
+		if (teeId == null) teeId = "TREK025";
+
+		String userId = (String) req.getSession().getAttribute("userId");
+		if (userId == null)
+		{
+			userId = "guoguibing";
+			req.getSession().setAttribute("userId", userId);
+		}
+
 		if ("info".equals(action))
 		{
-			String id = req.getParameter("id");
 			String page = req.getParameter("page");
 			int p = 1;
-			if (id == null) id = "TREK025";
+
 			if (page != null) p = Integer.parseInt(page);
 			req.setAttribute("page", p);
 
-			Tee80s t = dao.queryTee80s(id);
+			Tee80s t = dao.queryTee80s(teeId);
 			req.setAttribute("tee", t);
 			
+			Tee80sRating r = dao.queryTee80sRating(userId, teeId);
+			req.setAttribute("rating", r);
+
 			int pageSize = 10;
-			List<Tee80sReview> rs = dao.queryReviews(id, p, pageSize);
+			List<Tee80sReview> rs = dao.queryReviews(teeId, p, pageSize);
 			req.setAttribute("reviews", rs);
 
 			RequestDispatcher rd = req.getRequestDispatcher("t-shirt.jsp");
@@ -53,8 +61,6 @@ public class TShirtServlet extends HttpServlet
 		} else if ("rating".equals(action))
 		{
 			float rating = Float.parseFloat(req.getParameter("rating"));
-			String userId = req.getParameter("userId");
-			String teeId = req.getParameter("teeId");
 			String comments = req.getParameter("comments");
 
 			Tee80sRating r = new Tee80sRating();
