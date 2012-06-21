@@ -13,6 +13,7 @@
 <script type="text/javascript" src='js/jquery.js'></script>
 <script type="text/javascript" src='js/jquery.MetaData.js'></script>
 <script type="text/javascript" src='js/jquery.rating.js'></script>
+<script type="text/javascript" src='js/jquery.scrollTo-min.js'></script>
 <script>
 		var ratingSelector='form#ratingForm>input.star';
 		var resultSelector='div#result';
@@ -42,8 +43,8 @@
 				$(resultSelector).html("Your rating "+rating+" is saved!");
 			}else
 			{
-			    var url = "./t-shirt?action=rating&rating="+rating+"&teeId="+$("input#tid").val()+"&userId="+$("input#uid").val()+"&comments="+$("#comments").val();
-			    // alert(url);
+			    var url = "./t-shirt?action=rating&rating="+rating+"&teeId="+${tee.id }+"&comments="+$("#comments").val();
+			    alert(url);
 				$.get(url, function(data){
 						$(resultSelector).html("&nbsp;"+data);
 				});
@@ -54,6 +55,12 @@
 		function init()
 		{
 			//$('#testform>input[value="3"]').checked="checked";
+			var rate=${r.rating};
+			if(rate>0){
+				$('#ratingForm>input .star').rating('select', rate+'');
+			}
+			
+			
 			var averageSelector = 'form#averageForm>input';
 			var r=Math.floor(${tee.avgRating}/0.5)*0.5;
 			$(averageSelector).rating('enable');
@@ -65,8 +72,8 @@
 			$(averageSelector2).rating('select', r+'');
 			$(averageSelector2).rating('disable');
 			
-			//set default rating for you.
-			//$(ratingSelector).rating('select', 3+'');
+			var page = $("#page").val();
+			if(page>0){	$.scrollTo('.entry2', 0, {elasout:'elasout'} );	}
 		}
 		
 		$(document).ready(init);
@@ -96,14 +103,13 @@
 			<div id="result" style="margin: 5px 0px 10px 0px;"></div>
 			<form id="ratingForm" action="#" method="get"
 				onSubmit="return submit_rating()">
-				<input id="tid" name="teeId" type="hidden" value="${tee.id }" /> <input
-					id="uid" name="userId" , type="hidden" value="guoguibing" /> <input
-					name="star1" type="radio" value="1" class="star" title="Very poor" />
+				<input name="star1" type="radio" value="1" class="star" title="Very poor" />
 				<input name="star1" type="radio" value="2" class="star" title="Poor" />
 				<input name="star1" type="radio" value="3" class="star" title="Fine" />
 				<input name="star1" type="radio" value="4" class="star" title="Good" />
 				<input name="star1" type="radio" value="5" class="star"
 					title="Very Good" /><br />
+				<input id="page"  type="hidden" value="${param.page }" />
 				<p>
 					Comments&nbsp;&nbsp;(optional):
 					<textarea id="comments" name="comments" cols="43" rows="5"></textarea>
@@ -115,7 +121,7 @@
 
 	<div class="entry">
 		<h2>Overall Review</h2>
-		<div>
+		<div> 
 			<div class="averageRating">Average Rating:</div>
 			<div class="stars">
 				<form id="averageForm2">
@@ -141,26 +147,26 @@
 			<p>
 				<span class="block-reco">${tee.recommendation}</span>of respondents
 				would recommend this to a friend.
-			<table>
-				<tr>
-					<th>Pros</th>
-					<th>Cons</th>
-					<th>Best Uses</th>
-				</tr>
-				<tr>
-					<td>${tee.pros }</td>
-					<td>${tee.cons }</td>
-					<td>${tee.bestUses }</td>
-				</tr>
-			</table>
-			<ul class="ul-properties">
-				<c:if test="${!empty tee.reviewerProfile}">
-					<li><span>Reviewer Profile:</span>${tee.reviewerProfile}</li>
-				</c:if>
-				<c:if test="${!empty tee.gift }">
-					<li><span>Is it a gift?:</span>${tee.gift}</li>
-				</c:if>
-			</ul>
+				<table>
+					<tr>
+						<th>Pros</th>
+						<th>Cons</th>
+						<th>Best Uses</th>
+					</tr>
+					<tr>
+						<td>${tee.pros }</td>
+						<td>${tee.cons }</td>
+						<td>${tee.bestUses }</td>
+					</tr>
+				</table>
+				<ul class="ul-properties">
+					<c:if test="${!empty tee.reviewerProfile}">
+						<li><span>Reviewer Profile:</span>${tee.reviewerProfile}</li>
+					</c:if>
+					<c:if test="${!empty tee.gift }">
+						<li><span>Is it a gift?:</span>${tee.gift}</li>
+					</c:if>
+				</ul>
 			</p>
 		</div>
 	</div>
@@ -169,10 +175,9 @@
 		<h2>Customer Reviews</h2>
 		<p><strong>Reviewed by ${tee.numRating} Customers</strong>
 			<span class="pages"><c:forEach var="page" begin="1" end="${tee.numRating/10 +1}">
-				<a href="t-shirt?action=info&page=${page }">
+				<a href="t-shirt?action=info&teeId=${tee.id }&page=${page }">
 				<span
 					<c:choose>
-						<c:when test="${param.page==page }">class="block-reco"</c:when>
 						<c:when test="${requestScope.page==page }">class="block-reco"</c:when>
 						<c:otherwise>class="block-rating"</c:otherwise>
 					</c:choose>
@@ -239,6 +244,18 @@
 				</ul>
 			</div>
 		</c:forEach>
+		
+		<p><strong>Reviewed by ${tee.numRating} Customers</strong>
+			<span class="pages"><c:forEach var="page" begin="1" end="${tee.numRating/10 +1}">
+				<a href="t-shirt?action=info&teeId=${tee.id }&page=${page }">
+				<span
+					<c:choose>
+						<c:when test="${requestScope.page==page }">class="block-reco"</c:when>
+						<c:otherwise>class="block-rating"</c:otherwise>
+					</c:choose>
+				>${page}</span></a>
+			</c:forEach></span>
+		</p>
 	</div>
 
 </body>
