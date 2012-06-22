@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:useBean id="tee" class="org.felix.db.Tee80s" scope="request" />
+<jsp:useBean id="rating" class="org.felix.db.Tee80sRating" scope="request" />
 
 <!DOCTYPE html>
 <html>
@@ -43,8 +44,7 @@
 				$(resultSelector).html("Your rating "+rating+" is saved!");
 			}else
 			{
-			    var url = "./t-shirt?action=rating&rating="+rating+"&teeId="+${tee.id }+"&comments="+$("#comments").val();
-			    alert(url);
+			    var url = "./t-shirt?action=rating&rating="+rating+"&teeId=${tee.id }&comments="+$("#comments").val();
 				$.get(url, function(data){
 						$(resultSelector).html("&nbsp;"+data);
 				});
@@ -54,12 +54,10 @@
 		
 		function init()
 		{
-			//$('#testform>input[value="3"]').checked="checked";
-			var rate=${r.rating};
+			var rate=${rating.rating};
 			if(rate>0){
-				$('#ratingForm>input .star').rating('select', rate+'');
-			}
-			
+				$('#ratingForm>input').rating('select', rate+'');
+			}			
 			
 			var averageSelector = 'form#averageForm>input';
 			var r=Math.floor(${tee.avgRating}/0.5)*0.5;
@@ -112,7 +110,7 @@
 				<input id="page"  type="hidden" value="${param.page }" />
 				<p>
 					Comments&nbsp;&nbsp;(optional):
-					<textarea id="comments" name="comments" cols="43" rows="5"></textarea>
+					<textarea id="comments" name="comments" cols="43" rows="5">${rating.comments }</textarea>
 				</p>
 				<input type="submit" value="Submit Rating" />
 			</form>

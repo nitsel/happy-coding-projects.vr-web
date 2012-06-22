@@ -329,7 +329,7 @@ public class Tee80sDao extends DerbyDao
 		logger.info("Create table tee80s: {}", sql);
 		stmt.execute(sql);
 
-		sql = "CREATE TABLE ratings (userId VARCHAR(50) PRIMARY KEY, teeId VARCHAR(50) NOT NULL, rating FLOAT NOT NULL, comments VARCHAR(2000), rDate DATE)";
+		sql = "CREATE TABLE ratings (userId VARCHAR(50), teeId VARCHAR(50) NOT NULL, rating FLOAT NOT NULL, comments VARCHAR(2000), rDate DATE, PRIMARY KEY (userId, teeId))";
 		logger.info("Create table ratings: {}", sql);
 		stmt.execute(sql);
 
@@ -363,8 +363,8 @@ public class Tee80sDao extends DerbyDao
 		Tee80sDao dao = new Tee80sDao();
 		if (meta)
 		{
-			// dao.clearTables();
-			// dao.dropTables();
+			dao.clearTables();
+			dao.dropTables();
 			dao.createTables();
 		}
 
