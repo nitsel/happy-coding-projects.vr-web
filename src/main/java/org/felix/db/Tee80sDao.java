@@ -8,6 +8,7 @@ import java.util.List;
 import org.felix.io.FileUtils;
 import org.felix.io.URLReader;
 import org.felix.system.DateUtils;
+import org.felix.system.Timer;
 import org.felix.web.client.Tee80sShirtClient;
 
 public class Tee80sDao extends DerbyDao
@@ -357,6 +358,7 @@ public class Tee80sDao extends DerbyDao
 
 	public static void main(String[] args) throws Exception
 	{
+		Timer.start();
 		boolean meta = true;
 		boolean data = true;
 
@@ -421,6 +423,8 @@ public class Tee80sDao extends DerbyDao
 				}
 			}
 		}
+		
+		logger.info("Consumed {} to be finished.", Timer.end());
 	}
 
 	@Override
