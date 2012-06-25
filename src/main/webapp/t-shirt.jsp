@@ -80,43 +80,24 @@
 </head>
 
 <body>
-	<div class="entry">
-		<div class="float-info">
-			<h2>T-Shirt Info</h2>
-			<ul class="ul-properties">
-				<li><span>Name: </span><a style="text-transform: capitalize"
-					name="#">${tee.name}</a>
-				</li>
-				<li><span>Price:</span>${tee.price }</li>
-				<li><span>Faboric Details:</span>
-					<ul>
-						<li>${tee.features}</li>
-					</ul></li>
-				<li><span>Description:</strong> ${tee.description}
-				</li>
-			</ul>
-		</div>
-		<div class="float-rating">
-			<h2>Rate This T-Shirt</h2>
-			<div id="result" style="margin: 5px 0px 10px 0px;"></div>
-			<form id="ratingForm" action="#" method="get"
-				onSubmit="return submit_rating()">
-				<input name="star1" type="radio" value="1" class="star" title="Very poor" />
-				<input name="star1" type="radio" value="2" class="star" title="Poor" />
-				<input name="star1" type="radio" value="3" class="star" title="Fine" />
-				<input name="star1" type="radio" value="4" class="star" title="Good" />
-				<input name="star1" type="radio" value="5" class="star"
-					title="Very Good" /><br />
-				<input id="page"  type="hidden" value="${param.page }" />
-				<p>
-					Comments&nbsp;&nbsp;(optional):
-					<textarea id="comments" name="comments" cols="43" rows="5">${rating.comments }</textarea>
-				</p>
-				<input type="submit" value="Submit Rating" />
-			</form>
-		</div>
+	<div class="entry">		
+		<h2>T-Shirt Info</h2>
+		<img alt="T-shirt Image" src="./Htmls/${tee.image }" class="float-image"/>
+		<ul class="ul-properties">
+			<li><span>Name: </span><a style="text-transform: capitalize"
+				name="#">${tee.name}</a>
+			</li>
+			<li><span>Category:</span>${tee.category }</li>
+			<li><span>Price:</span>${tee.price }</li>
+			<li><span>Faboric Details:</span>
+				<ul>
+					<li>${tee.features}</li>
+				</ul>
+			</li>
+		</ul>
+		<div style="clear:both"><strong>Description:</strong> ${tee.description}</div>	
 	</div>
-
+	
 	<div class="entry">
 		<h2>Overall Review</h2>
 		<div> 
@@ -167,6 +148,27 @@
 				</ul>
 			</p>
 		</div>
+	</div>
+	
+	<div class="entry">
+		<h2>Rate This T-Shirt</h2>
+		<div id="result" style="margin: 5px 0px 10px 0px;"></div>
+		<form id="ratingForm" action="#" method="get"
+			onSubmit="return submit_rating()">
+			<input name="star1" type="radio" value="1" class="star" title="Very poor" />
+			<input name="star1" type="radio" value="2" class="star" title="Poor" />
+			<input name="star1" type="radio" value="3" class="star" title="Fine" />
+			<input name="star1" type="radio" value="4" class="star" title="Good" />
+			<input name="star1" type="radio" value="5" class="star"
+				title="Very Good" />
+			<input id="page"  type="hidden" value="${param.page }" />
+			<br/>
+			<p>
+				Comments&nbsp;&nbsp;(optional): <br />
+				<textarea id="comments" name="comments" cols="50" rows="5">${rating.comments }</textarea>
+			</p>
+			<input type="submit" value="Submit Rating" />
+		</form>
 	</div>
 
 	<div class="entry2">
