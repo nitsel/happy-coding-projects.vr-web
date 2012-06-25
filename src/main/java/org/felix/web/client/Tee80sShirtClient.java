@@ -66,6 +66,16 @@ public class Tee80sShirtClient extends DefaultWebClient
 			}
 		}
 
+		/* category */
+		e = doc.select("div.breadcrumb a").first();
+		String link = e.attr("href");
+		int id1 = link.indexOf("category=") + "category=".length();
+		int id2 = link.indexOf("&", id1);
+		String category = link.substring(id1, id2);
+		category = category.replace('+', ' ');
+		category = category.replace("%20", " ");
+		t.setCategory(category);
+
 		/* gender */
 		e = doc.select("div#prodMainContent table td[width=32%]").first();
 		t.setGender(e.text());

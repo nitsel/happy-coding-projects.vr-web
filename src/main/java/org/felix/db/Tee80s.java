@@ -4,6 +4,7 @@ public class Tee80s extends DBObject
 {
 	private String	id;
 	private String	name			= "";
+	private String	category		= "";
 	private String	sizes			= "";
 	private String	price			= "";
 	private String	features		= "";
@@ -234,6 +235,16 @@ public class Tee80s extends DBObject
 	public void setRecommendation(String recommendation)
 	{
 		this.recommendation = replace(recommendation);
+	}
+
+	public String getCategory()
+	{
+		return category;
+	}
+
+	public void setCategory(String category)
+	{
+		this.category = replace(category);
 	}
 
 }

@@ -20,14 +20,14 @@ public class Tee80sDao extends DerbyDao
 
 	public void update(Tee80s t) throws Exception
 	{
-		String sql = "UPDATE tee80s SET name='" + t.getName() + "', sizes='" + t.getSizes() + "', price = '"
-				+ t.getPrice() + "', features = '" + t.getFeatures() + "', gender = '" + t.getGender() + "', type ='"
-				+ t.getType() + "', url='" + t.getUrl() + "', description ='" + t.getDescription() + "', image='"
-				+ t.getImage() + "', admins='" + t.getAdmins() + "', locale='" + t.getLocale() + "', avgRating = "
-				+ t.getAvgRating() + ", numRating = " + t.getNumRating() + ", pros='" + t.getPros() + "', cons='"
-				+ t.getCons() + "', bestUses='" + t.getBestUses() + "', reviewerProfile='" + t.getReviewerProfile()
-				+ "', gift='" + t.getGift() + "', recommendation='" + t.getRecommendation() + "' WHERE id='"
-				+ t.getId() + "'";
+		String sql = "UPDATE tee80s SET name='" + t.getName() + "', category = '" + t.getCategory() + "', sizes='"
+				+ t.getSizes() + "', price = '" + t.getPrice() + "', features = '" + t.getFeatures() + "', gender = '"
+				+ t.getGender() + "', type ='" + t.getType() + "', url='" + t.getUrl() + "', description ='"
+				+ t.getDescription() + "', image='" + t.getImage() + "', admins='" + t.getAdmins() + "', locale='"
+				+ t.getLocale() + "', avgRating = " + t.getAvgRating() + ", numRating = " + t.getNumRating()
+				+ ", pros='" + t.getPros() + "', cons='" + t.getCons() + "', bestUses='" + t.getBestUses()
+				+ "', reviewerProfile='" + t.getReviewerProfile() + "', gift='" + t.getGift() + "', recommendation='"
+				+ t.getRecommendation() + "' WHERE id='" + t.getId() + "'";
 
 		logger.info("Update tee80s: {}", sql);
 		stmt.executeUpdate(sql);
@@ -74,14 +74,14 @@ public class Tee80sDao extends DerbyDao
 		}
 
 		// insert into database
-		String tableElements = "id, name, sizes, price, features, gender, type, url, description, image, admins, "
+		String tableElements = "id, name, category, sizes, price, features, gender, type, url, description, image, admins, "
 				+ "locale, avgRating, numRating, pros, cons, bestUses, reviewerProfile, gift, recommendation";
 		String sql = "INSERT INTO tee80s (" + tableElements + ") VALUES ('" + t.getId() + "', '" + t.getName() + "', '"
-				+ t.getSizes() + "', '" + t.getPrice() + "', '" + t.getFeatures() + "', '" + t.getGender() + "', '"
-				+ t.getType() + "', '" + t.getUrl() + "', '" + t.getDescription() + "', '" + t.getImage() + "', '"
-				+ t.getAdmins() + "', '" + t.getLocale() + "', " + t.getAvgRating() + ", " + t.getNumRating() + ", '"
-				+ t.getPros() + "', '" + t.getCons() + "', '" + t.getBestUses() + "', '" + t.getReviewerProfile()
-				+ "', '" + t.getGift() + "', '" + t.getRecommendation() + "')";
+				+ t.getCategory() + "', '" + t.getSizes() + "', '" + t.getPrice() + "', '" + t.getFeatures() + "', '"
+				+ t.getGender() + "', '" + t.getType() + "', '" + t.getUrl() + "', '" + t.getDescription() + "', '"
+				+ t.getImage() + "', '" + t.getAdmins() + "', '" + t.getLocale() + "', " + t.getAvgRating() + ", "
+				+ t.getNumRating() + ", '" + t.getPros() + "', '" + t.getCons() + "', '" + t.getBestUses() + "', '"
+				+ t.getReviewerProfile() + "', '" + t.getGift() + "', '" + t.getRecommendation() + "')";
 
 		logger.info("Insert tee: {}", sql);
 
@@ -203,6 +203,7 @@ public class Tee80sDao extends DerbyDao
 				t = new Tee80s();
 				t.setId(id);
 				t.setName(rs.getString("name"));
+				t.setCategory(rs.getString("category"));
 				t.setSizes(rs.getString("sizes"));
 				t.setPrice(rs.getString("price"));
 				t.setFeatures(rs.getString("features"));
@@ -275,14 +276,14 @@ public class Tee80sDao extends DerbyDao
 	{
 		return queryReviews(productId, 0, 0);
 	}
-	
+
 	public List<Tee80sReview> queryReviews(String productId, int page, int pageSize)
 	{
 		String sql = "SELECT * FROM reviews WHERE productId = '" + productId + "' ORDER BY vDate DESC"
 				+ (page > 0 ? " OFFSET " + (page - 1) * pageSize + " ROWS" : "")
 				+ (pageSize > 0 ? " FETCH NEXT " + pageSize + " ROWS ONLY" : "");
 		logger.info("Query reviews: {}", sql);
-		
+
 		ResultSet rs = null;
 		List<Tee80sReview> ls = new ArrayList<Tee80sReview>();
 		try
@@ -308,24 +309,26 @@ public class Tee80sDao extends DerbyDao
 				r.setGift(rs.getString("gift"));
 				r.setRecommendation(rs.getString("recommendation"));
 				r.setvDate(DateUtils.parseString(rs.getString("vDate")));
-				
+
 				ls.add(r);
 			}
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		
+
 		return ls;
 	}
 
 	@Override
 	protected boolean createTables() throws Exception
 	{
-		String sql = "CREATE TABLE tee80s (id VARCHAR(20) PRIMARY KEY, name VARCHAR(50), sizes VARCHAR(50), price VARCHAR(50),"
-				+ "features VARCHAR(200), gender VARCHAR(10) DEFAULT 'mens', type VARCHAR(50), url VARCHAR(500), "
-				+ "description VARCHAR(2000), image VARCHAR(500), admins VARCHAR(50), locale VARCHAR(50), avgRating FLOAT, numRating INTEGER,"
-				+ " pros VARCHAR(200), cons VARCHAR(200), bestUses VARCHAR(200), reviewerProfile VARCHAR(200), gift VARCHAR(50), recommendation VARCHAR(100) )";
+		String sql = "CREATE TABLE tee80s (id VARCHAR(20) PRIMARY KEY, name VARCHAR(50), category VARCHAR(50), "
+				+ "sizes VARCHAR(50), price VARCHAR(50), features VARCHAR(200), gender VARCHAR(10) DEFAULT 'mens', "
+				+ "type VARCHAR(50), url VARCHAR(500), description VARCHAR(2000), image VARCHAR(500), "
+				+ "admins VARCHAR(50), locale VARCHAR(50), avgRating FLOAT, numRating INTEGER, pros VARCHAR(200), "
+				+ "cons VARCHAR(200), bestUses VARCHAR(200), reviewerProfile VARCHAR(200), gift VARCHAR(50), "
+				+ "recommendation VARCHAR(100) )";
 
 		logger.info("Create table tee80s: {}", sql);
 		stmt.execute(sql);
@@ -363,16 +366,16 @@ public class Tee80sDao extends DerbyDao
 		boolean data = true;
 
 		Tee80sDao dao = new Tee80sDao();
-		if (meta)
+		if (!meta)
 		{
-			dao.clearTables();
-			dao.dropTables();
+			// dao.clearTables();
+			// dao.dropTables();
 			dao.createTables();
 		}
 
 		if (data)
 		{
-			// dao.clearTables();
+			dao.clearTables();
 			Tee80sShirtClient client = new Tee80sShirtClient();
 			List<String> links = FileUtils.readAsList("links.txt");
 			for (String link : links)
@@ -423,7 +426,7 @@ public class Tee80sDao extends DerbyDao
 				}
 			}
 		}
-		
+
 		logger.info("Consumed {} to be finished.", Timer.end());
 	}
 

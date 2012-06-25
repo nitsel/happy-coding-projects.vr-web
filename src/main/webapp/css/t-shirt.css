@@ -64,7 +64,12 @@ div, table{
 	margin-left:10px;
 	background-color:#414142 !important;
 }
-
+.float-image{
+	float:left;
+	margin:0px 10px 10px 10px;
+	width:200px;
+	height:280px;
+}
 .float-info{
 	margin-right:10px;
 	float:left; 
@@ -110,8 +115,8 @@ table td{
 	list-style:none;
 	padding-left:0px;
 }
-.ul-properties li{
-	
+.ul-properties li li{
+	margin-left: 220px;
 }
 .ul-properties span{
 	text-transform:capitalise;
@@ -119,7 +124,7 @@ table td{
 	font-weight:bold;
 	font-size:20px;
 	display:inline-block;
-	min-width:75px;
+	min-width:100px;
 	width: auto;
 }
 
