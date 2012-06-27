@@ -514,23 +514,24 @@ public class Tee80sDao extends DerbyDao
 
 	public static void main(String[] args) throws Exception
 	{
+		// FileUtils.deleteDirectory("Tee80sDB");
 		Timer.start();
 		boolean meta = true;
 		boolean data = true;
 
 		Tee80sDao dao = new Tee80sDao();
 
-		dao.dropTable("users");
-		dao.createUsers();
+		// dao.dropTable("users");
+		// dao.createUsers();
 
-		if (!meta)
+		if (meta)
 		{
-			dao.clearTables();
-			dao.dropTables();
+			// dao.clearTables();
+			// dao.dropTables();
 			dao.createTables();
 		}
 
-		if (!data)
+		if (data)
 		{
 			// dao.clearTables();
 			Tee80sShirtClient client = new Tee80sShirtClient();
