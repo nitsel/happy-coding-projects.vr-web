@@ -186,7 +186,13 @@ table td{
 }
 
 .userForm .submit{
-	width: 160px;
+	width: 180px;
+	text-align: center;
+	padding: 5px;
+}
+
+.userForm .submit2{
+	width: 220px;
 	text-align: center;
 	padding: 5px;
 }

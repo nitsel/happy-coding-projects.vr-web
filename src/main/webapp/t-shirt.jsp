@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>T-Shirt Details</title>
+<title>User Study - T-Shirt</title>
 <link rel="stylesheet" type="text/css" href="css/t-shirt.css" />
 <link rel="stylesheet" type="text/css" href='js/jquery.rating.css' />
 <script type="text/javascript" src='js/jquery.js'></script>
@@ -110,22 +110,32 @@
 		<p>
 			<strong>User Study (<span style="color: red;">${sessionScope.userId }</span>) Current Progress: </strong> 
 				<span class="pages">
-				<c:forEach var="progress" begin="1" end="${sessionScope.maxProgress}">
-					<c:if test="${progress<=sessionScope.progress }">
-						<a href="./userStudy?action=info&teeId=${sessionScope.vTees[progress] }">
-					</c:if>
-					<c:if test="${progress==sessionScope.progress+1 }">
-						<a href="./userStudy?action=info&survey=next" onclick="return check_rating()">
-					</c:if>
-						<span
+				<c:forEach var="progress" begin="1" end="${sessionScope.maxProgress+1}">
+					<c:choose>
+						<c:when test="${progress<=sessionScope.progress }">
+							<a href="./userStudy?action=info&teeId=${sessionScope.vTees[progress] }">
+						</c:when>
+						<c:when test="${sessionScope.progress==sessionScope.maxProgress }">
+							<a href="./userStudy?action=env" onclick="return check_rating()" title="To Last Part of User Study" >
+						</c:when>
+						<c:when test="${progress==sessionScope.progress+1}">
+							<a href="./userStudy?action=info&survey=next" onclick="return check_rating()">
+						</c:when>
+						<c:otherwise></c:otherwise>
+					</c:choose>
+				
+					<span
 						<c:choose>
 							<c:when test="${progress<=sessionScope.progress }">class="block-reco"</c:when>
 							<c:when test="${progress==sessionScope.progress+1 }">class="block-rating"</c:when>
 							<c:otherwise>class="block-gray"</c:otherwise>
-						</c:choose>>${progress}</span>
-					<c:if test="${progress<=sessionScope.progress+1 }">
-						</a>
-					</c:if>
+						</c:choose>>
+						<c:choose>
+							<c:when test="${progress==sessionScope.maxProgress+1 }">>></c:when>
+							<c:otherwise>${progress}</c:otherwise>
+						</c:choose>
+					</span>
+					<c:if test="${progress<=sessionScope.progress+1 }"></a></c:if>
 				</c:forEach> 
 				</span>
 		</p>

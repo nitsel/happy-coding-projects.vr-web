@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>User Info</title>
+<title>User Study - User</title>
 <link rel="stylesheet" type="text/css" href="css/t-shirt.css" />
 <script type="text/javascript" src='js/jquery.js'></script>
 <script>
@@ -105,7 +105,7 @@
 		<h4>NOTE: All information will be kept confidential and only for
 			research purpose.</h4>
 		<p style="display: inherit;">
-			<a href="./userStudy?action=info">Enter Without Login (Test Only)</a>
+			<a href="./userStudy?action=info">Start User Study Without Login (Test Only)</a>
 		</p>
 		<form action="./userStudy?action=user" method="post" class="userForm"
 			onsubmit="return validate()">
