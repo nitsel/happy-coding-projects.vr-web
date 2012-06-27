@@ -89,8 +89,14 @@ public class Tee80sShirtClient extends DefaultWebClient
 		String sizes = "";
 		for (int i = 0; i < es.size(); i++)
 		{
-			sizes += es.get(i).text();
-			if (i < es.size() - 1) sizes += "::";
+			e = es.get(i);
+			sizes += "<span>" + e.text() + "</span>";
+			e = e.parent().nextElementSibling();
+			String label = e.text().toLowerCase();
+			if (label.equals("yes")) sizes += "In Stock";
+			else if (label.contains("no")) sizes += "Not In Stock";
+			else sizes += label;
+			if (i < es.size() - 1) sizes += "</li><li>";
 		}
 		t.setSizes(sizes);
 
