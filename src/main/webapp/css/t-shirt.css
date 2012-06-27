@@ -49,7 +49,7 @@ div, table{
 	background-color: lightBlue !important;
 }
 
-.block-rating, .block-reco{
+.block-rating, .block-reco, .block-gray{
 	display: inline-block;
 	width: 50px;
 	size: 20px;
@@ -64,6 +64,12 @@ div, table{
 	margin-left:10px;
 	background-color:#414142 !important;
 }
+
+.block-gray{
+	margin-left:10px;
+	background-color:#ccc !important;
+}
+
 .float-image{
 	float:left;
 	margin:0px 10px 10px 10px;
@@ -108,15 +114,21 @@ table th:last-child{color:black;}
 table td{ 
 	padding-left:10px;
 	background-color:white;
-	text-transform:capitalize;
+	text-transform: capitalize;
+}
+
+.questions td{
+	text-transform: none !important;
 }
 
 .ul-properties{
+	margin-right:10px;
 	list-style:none;
 	padding-left:0px;
+	float:left;
 }
 .ul-properties li li{
-	margin-left: 220px;
+	margin-left: 10px;
 }
 .ul-properties span{
 	text-transform:capitalise;
@@ -150,4 +162,38 @@ table td{
 
 .pages{float:right;}
 .pages span{margin-left:5px;}
+.pages a{text-decoration: none;}
 
+.userForm label{
+	margin:10px 10px 10px 0px;
+}
+
+.userForm li input{
+	margin: 0px 10px 0px 50px;
+}
+
+.userForm span{
+	display: inner-block;
+	width: 100px;
+}
+
+.userForm .underline_box{
+	border: none;
+	border-bottom:1px #009900 solid;
+	background-color:transparent;
+	text-align:center;
+	margin-left:10px !important;
+}
+
+.userForm .submit{
+	width: 160px;
+	text-align: center;
+	padding: 5px;
+}
+
+.t-shirt{
+	float: left;
+}
+.bar{
+	width: 600px;
+}

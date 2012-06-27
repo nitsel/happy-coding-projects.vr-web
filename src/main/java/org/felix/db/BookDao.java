@@ -132,7 +132,7 @@ public class BookDao extends DerbyDao
 	}
 
 	@Override
-	protected boolean createTables() throws Exception
+	protected void createTables() throws Exception
 	{
 
 		String sql = "CREATE TABLE books (isbn VARCHAR(20) PRIMARY KEY, isbn13 VARCHAR(20), googleId VARCHAR(30), title VARCHAR(500) NOT NULL,"
@@ -141,7 +141,7 @@ public class BookDao extends DerbyDao
 				+ "imgUrlS VARCHAR(500), imgUrlM VARCHAR(500), imgUrlL VARCHAR(500), amazonUrl VARCHAR(500), reviewUrl VARCHAR(500), averageRating REAL, ranking VARCHAR(100) )";
 
 		logger.info("Create table books: {}", sql);
-		return stmt.execute(sql);
+		stmt.execute(sql);
 
 	};
 
@@ -197,10 +197,9 @@ public class BookDao extends DerbyDao
 	}
 
 	@Override
-	protected boolean dropTables() throws Exception
+	protected void dropTables() throws Exception
 	{
-		String sql = "DROP TABLE books";
-		return stmt.execute(sql);
+		dropTable("books");
 	}
 
 	public static void main(String[] args) throws Exception

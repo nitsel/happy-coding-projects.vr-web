@@ -26,7 +26,7 @@
 
 	<servlet-mapping>
 		<servlet-name>t-shirt</servlet-name>
-		<url-pattern>/t-shirt</url-pattern>
+		<url-pattern>/userStudy</url-pattern>
 	</servlet-mapping>
 
 </web-app>
