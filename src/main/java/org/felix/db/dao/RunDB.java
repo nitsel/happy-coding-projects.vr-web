@@ -1,7 +1,8 @@
-package org.felix.db;
+package org.felix.db.dao;
 
 import java.util.List;
 
+import org.felix.db.Book;
 import org.felix.web.client.AmazonBookClient;
 import org.felix.web.client.GoogleBookClient;
 import org.felix.web.ws.AmazonBookLookup;

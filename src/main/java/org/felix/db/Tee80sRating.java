@@ -9,6 +9,7 @@ public class Tee80sRating extends DBObject
 	private float	rating;
 	private String	comments	= "";
 	private Date	rDate;
+	private String	environment;		// web site or virtual reality
 
 	public String getUserId()
 	{
@@ -58,5 +59,15 @@ public class Tee80sRating extends DBObject
 	public void setComments(String comments)
 	{
 		this.comments = replace(comments);
+	}
+
+	public String getEnvironment()
+	{
+		return environment;
+	}
+
+	public void setEnvironment(String environment)
+	{
+		this.environment = replace(environment);
 	}
 }

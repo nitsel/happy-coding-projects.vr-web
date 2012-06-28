@@ -10,6 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>User Study - T-Shirt</title>
+<link rel="shortcut icon" href="img/users.ico" />
 <link rel="stylesheet" type="text/css" href="css/t-shirt.css" />
 <link rel="stylesheet" type="text/css" href='js/jquery.rating.css' />
 <script type="text/javascript" src='js/jquery.js'></script>

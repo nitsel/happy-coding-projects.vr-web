@@ -10,6 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>User Study - User</title>
 <link rel="stylesheet" type="text/css" href="css/t-shirt.css" />
+<link rel="shortcut icon" href="img/users.ico" />
 <script type="text/javascript" src='js/jquery.js'></script>
 <script>
 	function getValue(selector){
@@ -104,12 +105,18 @@
 		<h2>User Study: Some Information About You</h2>
 		<h4>NOTE: All information will be kept confidential and only for
 			research purpose.</h4>
-		<p style="display: inherit;">
-			<a href="./userStudy?action=info">Start User Study Without Login (Test Only)</a>
-		</p>
+		<form action="./userStudy?action=user_in" method="post" class="userForm">
+			<label>Existing User:</label><input name="userId" type="text" value="guoguibing" width="150px" class="underline_box"/>
+			<select name="environment">
+				<option value="web site">Web Site</option>
+				<option value="virtual reality">Virtual Reality</option>
+			</select>
+			<input type="submit" value="Start User Study" class="submit"/>
+		</form>
+		<div class="hr"></div>
 		<form action="./userStudy?action=user" method="post" class="userForm"
 			onsubmit="return validate()">
-			<label>User Name:</label><input type="text" name="userId"
+			<label>New User:</label><input type="text" name="userId"
 				class="underline_box" value="${user.userId }" /><span
 				style="color: red;">${requestScope.error }</span><br />
 			<ol>
@@ -154,7 +161,7 @@
 					<c:if test="${fn:substring(user.job, 0, fn:indexOf(user.job,'::')) eq 'student' }">checked</c:if> />A
 					Student, from <input type="text" name="job1" class="underline_box"
 					<c:if test="${fn:substring(user.job, 0, fn:indexOf(user.job,'::')) eq 'student' }">
-						value="${fn:substringAfter(user.job, '::') }"
+						value="${fn:substringAfter(user.job,'::') }"
 					</c:if> />
 					(e.g. School of Computer Engineering, or SCE for short)<br /> <input
 					type="radio" name="job" value="staff"
@@ -162,7 +169,7 @@
 					Staff, the area you are working on is <input type="text"
 					name="job2" class="underline_box"
 					<c:if test="${fn:substring(user.job, 0, fn:indexOf(user.job,'::')) eq 'staff' }">
-						value="${fn:substringAfter(user.job, '::') }"
+						value="${fn:substringAfter(user.job,'::') }"
 					</c:if> /><br />
 				</li>
 				<li><label>On the average, you shop online</label><br /> <input

@@ -1,4 +1,4 @@
-package org.felix.db;
+package org.felix.db.dao;
 
 import java.io.File;
 import java.io.FileReader;
@@ -7,6 +7,8 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.felix.db.Book;
+import org.felix.db.DerbyDao;
 import org.felix.system.DateUtils;
 
 import au.com.bytecode.opencsv.CSVReader;
