@@ -1,10 +1,16 @@
-package org.felix.db;
+package org.felix.db.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.felix.db.DerbyDao;
+import org.felix.db.Environment;
+import org.felix.db.Tee80s;
+import org.felix.db.Tee80sRating;
+import org.felix.db.Tee80sReview;
+import org.felix.db.User;
 import org.felix.io.FileUtils;
 import org.felix.io.URLReader;
 import org.felix.system.DateUtils;
@@ -24,6 +30,22 @@ public class Tee80sDao extends DerbyDao
 				+ u.getEducation() + "', job='" + u.getJob() + "', shoppingExperience='" + u.getShoppingExperience()
 				+ "', vrExperience='" + u.getVrExperience() + "' WHERE userId='" + u.getUserId() + "'";
 		logger.debug("Update users: {}", sql);
+
+		try
+		{
+			stmt.executeUpdate(sql);
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void update(Environment env)
+	{
+		String sql = "UPDATE envs SET confidence=" + env.getConfidence() + ", presence=" + env.getPresence()
+				+ ", comfort=" + env.getComfort() + ", reasons='" + env.getReasons() + "', cDate='" + env.getcDate()
+				+ "' WHERE userId='" + env.getUserId() + "' AND environment='" + env.getEnvironment() + "'";
+		logger.debug("Update envs: {}", sql);
 
 		try
 		{
@@ -86,6 +108,22 @@ public class Tee80sDao extends DerbyDao
 				+ u.getAge() + "', '" + u.getEducation() + "', '" + u.getJob() + "', '" + u.getShoppingExperience()
 				+ "', '" + u.getVrExperience() + "', '" + u.getcDate() + "')";
 		logger.debug("Insert user: {}", sql);
+		try
+		{
+			stmt.executeUpdate(sql);
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void insert(Environment env)
+	{
+		String meta = "userId, confidence, presence, comfort, reasons, environment, cDate";
+		String sql = "INSERT INTO envs (" + meta + ") VALUES ('" + env.getUserId() + "', " + env.getConfidence() + ", "
+				+ env.getPresence() + ", " + env.getComfort() + ", '" + env.getReasons() + "', '"
+				+ env.getEnvironment() + "', '" + env.getcDate() + "')";
+		logger.debug("Insert env: {}", sql);
 		try
 		{
 			stmt.executeUpdate(sql);
@@ -385,6 +423,35 @@ public class Tee80sDao extends DerbyDao
 		return u;
 	}
 
+	public Environment queryEnvironment(String userId, String environment)
+	{
+		String sql = "SELECT * FROM envs WHERE userId = '" + userId + "' AND environment = '" + environment + "'";
+		logger.debug("Query users: {}", sql);
+
+		ResultSet rs;
+		Environment env = null;
+		try
+		{
+			rs = stmt.executeQuery(sql);
+			if (rs.next())
+			{
+				env = new Environment();
+				env.setUserId(rs.getString("userId"));
+				env.setConfidence(Integer.parseInt(rs.getString("confidence")));
+				env.setComfort(Integer.parseInt(rs.getString("comfort")));
+				env.setPresence(Integer.parseInt(rs.getString("presence")));
+				env.setReasons(rs.getString("reasons"));
+				env.setEnvironment(rs.getString("environment"));
+				env.setcDate(DateUtils.parseString(rs.getString("cDate")));
+			}
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		return env;
+	}
+
 	public Tee80sReview queryReview(String reviewId) throws Exception
 	{
 		String sql = "SELECT * FROM reviews WHERE id = '" + reviewId + "'";
@@ -468,7 +535,13 @@ public class Tee80sDao extends DerbyDao
 	public void createUsers() throws Exception
 	{
 		String sql = "CREATE TABLE users (userId VARCHAR(50) PRIMARY KEY NOT NULL, gender VARCHAR(50) DEFAULT 'Male', age VARCHAR(50), education VARCHAR(100), job VARCHAR(100), shoppingExperience VARCHAR(100), vrExperience VARCHAR(50), cDate DATE)";
-		createTable("users", sql);
+		createTable(sql);
+	}
+
+	public void createEnvs() throws Exception
+	{
+		String sql = "CREATE TABLE envs (userId VARCHAR(50), confidence INT, presence INT, comfort INT, reasons VARCHAR(2000), environment VARCHAR(50), cDate DATE, PRIMARY KEY (userId, environment))";
+		createTable(sql);
 	}
 
 	@Override
@@ -485,6 +558,8 @@ public class Tee80sDao extends DerbyDao
 		stmt.execute(sql);
 
 		createUsers();
+
+		createEnvs();
 
 		sql = "CREATE TABLE ratings (userId VARCHAR(50), teeId VARCHAR(50) NOT NULL, rating FLOAT NOT NULL, comments VARCHAR(2000), rDate DATE, PRIMARY KEY (userId, teeId))";
 		logger.debug("Create table ratings: {}", sql);
@@ -521,17 +596,16 @@ public class Tee80sDao extends DerbyDao
 
 		Tee80sDao dao = new Tee80sDao();
 
-		// dao.dropTable("users");
-		// dao.createUsers();
+		dao.createEnvs();
 
-		if (meta)
+		if (!meta)
 		{
 			// dao.clearTables();
 			// dao.dropTables();
 			dao.createTables();
 		}
 
-		if (data)
+		if (!data)
 		{
 			// dao.clearTables();
 			Tee80sShirtClient client = new Tee80sShirtClient();

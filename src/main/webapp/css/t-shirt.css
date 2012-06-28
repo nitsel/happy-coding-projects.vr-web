@@ -177,12 +177,17 @@ table td{
 	width: 100px;
 }
 
+.entry .hr{
+	margin:15px 0px;
+	border-bottom: thin dotted rgb(12, 155, 116);
+}
+
 .userForm .underline_box{
 	border: none;
 	border-bottom:1px #009900 solid;
 	background-color:transparent;
 	text-align:center;
-	margin-left:10px !important;
+	margin-left:0px !important;
 }
 
 .userForm .submit{

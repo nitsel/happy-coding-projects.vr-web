@@ -13,48 +13,70 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.felix.db.Environment;
 import org.felix.db.Tee80s;
-import org.felix.db.Tee80sDao;
 import org.felix.db.Tee80sRating;
 import org.felix.db.User;
+import org.felix.db.dao.Tee80sDao;
 import org.felix.system.RandomUtils;
 
 public class TShirtServlet extends HttpServlet
 {
-	private final static Tee80sDao dao = new Tee80sDao();
+	private final static Tee80sDao		dao					= new Tee80sDao();
 	// all tees
-	private final static List<Tee80s> ts = dao.queryAllTee80s();
-	
-	private static final long serialVersionUID = 1L;
+	private final static List<Tee80s>	ts					= dao.queryAllTee80s();
 
-	private final static int maxProgress = 2;
-	private final static int pageSize = 10;
+	private static final long			serialVersionUID	= 1L;
+
+	private final static int			maxProgress			= 2;
+	private final static int			pageSize			= 10;
 
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
 		String action = req.getParameter("action");
-
 		String teeId = req.getParameter("teeId");
-		String userId = (String) req.getSession().getAttribute("userId");
-		if (userId == null)
-		{
-			userId = "guoguibing";
-			req.getSession().setAttribute("userId", userId);
-		}
 
 		if (action == null)
 		{
 			req.getRequestDispatcher("user.jsp").forward(req, resp);
 		} else if ("env".equals(action))
 		{
+			String userId = (String) req.getSession().getAttribute("userId");
+			String environment = (String) req.getSession().getAttribute("environment");
+
+			req.setAttribute("env", dao.queryEnvironment(userId, environment));
 			req.getRequestDispatcher("environment.jsp").forward(req, resp);
+		} else if ("env_sub".equals(action))
+		{
+			String userId = (String) req.getSession().getAttribute("userId");
+			int confidence = Integer.parseInt(req.getParameter("confidence"));
+			int presence = Integer.parseInt(req.getParameter("presence"));
+			int comfort = Integer.parseInt(req.getParameter("comfort"));
+			String reasons = req.getParameter("reasons");
+			String environment = (String) req.getSession().getAttribute("environment");
+
+			Environment env = new Environment();
+			env.setUserId(userId);
+			env.setEnvironment(environment);
+			env.setConfidence(confidence);
+			env.setPresence(presence);
+			env.setComfort(comfort);
+			env.setReasons(reasons);
+			env.setcDate(new Date(System.currentTimeMillis()));
+
+			// insert into database
+			if (dao.queryEnvironment(userId, environment) == null) dao.insert(env);
+			else dao.update(env);
+
+			finishStudy(resp);
+
 		} else if ("info".equals(action))
 		{
+			String userId = (String) req.getSession().getAttribute("userId");
 			/*
-			 * when teeId == null, start to rate new t-shirt, otherwise continue
-			 * current t-shirt
+			 * when teeId == null, start to rate new t-shirt, otherwise continue current t-shirt
 			 */
 			if (teeId == null)
 			{
@@ -66,9 +88,7 @@ public class TShirtServlet extends HttpServlet
 				int progress = ptMap.size();
 				if (progress > maxProgress)
 				{
-					String out = "<script>alert('Thanks for your cooperation. This study is finished. ');</script>";
-					resp.setHeader("Refresh", "1; URL=./userStudy");
-					resp.getOutputStream().write(out.getBytes());
+					finishStudy(resp);
 
 					return;
 				}
@@ -125,6 +145,8 @@ public class TShirtServlet extends HttpServlet
 
 		} else if ("rating".equals(action))
 		{
+			String userId = (String) req.getSession().getAttribute("userId");
+
 			float rating = Float.parseFloat(req.getParameter("rating"));
 			String comments = req.getParameter("comments");
 
@@ -153,8 +175,7 @@ public class TShirtServlet extends HttpServlet
 			u.setUserId(req.getParameter("userId"));
 			u.setGender(req.getParameter("gender"));
 			String job = req.getParameter("job");
-			if (job != null && job.equals("student"))
-				job += "::" + req.getParameter("job1");
+			if (job != null && job.equals("student")) job += "::" + req.getParameter("job1");
 			else if (job != null && job.equals("staff")) job += "::" + req.getParameter("job2");
 			u.setJob(job);
 			u.setAge(req.getParameter("age"));
@@ -178,7 +199,23 @@ public class TShirtServlet extends HttpServlet
 				RequestDispatcher rd = req.getRequestDispatcher("user.jsp");
 				rd.forward(req, resp);
 			}
+		} else if ("user_in".equals(action))
+		{
+			String userId = req.getParameter("userId");
+			String environment = req.getParameter("environment");
+
+			req.getSession().setAttribute("userId", userId);
+			req.getSession().setAttribute("environment", environment);
+
+			req.getRequestDispatcher("./userStudy?action=info").forward(req, resp);
 		}
+	}
+
+	private void finishStudy(HttpServletResponse resp) throws IOException
+	{
+		String out = "<script>alert('Thanks for your cooperation. This user study is finished.');</script>";
+		resp.setHeader("Refresh", "1; URL=./userStudy");
+		resp.getOutputStream().write(out.getBytes());
 	}
 
 	@Override
