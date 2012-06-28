@@ -55,7 +55,7 @@ div,table { /* Rounded Corners */
 	background-color: lightBlue !important;
 }
 
-.block-rating,.block-reco,.block-gray {
+.block-rating,.block-reco,.block-gray, .block-red {
 	display: inline-block;
 	width: 50px;
 	size: 20px;
@@ -74,6 +74,11 @@ div,table { /* Rounded Corners */
 .block-gray {
 	margin-left: 10px;
 	background-color: #ccc !important;
+}
+
+.block-red {
+	margin-left: 10px;
+	background-color: #f00 !important;
 }
 
 .float-image {

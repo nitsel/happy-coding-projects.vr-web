@@ -118,10 +118,14 @@
 		<h4>NOTE: All information will be kept confidential and only for
 			research purpose.</h4>
 		<form action="./userStudy?action=user_in" method="post" class="userForm" onsubmit="return check_name()">
-			<label>Existing User:</label><input name="userId2" type="text" value="guoguibing" width="150px" class="underline_box"/>
+			<label>Existing User:</label><input name="userId2" type="text" value="${sessionScope.userId }" width="150px" class="underline_box"/>
 			<select name="environment">
-				<option value="web site">Web Site</option>
-				<option value="virtual reality">Virtual Reality</option>
+				<option value="web site" 
+					<c:if test="${sessionScope.environment eq 'web site' }">selected="selected"</c:if>
+				>Web Site</option>
+				<option value="virtual reality"
+					<c:if test="${sessionScope.environment eq 'virtual reality' }">selected="selected"</c:if>
+				>Virtual Reality</option>
 			</select>
 			<input type="submit" value="Start User Study" class="submit"/>
 			<p style="display: inherit; color:red;">${requestScope.error_in }</p>
@@ -130,8 +134,14 @@
 		<form action="./userStudy?action=user" method="post" class="userForm"
 			onsubmit="return validate()">
 			<label>New User:</label><input type="text" name="userId"
-				class="underline_box" value="${user.userId }" /><span
-				style="color: red;">${requestScope.error }</span><br />
+				class="underline_box" value="${user.userId }" />
+				Environment: 
+				<select name="environment">
+					<option value="web site">Web Site</option>
+					<option value="virtual reality">Virtual Reality</option>
+				</select><br />
+			<span style="color: red;">${requestScope.error }</span>
+			
 			<ol>
 				<li><label>You are</label><br /> <input type="radio"
 					name="gender" value="Male"

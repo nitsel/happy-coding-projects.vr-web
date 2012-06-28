@@ -45,6 +45,7 @@ public class TShirtServlet extends HttpServlet
 			req.getRequestDispatcher("index.jsp").forward(req, resp);
 		} else if ("env".equals(action))
 		{
+			if ((Integer) req.getSession().getAttribute("step") == 1) req.getSession().setAttribute("step", 2);
 			req.setAttribute("env", dao.queryEnvironment(userId, environment));
 			req.getRequestDispatcher("environment.jsp").forward(req, resp);
 		} else if ("env_sub".equals(action))
@@ -67,7 +68,8 @@ public class TShirtServlet extends HttpServlet
 			if (dao.queryEnvironment(userId, environment) == null) dao.insert(env);
 			else dao.update(env);
 
-			finishStudy(resp);
+			req.getSession().setAttribute("step", 3);
+			req.getRequestDispatcher("ack.jsp").forward(req, resp);
 
 		} else if ("info".equals(action))
 		{
@@ -118,6 +120,7 @@ public class TShirtServlet extends HttpServlet
 
 					progress++;
 					visitedTees.put(progress, teeId);
+
 					req.getSession().setAttribute("progress", progress);
 					req.getSession().setAttribute("vTees", visitedTees); // visited tees
 					req.getSession().setAttribute("maxProgress", maxProgress);
@@ -127,6 +130,9 @@ public class TShirtServlet extends HttpServlet
 					teeId = visitedTees.get(progress);
 				}
 			}
+
+			if (req.getSession().getAttribute("vrProgress") == null) req.getSession().setAttribute("vrProgress", 1);
+			if (req.getSession().getAttribute("step") == null) req.getSession().setAttribute("step", 1);
 
 			String page = req.getParameter("page");
 			int p = (page == null ? 1 : Integer.parseInt(page));
@@ -183,6 +189,13 @@ public class TShirtServlet extends HttpServlet
 			} else
 			{
 				dao.insert(r);
+
+				if (req.getSession().getAttribute("environment").equals("virtual reality"))
+				{
+					int vrProgress = (Integer) req.getSession().getAttribute("vrProgress") + 1;
+					req.getSession().setAttribute("vrProgress", vrProgress);
+				}
+
 				os.write(("Thanks. Your ratings and comments are saved.").getBytes());
 			}
 			os.close();
@@ -205,6 +218,8 @@ public class TShirtServlet extends HttpServlet
 			{
 				dao.insert(u);
 
+				environment = req.getParameter("environment");
+				req.getSession().setAttribute("environment", environment);
 				req.getSession().setAttribute("userId", u.getUserId());
 				resp.sendRedirect("./userStudy?action=info");
 			} else
@@ -232,6 +247,7 @@ public class TShirtServlet extends HttpServlet
 
 				if ("virtual reality".equals(environment))
 				{
+					req.getSession().setAttribute("maxProgress", maxProgress);
 					req.setAttribute("error_in", "* Please use 'second life viewer (RLV)' to continue this user study.");
 					req.getRequestDispatcher("index.jsp").forward(req, resp);
 				} else

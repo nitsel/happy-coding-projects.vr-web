@@ -87,12 +87,26 @@
 			return true;
 		}
 		
+		function check_rating2()
+		{
+			if(check_rating()) return true;
+			var currentProgress=${sessionScope.vrProgress};
+			var maxProgress=${sessionScope.maxProgress};
+			if((currentProgress-maxProgress)<1)
+			{
+				alert('Please rate all required t-shirts before proceeding to the next step.');
+				return false;
+			}
+			return true;
+		}
+		
 		function init()
 		{
 			var rate=${rating.overall};
+			var website=${sessionScope.environment eq 'web site'};
 			if(rate){$(
 				'input[name="overall"]').rating('select', rate+'');
-				rated=true;
+				if(website) rated=true;
 			}
 			
 			if((rate=${rating.appearance}))$('input[name="appearance"]').rating('select', rate+'');
@@ -131,13 +145,15 @@
 <body>
 	<div class="entry">
 		<p>
-			<strong>User Study (<span style="color: red;">${sessionScope.userId
-					}@${sessionScope.environment }</span>) Current Progress: </strong> <span class="pages"> <c:forEach
-					var="progress" begin="1" end="${sessionScope.maxProgress+1}">
+			<strong>Current Progress (<span style="color: red;">${sessionScope.userId
+					}@${sessionScope.environment }</span>) </strong> 
+				
+			<span class="pages"> 
+				<c:forEach var="progress" begin="1" end="${sessionScope.maxProgress+1}">
+				<c:if test="${sessionScope.environment eq 'web site' }">
 					<c:choose>
 						<c:when test="${progress<=sessionScope.progress }">
-							<a
-								href="./userStudy?action=info&teeId=${sessionScope.vTees[progress] }">
+							<a href="./userStudy?action=info&teeId=${sessionScope.vTees[progress] }">
 						</c:when>
 						<c:when test="${sessionScope.progress==sessionScope.maxProgress }">
 							<a href="./userStudy?action=env" onclick="return check_rating()"
@@ -147,23 +163,43 @@
 							<a href="./userStudy?action=info&survey=next"
 								onclick="return check_rating()">
 						</c:when>
-						<c:otherwise></c:otherwise>
 					</c:choose>
-
+				</c:if>
+				<c:if test="${progress==sessionScope.maxProgress+1 && sessionScope.environment eq 'virtual reality' }">
+						<a href="./userStudy?action=env" onclick="return check_rating()" title="To Last Part of User Study">
+				</c:if>
 					<span
 						<c:choose>
-							<c:when test="${progress<=sessionScope.progress }">class="block-reco"</c:when>
-							<c:when test="${progress==sessionScope.progress+1 }">class="block-rating"</c:when>
+							<c:when test="${progress<sessionScope.progress 
+											&& sessionScope.environment eq 'web site'}">class="block-reco"</c:when>
+							<c:when test="${progress==sessionScope.progress 
+											&& sessionScope.step>=2
+											&& sessionScope.environment eq 'web site'}">class="block-reco"</c:when>
+							<c:when test="${progress==sessionScope.progress && sessionScope.environment eq 'web site'}">class="block-red"</c:when>
+							<c:when test="${progress==sessionScope.progress+1 
+											&& sessionScope.step==3
+											&& sessionScope.environment eq 'web site'}">class="block-reco"</c:when>
+							<c:when test="${progress==sessionScope.progress+1 
+											&& sessionScope.step==2
+											&& sessionScope.environment eq 'web site'}">class="block-red"</c:when>
+							<c:when test="${progress==sessionScope.progress+1 && sessionScope.environment eq 'web site'}">class="block-rating"</c:when>
+							<c:when test="${progress<sessionScope.vrProgress && sessionScope.environment eq 'virtual reality'}">class="block-reco"</c:when>
+							<c:when test="${progress==sessionScope.vrProgress && sessionScope.environment eq 'virtual reality'}">class="block-red"</c:when>
+							<c:when test="${progress==sessionScope.vrProgress+1 && sessionScope.environment eq 'virtual reality'}">class="block-rating"</c:when>
 							<c:otherwise>class="block-gray"</c:otherwise>
 						</c:choose>>
 						<c:choose>
 							<c:when test="${progress==sessionScope.maxProgress+1 }">>></c:when>
 							<c:otherwise>${progress}</c:otherwise>
 						</c:choose> </span>
-					<c:if test="${progress<=sessionScope.progress+1 }">
+					<c:if test="${progress<=sessionScope.progress+1 && sessionScope.environment eq 'web site'}">
 						</a>
 					</c:if>
-				</c:forEach> </span>
+					<c:if test="${sessionScope.progress==sessionScope.maxProgress && sessionScope.environment eq 'virtual reality' }">
+						</a>
+				</c:if>
+				</c:forEach> 
+			</span>
 		</p>
 		<h2>T-Shirt Info</h2>
 		<img alt="T-shirt Image" src="./Htmls/${tee.image }"
