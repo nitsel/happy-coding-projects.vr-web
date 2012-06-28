@@ -47,7 +47,7 @@ public class TShirtServlet extends HttpServlet
 		{
 			if ((Integer) req.getSession().getAttribute("step") == 1) req.getSession().setAttribute("step", 2);
 			req.setAttribute("env", dao.queryEnvironment(userId, environment));
-			req.getRequestDispatcher("environment.jsp").forward(req, resp);
+			req.getRequestDispatcher("env.jsp").forward(req, resp);
 		} else if ("env_sub".equals(action))
 		{
 			int confidence = Integer.parseInt(req.getParameter("confidence"));
