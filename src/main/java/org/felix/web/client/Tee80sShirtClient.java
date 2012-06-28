@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.client.methods.HttpGet;
-import org.felix.db.Tee80s;
-import org.felix.db.Tee80sReview;
+import org.felix.db.Tee;
+import org.felix.db.Review;
 import org.felix.io.FileUtils;
 import org.felix.system.DateUtils;
 import org.jsoup.Jsoup;
@@ -27,7 +27,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 	 * @param t
 	 * @throws Exception
 	 */
-	public void parseTee80s(String html, Tee80s t) throws Exception
+	public void parseTee80s(String html, Tee t) throws Exception
 	{
 		Document doc = Jsoup.parse(html);
 
@@ -191,9 +191,9 @@ public class Tee80sShirtClient extends DefaultWebClient
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Tee80sReview> parseReview(String html) throws Exception
+	public List<Review> parseReview(String html) throws Exception
 	{
-		List<Tee80sReview> reviews = new ArrayList<Tee80sReview>();
+		List<Review> reviews = new ArrayList<Review>();
 
 		Document doc = Jsoup.parse(html);
 		Elements es = null, els = null;
@@ -203,7 +203,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 		for (int i = 0; i < es.size(); i++)
 		{
 			e = es.get(i);
-			Tee80sReview review = new Tee80sReview();
+			Review review = new Review();
 
 			el = e.select("span.pr-rating.pr-rounded").first();
 			review.setRating(Float.parseFloat(el.text()));

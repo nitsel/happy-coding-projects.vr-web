@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.felix.db.Book;
-import org.felix.db.DerbyDao;
 import org.felix.system.DateUtils;
 
 import au.com.bytecode.opencsv.CSVReader;
@@ -198,24 +197,11 @@ public class BookDao extends DerbyDao
 		br.close();
 	}
 
-	@Override
-	protected void dropTables() throws Exception
-	{
-		dropTable("books");
-	}
-
 	public static void main(String[] args) throws Exception
 	{
 		BookDao dao = new BookDao();
 		dao.createTables();
 		dao.initDataTable();
-	}
-
-	@Override
-	protected boolean clearTables() throws Exception
-	{
-		String sql = "DELETE FROM books";
-		return stmt.execute(sql);
 	}
 
 }

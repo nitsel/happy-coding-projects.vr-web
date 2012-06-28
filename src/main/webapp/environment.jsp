@@ -68,7 +68,7 @@
 	<div class="entry">
 		<h2>Rate and Comment on the Environment</h2>
 		<p>To what extent do you agree or disagree with each of the
-			following statements? (from one star to five stars):</p>
+			following statements? (from one star to five stars)</p>
 		<ol>
 			<li>Strongly Disagree</li>
 			<li>Disagree</li>
