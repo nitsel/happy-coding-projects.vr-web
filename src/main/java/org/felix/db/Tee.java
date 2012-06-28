@@ -1,6 +1,6 @@
 package org.felix.db;
 
-public class Tee80s extends DBObject
+public class Tee extends DBObject
 {
 	private String	id;
 	private String	name			= "";

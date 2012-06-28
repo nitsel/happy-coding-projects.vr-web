@@ -14,22 +14,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.felix.db.Environment;
-import org.felix.db.Tee80s;
-import org.felix.db.Tee80sRating;
+import org.felix.db.Tee;
 import org.felix.db.User;
+import org.felix.db.VirtualRating;
 import org.felix.db.dao.Tee80sDao;
 import org.felix.system.RandomUtils;
 
 public class TShirtServlet extends HttpServlet
 {
-	private final static Tee80sDao		dao					= new Tee80sDao();
+	private final static Tee80sDao	dao					= new Tee80sDao();
 	// all tees
-	private final static List<Tee80s>	ts					= dao.queryAllTee80s();
+	private final static List<Tee>	tees				= dao.queryAllTees();
 
-	private static final long			serialVersionUID	= 1L;
+	private static final long		serialVersionUID	= 1L;
 
-	private final static int			maxProgress			= 2;
-	private final static int			pageSize			= 10;
+	private final static int		maxProgress			= 2;
+	private final static int		pageSize			= 10;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -37,25 +37,22 @@ public class TShirtServlet extends HttpServlet
 	{
 		String action = req.getParameter("action");
 		String teeId = req.getParameter("teeId");
+		String userId = (String) req.getSession().getAttribute("userId");
+		String environment = (String) req.getSession().getAttribute("environment");
 
 		if (action == null)
 		{
-			req.getRequestDispatcher("user.jsp").forward(req, resp);
+			req.getRequestDispatcher("index.jsp").forward(req, resp);
 		} else if ("env".equals(action))
 		{
-			String userId = (String) req.getSession().getAttribute("userId");
-			String environment = (String) req.getSession().getAttribute("environment");
-
 			req.setAttribute("env", dao.queryEnvironment(userId, environment));
 			req.getRequestDispatcher("environment.jsp").forward(req, resp);
 		} else if ("env_sub".equals(action))
 		{
-			String userId = (String) req.getSession().getAttribute("userId");
 			int confidence = Integer.parseInt(req.getParameter("confidence"));
 			int presence = Integer.parseInt(req.getParameter("presence"));
 			int comfort = Integer.parseInt(req.getParameter("comfort"));
 			String reasons = req.getParameter("reasons");
-			String environment = (String) req.getSession().getAttribute("environment");
 
 			Environment env = new Environment();
 			env.setUserId(userId);
@@ -74,18 +71,17 @@ public class TShirtServlet extends HttpServlet
 
 		} else if ("info".equals(action))
 		{
-			String userId = (String) req.getSession().getAttribute("userId");
 			/*
 			 * when teeId == null, start to rate new t-shirt, otherwise continue current t-shirt
 			 */
 			if (teeId == null)
 			{
 				/* key: progress; value: teeId */
-				Map<Integer, String> ptMap = (Map<Integer, String>) req.getSession().getAttribute("vTees");
-				if (ptMap == null) ptMap = new HashMap<Integer, String>();
+				Map<Integer, String> visitedTees = (Map<Integer, String>) req.getSession().getAttribute("vTees");
+				if (visitedTees == null) visitedTees = new HashMap<Integer, String>();
 
 				/* how many t-shirts are rated */
-				int progress = ptMap.size();
+				int progress = visitedTees.size();
 				if (progress > maxProgress)
 				{
 					finishStudy(resp);
@@ -97,15 +93,15 @@ public class TShirtServlet extends HttpServlet
 				if ((progress == 0) || (next != null && next.equals("next")))
 				{
 					/* prepare next survey t-shirt */
-					List<Tee80sRating> rs = dao.queryAllRating(userId);
+					List<VirtualRating> rs = dao.queryVirtualRatings(userId);
 
 					boolean found = false;
 					while (true)
 					{
 						found = false;
-						int index = RandomUtils.nextInt(ts.size());
-						Tee80s t = ts.get(index);
-						for (Tee80sRating r : rs)
+						int index = RandomUtils.nextInt(tees.size());
+						Tee t = tees.get(index);
+						for (VirtualRating r : rs)
 						{
 							if (r.getTeeId().equals(t.getId()))
 							{
@@ -121,15 +117,14 @@ public class TShirtServlet extends HttpServlet
 					}
 
 					progress++;
-					ptMap.put(progress, teeId);
+					visitedTees.put(progress, teeId);
 					req.getSession().setAttribute("progress", progress);
-					req.getSession().setAttribute("vTees", ptMap); // visited
-																	// tees
+					req.getSession().setAttribute("vTees", visitedTees); // visited tees
 					req.getSession().setAttribute("maxProgress", maxProgress);
 
 				} else
 				{
-					teeId = ptMap.get(progress);
+					teeId = visitedTees.get(progress);
 				}
 			}
 
@@ -137,36 +132,58 @@ public class TShirtServlet extends HttpServlet
 			int p = (page == null ? 1 : Integer.parseInt(page));
 			req.setAttribute("page", p);
 
-			req.setAttribute("tee", dao.queryTee80s(teeId));
-			req.setAttribute("rating", dao.queryRating(userId, teeId));
+			req.setAttribute("tee", dao.queryTee(teeId));
+			req.setAttribute("rating", dao.queryVirtualRating(userId, teeId));
 			req.setAttribute("reviews", dao.queryReviews(teeId, p, pageSize));
 
 			req.getRequestDispatcher("t-shirt.jsp").forward(req, resp);
 
 		} else if ("rating".equals(action))
 		{
-			String userId = (String) req.getSession().getAttribute("userId");
-
-			float rating = Float.parseFloat(req.getParameter("rating"));
 			String comments = req.getParameter("comments");
 
-			Tee80sRating r = new Tee80sRating();
+			int overall = Integer.parseInt(req.getParameter("overall"));
+			int appearance = Integer.parseInt(req.getParameter("appearance"));
+			int material = Integer.parseInt(req.getParameter("material"));
+			int fit = Integer.parseInt(req.getParameter("fit"));
+			int category = Integer.parseInt(req.getParameter("category"));
+			int price = Integer.parseInt(req.getParameter("price"));
+			int brand = Integer.parseInt(req.getParameter("brand"));
+			int store = Integer.parseInt(req.getParameter("store"));
+			int shipping = Integer.parseInt(req.getParameter("shipping"));
+			int quality = Integer.parseInt(req.getParameter("quality"));
+			int cost = Integer.parseInt(req.getParameter("cost"));
+			int value = Integer.parseInt(req.getParameter("value"));
+
+			VirtualRating r = new VirtualRating();
 			r.setUserId(userId);
 			r.setTeeId(teeId);
-			r.setRating(rating);
 			r.setComments(comments);
-			r.setrDate(new Date(System.currentTimeMillis()));
+			r.setEnvironment(environment);
+			r.setcDate(new Date(System.currentTimeMillis()));
+
+			r.setOverall(overall);
+			r.setAppearance(appearance);
+			r.setMaterial(material);
+			r.setFit(fit);
+			r.setCategory(category);
+			r.setPrice(price);
+			r.setBrand(brand);
+			r.setStore(store);
+			r.setShipping(shipping);
+			r.setQuality(quality);
+			r.setCost(cost);
+			r.setValue(value);
 
 			OutputStream os = resp.getOutputStream();
-			Tee80sRating tr = dao.queryRating(r.getUserId(), r.getTeeId());
-			if (tr != null)
+			if (dao.queryVirtualRating(r.getUserId(), r.getTeeId()) != null)
 			{
 				dao.update(r);
-				os.write(("Thanks. Your rating " + rating + " and comments are updated.").getBytes());
+				os.write(("Thanks. Your ratings and comments are updated.").getBytes());
 			} else
 			{
 				dao.insert(r);
-				os.write(("Thanks. Your rating " + rating + " and comments are saved.").getBytes());
+				os.write(("Thanks. Your ratings and comments are saved.").getBytes());
 			}
 			os.close();
 		} else if ("user".equals(action))
@@ -196,18 +213,32 @@ public class TShirtServlet extends HttpServlet
 				req.setAttribute("error", error);
 				req.setAttribute("user", u);
 
-				RequestDispatcher rd = req.getRequestDispatcher("user.jsp");
+				RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
 				rd.forward(req, resp);
 			}
 		} else if ("user_in".equals(action))
 		{
-			String userId = req.getParameter("userId");
-			String environment = req.getParameter("environment");
+			userId = req.getParameter("userId2");
+			environment = req.getParameter("environment");
 
-			req.getSession().setAttribute("userId", userId);
-			req.getSession().setAttribute("environment", environment);
+			if (dao.queryUser(userId) == null)
+			{
+				req.setAttribute("error_in", "* User id '" + userId + "' does not exist.");
+				req.getRequestDispatcher("index.jsp").forward(req, resp);
+			} else
+			{
+				req.getSession().setAttribute("userId", userId);
+				req.getSession().setAttribute("environment", environment);
 
-			req.getRequestDispatcher("./userStudy?action=info").forward(req, resp);
+				if ("virtual reality".equals(environment))
+				{
+					req.setAttribute("error_in", "* Please use 'second life viewer (RLV)' to continue this user study.");
+					req.getRequestDispatcher("index.jsp").forward(req, resp);
+				} else
+				{
+					req.getRequestDispatcher("./userStudy?action=info").forward(req, resp);
+				}
+			}
 		}
 	}
 

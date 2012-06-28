@@ -5,7 +5,7 @@ import java.util.Map.Entry;
 
 import org.felix.io.FileUtils;
 
-public class Tee80sScripts
+public class Scripts
 {
 	public static void genScripts() throws Exception
 	{
@@ -29,6 +29,6 @@ public class Tee80sScripts
 
 	public static void main(String[] args) throws Exception
 	{
-		Tee80sScripts.genScripts();
+		Scripts.genScripts();
 	}
 }
