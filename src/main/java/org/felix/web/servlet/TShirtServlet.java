@@ -95,7 +95,7 @@ public class TShirtServlet extends HttpServlet
 				if ((progress == 0) || (next != null && next.equals("next")))
 				{
 					/* prepare next survey t-shirt */
-					List<VirtualRating> rs = dao.queryVirtualRatings(userId);
+					List<VirtualRating> rs = dao.queryVirtualRatings(userId, environment);
 
 					boolean found = false;
 					while (true)
@@ -201,8 +201,11 @@ public class TShirtServlet extends HttpServlet
 			os.close();
 		} else if ("user".equals(action))
 		{
+			userId = req.getParameter("userId");
+			environment = req.getParameter("environment");
+
 			User u = new User();
-			u.setUserId(req.getParameter("userId"));
+			u.setUserId(userId);
 			u.setGender(req.getParameter("gender"));
 			String job = req.getParameter("job");
 			if (job != null && job.equals("student")) job += "::" + req.getParameter("job1");
@@ -218,10 +221,19 @@ public class TShirtServlet extends HttpServlet
 			{
 				dao.insert(u);
 
-				environment = req.getParameter("environment");
-				req.getSession().setAttribute("environment", environment);
-				req.getSession().setAttribute("userId", u.getUserId());
-				resp.sendRedirect("./userStudy?action=info");
+				resetSession(req, userId, environment);
+
+				if ("virtual reality".equals(environment))
+				{
+					String msg = "* New user '" + u.getUserId() + "' is created successfully. "
+							+ "Please use 'second life viewer (RLV)' to continue this user study.";
+					req.setAttribute("error", msg);
+					req.setAttribute("user", u);
+					req.getRequestDispatcher("index.jsp").forward(req, resp);
+				} else
+				{
+					req.getRequestDispatcher("./userStudy?action=info").forward(req, resp);
+				}
 			} else
 			{
 				String error = "* The name '" + u.getUserId() + "' has been used.";
@@ -242,12 +254,10 @@ public class TShirtServlet extends HttpServlet
 				req.getRequestDispatcher("index.jsp").forward(req, resp);
 			} else
 			{
-				req.getSession().setAttribute("userId", userId);
-				req.getSession().setAttribute("environment", environment);
+				resetSession(req, userId, environment);
 
 				if ("virtual reality".equals(environment))
 				{
-					req.getSession().setAttribute("maxProgress", maxProgress);
 					req.setAttribute("error_in", "* Please use 'second life viewer (RLV)' to continue this user study.");
 					req.getRequestDispatcher("index.jsp").forward(req, resp);
 				} else
@@ -256,6 +266,19 @@ public class TShirtServlet extends HttpServlet
 				}
 			}
 		}
+	}
+
+	private void resetSession(HttpServletRequest req, String userId, String environment)
+	{
+		req.getSession().setAttribute("userId", userId);
+		req.getSession().setAttribute("environment", environment);
+
+		req.getSession().setAttribute("progress", 1);
+		req.getSession().setAttribute("vrProgress", 1);
+		req.getSession().setAttribute("maxProgress", maxProgress);
+
+		req.getSession().setAttribute("step", 1);
+		req.getSession().removeAttribute("vTees");
 	}
 
 	private void finishStudy(HttpServletResponse resp) throws IOException

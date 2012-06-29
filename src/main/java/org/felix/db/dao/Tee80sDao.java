@@ -221,9 +221,9 @@ public class Tee80sDao extends DerbyDao
 		return r;
 	}
 
-	public List<VirtualRating> queryVirtualRatings(String userId)
+	public List<VirtualRating> queryVirtualRatings(String userId, String environment)
 	{
-		String sql = "SELECT * FROM ratings WHERE userId = '" + userId + "'";
+		String sql = "SELECT * FROM ratings WHERE userId = '" + userId + "' AND environment='" + environment + "'";
 		logger.debug("Query ratings: {}", sql);
 
 		List<VirtualRating> trs = new ArrayList<VirtualRating>();
