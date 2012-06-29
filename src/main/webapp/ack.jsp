@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<meta HTTP-EQUIV="Refresh" content="5; url=./userStudy">
+<!-- <meta HTTP-EQUIV="Refresh" content="5; url=./userStudy"> -->
 <title>User Study - Environment</title>
 <link rel="shortcut icon" href="img/users.ico" />
 <link rel="stylesheet" type="text/css" href="css/t-shirt.css" />
@@ -36,9 +36,6 @@
 						</c:when>
 					</c:choose>
 				</c:if>
-				<c:if test="${progress==sessionScope.maxProgress+1 && sessionScope.environment eq 'virtual reality' }">
-						<a href="./userStudy?action=env" onclick="return check_rating()" title="To Last Part of User Study">
-				</c:if>
 					<span class="block-reco">
 						<c:choose>
 							<c:when test="${progress==sessionScope.maxProgress+1 }">>></c:when>
@@ -47,9 +44,6 @@
 					<c:if test="${progress<=sessionScope.progress+1 && sessionScope.environment eq 'web site'}">
 						</a>
 					</c:if>
-					<c:if test="${sessionScope.progress==sessionScope.maxProgress && sessionScope.environment eq 'virtual reality' }">
-						</a>
-				</c:if>
 				</c:forEach> 
 			</span>
 		</p>
@@ -62,8 +56,7 @@
 			To protect all the information you provided, we will keep it safe and confidential, and only use it for research purpose.<br/>
 			If you have not completed the other study (@<span style="color: blue">
 			<c:if test="${sessionScope.environment eq 'web site' }">virtual reality</c:if>
-			<c:if test="${sessionScope.environment eq 'virtual reality' }">web site</c:if></span>), click <a href="./userStudy" style="font-size:24px;">here</a> to continue user study,
-			 or wait <span style="color:red;">5</span> seconds to automatically redirect to <a href="./userStudy"  style="font-size:24px;">start page</a>.
+			<c:if test="${sessionScope.environment eq 'virtual reality' }">web site</c:if></span>), click and <input type="button" value="Go to Start Page" class="submit" onclick="javascript:window.location.href='./userStudy'"/> to continue user study.
 		</p>
 			
 			Best Regards, <br/>

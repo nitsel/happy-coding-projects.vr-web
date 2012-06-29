@@ -51,6 +51,16 @@ div,table { /* Rounded Corners */
 	display: block; /* Rendered as a DIV */
 }
 
+.entry .stars-list{
+	margin:-10px 0px;
+}
+
+.entry .stars-list li{
+	 margin-left:270px; 
+	 padding-left:20px;
+	 line-height: 1.5;
+}
+
 .entry2,.review {
 	background-color: lightBlue !important;
 }
@@ -84,8 +94,8 @@ div,table { /* Rounded Corners */
 .float-image {
 	float: left;
 	margin: 0px 10px 10px 10px;
-	width: 200px;
-	height: 280px;
+/* 	width: 200px; */
+/* 	height: 280px; */
 }
 
 .float-info {

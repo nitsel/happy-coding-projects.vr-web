@@ -90,26 +90,27 @@
 				<c:if test="${progress==sessionScope.maxProgress+1 && sessionScope.environment eq 'virtual reality' }">
 						<a href="./userStudy?action=env" onclick="return check_rating()" title="To Last Part of User Study">
 				</c:if>
-					<span
-						<c:choose>
-							<c:when test="${progress<=sessionScope.progress && sessionScope.environment eq 'web site'}">class="block-reco"</c:when>
-							<c:when test="${progress==sessionScope.progress+1 
-											&& sessionScope.step==3
-											&& sessionScope.environment eq 'web site'}">class="block-reco"</c:when>
-							<c:when test="${progress==sessionScope.progress+1 && sessionScope.environment eq 'web site'}">class="block-red"</c:when>
-							<c:when test="${progress<=sessionScope.vrProgress && sessionScope.environment eq 'virtual reality'}">class="block-reco"</c:when>
-							<c:when test="${progress==sessionScope.vrProgress+1 && sessionScope.environment eq 'virtual reality'}">class="block-red"</c:when>
-							<c:otherwise>class="block-gray"</c:otherwise>
-						</c:choose>>
-						<c:choose>
-							<c:when test="${progress==sessionScope.maxProgress+1 }">>></c:when>
-							<c:otherwise>${progress}</c:otherwise>
-						</c:choose> </span>
-					<c:if test="${progress<=sessionScope.progress+1 && sessionScope.environment eq 'web site'}">
-						</a>
-					</c:if>
-					<c:if test="${sessionScope.progress==sessionScope.maxProgress && sessionScope.environment eq 'virtual reality' }">
-						</a>
+				<span
+					<c:choose>
+						<c:when test="${progress<=sessionScope.progress && sessionScope.environment eq 'web site'}">class="block-reco"</c:when>
+						<c:when test="${progress==sessionScope.progress+1 
+										&& sessionScope.step==3
+										&& sessionScope.environment eq 'web site'}">class="block-reco"</c:when>
+						<c:when test="${progress==sessionScope.progress+1 && sessionScope.environment eq 'web site'}">class="block-red"</c:when>
+						<c:when test="${progress<sessionScope.vrProgress 
+										&& sessionScope.environment eq 'virtual reality'}">class="block-reco"</c:when>
+						<c:when test="${progress==sessionScope.vrProgress && sessionScope.environment eq 'virtual reality'}">class="block-red"</c:when>
+						<c:otherwise>class="block-gray"</c:otherwise>
+					</c:choose>>
+					<c:choose>
+						<c:when test="${progress==sessionScope.maxProgress+1 }">>></c:when>
+						<c:otherwise>${progress}</c:otherwise>
+					</c:choose> </span>
+				<c:if test="${progress<=sessionScope.progress+1 && sessionScope.environment eq 'web site'}">
+					</a>
+				</c:if>
+				<c:if test="${progress==sessionScope.maxProgress+1 && sessionScope.environment eq 'virtual reality' }">
+					</a>
 				</c:if>
 				</c:forEach> 
 			</span>
@@ -118,14 +119,14 @@
 		
 		<h2>Rate and Comment on the Environment</h2>
 		<p>To what extent do you agree or disagree with each of the
-			following statements? (from one star to five stars)</p>
-		<ol>
-			<li>Strongly Disagree</li>
-			<li>Disagree</li>
-			<li>Slightly Disagree or Slightly Agree</li>
-			<li>Agree</li>
-			<li>Strongly Agree</li>
-		</ol>
+			following statements?
+		<ul class="stars-list">
+			<li style="list-style-image: url(img/star1.PNG);">Strongly Disagree</li>
+			<li style="list-style-image: url(img/star2.PNG)">Disagree</li>
+			<li style="list-style-image: url(img/star3.PNG)">Slightly Disagree or Slightly Agree</li>
+			<li style="list-style-image: url(img/star4.PNG)">Agree</li>
+			<li style="list-style-image: url(img/star5.PNG)">Strongly Agree</li>
+		</ul>
 		<form action="./userStudy?action=env_sub" method="post" class="userForm" onsubmit="return validate()">
 			<table class="questions">
 				<tr>

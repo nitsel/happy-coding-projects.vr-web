@@ -137,8 +137,12 @@
 				class="underline_box" value="${user.userId }" />
 				Environment: 
 				<select name="environment">
-					<option value="web site">Web Site</option>
-					<option value="virtual reality">Virtual Reality</option>
+					<option value="web site" 
+						<c:if test="${sessionScope.environment eq 'web site' }">selected="selected"</c:if>
+					>Web Site</option>
+					<option value="virtual reality"
+						<c:if test="${sessionScope.environment eq 'virtual reality' }">selected="selected"</c:if>
+					>Virtual Reality</option>
 				</select><br />
 			<span style="color: red;">${requestScope.error }</span>
 			

@@ -87,18 +87,35 @@
 			return true;
 		}
 		
-		function check_rating2()
-		{
-			if(check_rating()) return true;
-			var currentProgress=${sessionScope.vrProgress};
-			var maxProgress=${sessionScope.maxProgress};
-			if((currentProgress-maxProgress)<1)
-			{
-				alert('Please rate all required t-shirts before proceeding to the next step.');
-				return false;
-			}
-			return true;
-		}
+		// scale image proportionally
+		var flag=false; 
+		function DrawImage(ImgD,iwidth,iheight){ 
+		    var image=new Image(); 
+		    image.src=ImgD.src; 
+		    if(image.width>0 && image.height>0){ 
+		    flag=true; 
+		    if(image.width/image.height>= iwidth/iheight){ 
+		        if(image.width>iwidth){   
+		        ImgD.width=iwidth; 
+		        ImgD.height=(image.height*iwidth)/image.width; 
+		        }else{ 
+		        ImgD.width=image.width;   
+		        ImgD.height=image.height; 
+		        } 
+		        ImgD.alt=image.width+"×"+image.height; 
+		        } 
+			else{ 
+		        if(image.height>iheight){   
+		        ImgD.height=iheight; 
+		        ImgD.width=(image.width*iheight)/image.height;         
+		        }else{ 
+		        ImgD.width=image.width;   
+		        ImgD.height=image.height; 
+		        } 
+		        ImgD.alt=image.width+"×"+image.height; 
+		        } 
+		    } 
+		} 
 		
 		function init()
 		{
@@ -144,6 +161,7 @@
 
 <body>
 	<div class="entry">
+<%-- 	<p>Session.progress=${sessionScope.progress }, Session.vrProgress=${sessionScope.vrProgress}, Session.step=${sessionScope.step }</p> --%>
 		<p>
 			<strong>Current Progress (<span style="color: red;">${sessionScope.userId
 					}@${sessionScope.environment }</span>) </strong> 
@@ -165,7 +183,9 @@
 						</c:when>
 					</c:choose>
 				</c:if>
-				<c:if test="${progress==sessionScope.maxProgress+1 && sessionScope.environment eq 'virtual reality' }">
+				<c:if test="${progress==sessionScope.maxProgress+1 
+							&& sessionScope.vrProgress>=sessionScope.maxProgress
+							&& sessionScope.environment eq 'virtual reality' }">
 						<a href="./userStudy?action=env" onclick="return check_rating()" title="To Last Part of User Study">
 				</c:if>
 					<span
@@ -195,15 +215,17 @@
 					<c:if test="${progress<=sessionScope.progress+1 && sessionScope.environment eq 'web site'}">
 						</a>
 					</c:if>
-					<c:if test="${sessionScope.progress==sessionScope.maxProgress && sessionScope.environment eq 'virtual reality' }">
+					<c:if test="${progress==sessionScope.maxProgress+1 
+							&& sessionScope.vrProgress>=sessionScope.maxProgress
+							&& sessionScope.environment eq 'virtual reality' }">
 						</a>
-				</c:if>
+					</c:if>
 				</c:forEach> 
 			</span>
 		</p>
 		<h2>T-Shirt Info</h2>
 		<img alt="T-shirt Image" src="./Htmls/${tee.image }"
-			class="float-image" />
+			class="float-image" onload="javascript:DrawImage(this, 200, 280)"/>
 		<ul class="ul-properties">
 			<li><span>Name: </span><a style="text-transform: capitalize"
 				name="#">${tee.name}</a></li>
@@ -280,14 +302,15 @@
 	<div class="entry">
 		<h2>Rate This T-Shirt</h2>
 		<p>To what extent do you agree or disagree with each of the
-			following statements? (from one star to five stars)</p>
-		<ol>
-			<li>Strongly Disagree</li>
-			<li>Disagree</li>
-			<li>Slightly Disagree or Slightly Agree</li>
-			<li>Agree</li>
-			<li>Strongly Agree</li>
-		</ol>
+			following statements?
+		<ul class="stars-list">
+			<li style="list-style-image: url(img/star1.PNG);">Strongly Disagree</li>
+			<li style="list-style-image: url(img/star2.PNG)">Disagree</li>
+			<li style="list-style-image: url(img/star3.PNG)">Slightly Disagree or Slightly Agree</li>
+			<li style="list-style-image: url(img/star4.PNG)">Agree</li>
+			<li style="list-style-image: url(img/star5.PNG)">Strongly Agree</li>
+		</ul>
+		</p>
 		<form id="ratingForm" action="#" method="post" onsubmit="return submit_rating()">
 			<input id="page" type="hidden" value="${param.page }" />
 			<table class="questions">
