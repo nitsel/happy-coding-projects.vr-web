@@ -17,11 +17,11 @@
 		<h2>User Study - Administration</h2>
 
 		<ul class="admin">
-			<li><label>Pilot Study:</label><a href="http://localhost:8080/VR-web/userStudy?action=pilot">http://localhost:8080/VR-web/userStudy?action=pilot</a>
-			<li><label>User Study:</label><a href="http://localhost:8080/VR-web/userStudy">http://localhost:8080/VR-web/userStudy</a>
-			<li><label>Clear Users' Data:</label><a href="http://localhost:8080/VR-web/userStudy?action=clearDB">http://localhost:8080/VR-web/userStudy?action=clearDB</a>
-			<li><label>Clear Users' Rating Data:</label><a href="http://localhost:8080/VR-web/userStudy?action=clearRatings">http://localhost:8080/VR-web/userStudy?action=clearRatings</a>
-			<li><label>Clear Users' Pilot Study Data:</label><a href="http://localhost:8080/VR-web/userStudy?action=clearPilots">http://localhost:8080/VR-web/userStudy?action=clearPilots</a>
+			<li><label>User Study:</label><a href="http://localhost:8080/VR-web/userStudy" target="_blank">http://localhost:8080/VR-web/userStudy</a>
+			<li><label>Pilot Study:</label><a href="http://localhost:8080/VR-web/userStudy?action=pilot" target="_blank">http://localhost:8080/VR-web/userStudy?action=pilot</a>
+			<li><label>Clear Users' Data:</label><a href="http://localhost:8080/VR-web/userStudy?action=clearDB" target="_blank">http://localhost:8080/VR-web/userStudy?action=clearDB</a>
+			<li><label>Clear Pilot Studies:</label><a href="http://localhost:8080/VR-web/userStudy?action=clearPilots" target="_blank">http://localhost:8080/VR-web/userStudy?action=clearPilots</a>
+			<li><label>Clear Virtual Ratings:</label><a href="http://localhost:8080/VR-web/userStudy?action=clearRatings" target="_blank">http://localhost:8080/VR-web/userStudy?action=clearRatings</a>
 		</ul>
 	</div>
 </body>
