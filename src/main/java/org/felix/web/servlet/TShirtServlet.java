@@ -44,6 +44,48 @@ public class TShirtServlet extends HttpServlet
 		if (action == null)
 		{
 			req.getRequestDispatcher("index.jsp").forward(req, resp);
+		} else if ("admin".equals(action))
+		{
+			req.getRequestDispatcher("manage.jsp").forward(req, resp);
+		} else if ("clearDB".equals(action))
+		{
+			try
+			{
+				dao.clearDB();
+				String msg = "Users\' data is cleared. ";
+				finishStudy(resp, msg);
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+				String msg = "Users\' data is not cleared as errors \'" + e.getMessage() + "\' occurs";
+				finishStudy(resp, msg);
+			}
+		} else if ("clearPilots".equals(action))
+		{
+			try
+			{
+				dao.clearRatings();
+				String msg = "Users\' pilot study data is cleared. ";
+				finishStudy(resp, msg);
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+				String msg = "Users\' pilot study is not cleared as errors \'" + e.getMessage() + "\' occurs";
+				finishStudy(resp, msg);
+			}
+		} else if ("clearRatings".equals(action))
+		{
+			try
+			{
+				dao.clearRatings();
+				String msg = "Users\' rating data is cleared. ";
+				finishStudy(resp, msg);
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+				String msg = "Users\' rating data is not cleared as errors \'" + e.getMessage() + "\' occurs";
+				finishStudy(resp, msg);
+			}
 		} else if ("pilot".equals(action))
 		{
 			req.getRequestDispatcher("pilot.jsp").forward(req, resp);
@@ -131,7 +173,8 @@ public class TShirtServlet extends HttpServlet
 				int progress = visitedTees.size();
 				if (progress > maxProgress)
 				{
-					finishStudy(resp);
+					String msg = "Thanks for your cooperation. This user study is finished.";
+					finishStudy(resp, msg);
 
 					return;
 				}
@@ -326,10 +369,10 @@ public class TShirtServlet extends HttpServlet
 		req.getSession().removeAttribute("vTees");
 	}
 
-	private void finishStudy(HttpServletResponse resp) throws IOException
+	private void finishStudy(HttpServletResponse resp, String msg) throws IOException
 	{
-		String out = "<script>alert('Thanks for your cooperation. This user study is finished.');</script>";
-		resp.setHeader("Refresh", "1; URL=./userStudy");
+		String out = "<script>alert('" + msg + "');</script>";
+		resp.setHeader("Refresh", "3; URL=./userStudy");
 		resp.getOutputStream().write(out.getBytes());
 	}
 
