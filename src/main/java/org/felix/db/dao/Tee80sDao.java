@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.felix.db.Environment;
+import org.felix.db.PilotStudy;
 import org.felix.db.Review;
 import org.felix.db.Tee;
 import org.felix.db.User;
@@ -77,10 +78,30 @@ public class Tee80sDao extends DerbyDao
 				+ ", material=" + r.getMaterial() + ", fit=" + r.getFit() + ", category=" + r.getCategory()
 				+ ", price=" + r.getPrice() + ", brand=" + r.getBrand() + ", store=" + r.getStore() + ", shipping="
 				+ r.getShipping() + ", quality=" + r.getQuality() + ", cost=" + r.getCost() + ", value=" + r.getValue()
-				+ " WHERE userId = '" + r.getUserId()
-				+ "' AND teeId = '" + r.getTeeId() + "'";
+				+ " WHERE userId = '" + r.getUserId() + "' AND teeId = '" + r.getTeeId() + "'";
 
 		logger.debug("Update ratings: {}", sql);
+		try
+		{
+			stmt.executeUpdate(sql);
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void update(PilotStudy p)
+	{
+		String sql = "UPDATE pilots SET appearance = " + p.getAppearance() + ", material = " + p.getMaterial()
+				+ ", fit = " + p.getFit() + ", situation = " + p.getSituation() + ", customization ="
+				+ p.getCustomization() + ", rating = " + p.getRating() + ", brand = " + p.getBrand() + ", store = "
+				+ p.getStore() + ", recommendation = " + p.getRecommendation() + ", category = " + p.getCategory()
+				+ ", warranty = " + p.getWarranty() + ", price = " + p.getPrice() + ", promotion = " + p.getPromotion()
+				+ ", shipping = " + p.getShipping() + ", otherFaeture = '" + p.getOtherFeature() + "', others = "
+				+ p.getOthers() + ", comments = '" + p.getComments() + "', cDate = '" + p.getcDate()
+				+ "' WHERE userId = '" + p.getUserId() + "'";
+
+		logger.debug("Update pilots: {}", sql);
 		try
 		{
 			stmt.executeUpdate(sql);
@@ -171,6 +192,27 @@ public class Tee80sDao extends DerbyDao
 				+ r.getQuality() + ", " + r.getCost() + ", " + r.getValue() + ")";
 
 		logger.debug("Insert rating: {}", sql);
+
+		try
+		{
+			stmt.executeUpdate(sql);
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void insert(PilotStudy p)
+	{
+		String meta = "userId, appearance, material, fit, situation, customization, rating, brand, store, recommendation, category, warranty, price, promotion, shipping, otherFeature, others, comments, cDate";
+		String sql = "INSERT INTO pilots (" + meta + ") VALUES ('" + p.getUserId() + "', " + p.getAppearance() + ", "
+				+ p.getMaterial() + ", " + p.getFit() + ", " + p.getSituation() + ", " + p.getCustomization() + ", "
+				+ p.getRating() + ", " + p.getBrand() + ", " + p.getStore() + ", " + p.getRecommendation() + ", "
+				+ p.getCategory() + ", " + p.getWarranty() + ", " + p.getPrice() + ", " + p.getPromotion() + ", "
+				+ p.getShipping() + ", '" + p.getOtherFeature() + "', " + p.getOthers() + ", '" + p.getComments()
+				+ "', '" + p.getcDate() + "')";
+
+		logger.debug("Insert pilot: {}", sql);
 
 		try
 		{
@@ -311,23 +353,7 @@ public class Tee80sDao extends DerbyDao
 		stmt.executeUpdate(sql);
 	}
 
-	public List<String> queryTees() throws Exception
-	{
-		List<String> results = null;
-
-		String sql = "SELECT * FROM tee80s";
-		ResultSet rs = stmt.executeQuery(sql);
-
-		while (rs.next())
-		{
-			if (results == null) results = new ArrayList<String>();
-			results.add(rs.getString("id"));
-		}
-
-		return results;
-	}
-
-	public List<Tee> queryAllTees()
+	public List<Tee> queryTees()
 	{
 		String sql = "SELECT * FROM tee80s";
 		List<Tee> ts = new ArrayList<Tee>();
@@ -454,6 +480,47 @@ public class Tee80sDao extends DerbyDao
 		return u;
 	}
 
+	public PilotStudy queryPilot(String userId)
+	{
+		String sql = "SELECT * FROM pilots WHERE userId = '" + userId + "'";
+		logger.debug("Query pilots: {}", sql);
+
+		ResultSet rs;
+		PilotStudy p = null;
+		try
+		{
+			rs = stmt.executeQuery(sql);
+			if (rs.next())
+			{
+				p = new PilotStudy();
+				p.setUserId(rs.getString("userId"));
+				p.setAppearance(Integer.parseInt(rs.getString("appearance")));
+				p.setMaterial(Integer.parseInt(rs.getString("material")));
+				p.setFit(Integer.parseInt(rs.getString("fit")));
+				p.setSituation(Integer.parseInt(rs.getString("situation")));
+				p.setCustomization(Integer.parseInt(rs.getString("customization")));
+				p.setRating(Integer.parseInt(rs.getString("rating")));
+				p.setBrand(Integer.parseInt(rs.getString("brand")));
+				p.setStore(Integer.parseInt(rs.getString("store")));
+				p.setRecommendation(Integer.parseInt(rs.getString("recommendation")));
+				p.setCategory(Integer.parseInt(rs.getString("category")));
+				p.setWarranty(Integer.parseInt(rs.getString("warranty")));
+				p.setPrice(Integer.parseInt(rs.getString("price")));
+				p.setPromotion(Integer.parseInt(rs.getString("promotion")));
+				p.setShipping(Integer.parseInt(rs.getString("shipping")));
+				p.setOthers(Integer.parseInt(rs.getString("others")));
+				p.setOtherFeature(rs.getString("otherFeature"));
+				p.setComments(rs.getString("comments"));
+				p.setcDate(DateUtils.parseString(rs.getString("cDate")));
+			}
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		return p;
+	}
+
 	public Environment queryEnvironment(String userId, String environment)
 	{
 		String sql = "SELECT * FROM envs WHERE userId = '" + userId + "' AND environment = '" + environment + "'";
@@ -569,6 +636,12 @@ public class Tee80sDao extends DerbyDao
 		createTable(sql);
 	}
 
+	public void createPilots() throws Exception
+	{
+		String sql = "CREATE TABLE pilots (userId VARCHAR(50) PRIMARY KEY NOT NULL, appearance INT, material INT, fit INT, situation INT, customization INT, rating INT, brand INT, store INT, recommendation INT, category INT, warranty INT, price INT, promotion INT, shipping INT, others INT, otherFeature VARCHAR(50), comments VARCHAR(1000), cDate DATE)";
+		createTable(sql);
+	}
+
 	public void createEnvs() throws Exception
 	{
 		String sql = "CREATE TABLE envs (userId VARCHAR(50), confidence INT, presence INT, comfort INT, reasons VARCHAR(2000), environment VARCHAR(50), cDate DATE, PRIMARY KEY (userId, environment))";
@@ -604,6 +677,7 @@ public class Tee80sDao extends DerbyDao
 	@Override
 	protected void createTables() throws Exception
 	{
+		createPilots();
 		createTees();
 		createUsers();
 		createEnvs();
@@ -620,22 +694,24 @@ public class Tee80sDao extends DerbyDao
 	public static void main(String[] args) throws Exception
 	{
 		Timer.start();
-		FileUtils.deleteDirectory(database);
+		// FileUtils.deleteDirectory(database);
 
-		String[] tables = new String[] { "tee80s", "ratings", "reviews", "users", "envs" };
+		String[] tables = new String[] { "tee80s", "ratings", "reviews", "users", "envs", "pilots" };
 		boolean meta = true;
 		boolean data = true;
 
 		Tee80sDao dao = new Tee80sDao();
+		dao.dropTable("pilots");
+		dao.createPilots();
 
-		if (meta)
+		if (!meta)
 		{
 			// dao.clearTables(tables);
 			// dao.dropTables(tables);
 			dao.createTables();
 		}
 
-		if (data)
+		if (!data)
 		{
 			// dao.clearTables();
 			Tee80sShirtClient client = new Tee80sShirtClient();

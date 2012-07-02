@@ -223,7 +223,7 @@ table td {
 	border-bottom: thin dotted rgb(12, 155, 116);
 }
 
-.userForm .underline_box {
+.underline_box {
 	border: none;
 	border-bottom: 1px #009900 solid;
 	background-color: transparent;

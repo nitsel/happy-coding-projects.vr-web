@@ -317,122 +317,121 @@
 				<tr>
 					<td>01.</td>
 					<td width="80%">Overall, you like this t-shirt.</td>
-					<td><input name="overall" type="radio" value="1" class="star" />
-						<input name="overall" type="radio" value="2" class="star" /> <input
-						name="overall" type="radio" value="3" class="star" /> <input
-						name="overall" type="radio" value="4" class="star" /> <input
-						name="overall" type="radio" value="5" class="star" /></td>
+					<td><input name="overall" type="radio" value="1" class="star" title="Strongly Disagree"/>
+						<input name="overall" type="radio" value="2" class="star" title="Disagree" /> 
+						<input name="overall" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
+						<input name="overall" type="radio" value="4" class="star" title="Agree" /> 
+						<input name="overall" type="radio" value="5" class="star" title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>02.</td>
 					<td width="80%">This t-shirt has a good looking <br /> in
 						terms of color, patterns, style, etc.</td>
-					<td><input name="appearance" type="radio" value="1"
-						class="star" /> <input name="appearance" type="radio" value="2"
-						class="star" /> <input name="appearance" type="radio" value="3"
-						class="star" /> <input name="appearance" type="radio" value="4"
-						class="star" /> <input name="appearance" type="radio" value="5"
-						class="star" /></td>
+					<td><input name="appearance" type="radio" value="1" class="star" title="Strongly Disagree" /> 
+						<input name="appearance" type="radio" value="2" class="star" title="Disagree" /> 
+						<input name="appearance" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree"/> 
+						<input name="appearance" type="radio" value="4" class="star" title="Agree" /> 
+						<input name="appearance" type="radio" value="5" class="star" title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>03.</td>
 					<td width="80%">This t-shirt is made of good material.</td>
-					<td><input name="material" type="radio" value="1" class="star" />
-						<input name="material" type="radio" value="2" class="star" /> <input
-						name="material" type="radio" value="3" class="star" /> <input
-						name="material" type="radio" value="4" class="star" /> <input
-						name="material" type="radio" value="5" class="star" /></td>
+					<td><input name="material" type="radio" value="1" class="star" title="Strongly Disagree"/>
+						<input name="material" type="radio" value="2" class="star" title="Disagree" /> 
+						<input name="material" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
+						<input name="material" type="radio" value="4" class="star" title="Agree" /> 
+						<input name="material" type="radio" value="5" class="star" title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>04.</td>
 					<td width="80%">This t-shirt fits you well.</td>
-					<td><input name="fit" type="radio" value="1" class="star" />
-						<input name="fit" type="radio" value="2" class="star" /> <input
-						name="fit" type="radio" value="3" class="star" /> <input
-						name="fit" type="radio" value="4" class="star" /> <input
-						name="fit" type="radio" value="5" class="star" /></td>
+					<td><input name="fit" type="radio" value="1" class="star" title="Strongly Disagree"/>
+						<input name="fit" type="radio" value="2" class="star" title="Disagree" /> 
+						<input name="fit" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
+						<input name="fit" type="radio" value="4" class="star" title="Agree" /> 
+						<input name="fit" type="radio" value="5" class="star" title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>05.</td>
 					<td width="80%">The category of this t-shirt is of your favor.</td>
-					<td><input name="category" type="radio" value="1" class="star" />
-						<input name="category" type="radio" value="2" class="star" /> <input
-						name="category" type="radio" value="3" class="star" /> <input
-						name="category" type="radio" value="4" class="star" /> <input
-						name="category" type="radio" value="5" class="star" /></td>
+					<td><input name="category" type="radio" value="1" class="star" title="Strongly Disagree"/>
+						<input name="category" type="radio" value="2" class="star" title="Disagree" /> 
+						<input name="category" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
+						<input name="category" type="radio" value="4" class="star" title="Agree" /> 
+						<input name="category" type="radio" value="5" class="star" title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>06.</td>
 					<td width="80%">The price of this t-shirt is acceptable, <br />
 						including base price, tax and shipping fees.</td>
-					<td><input name="price" type="radio" value="1" class="star" />
-						<input name="price" type="radio" value="2" class="star" /> <input
-						name="price" type="radio" value="3" class="star" /> <input
-						name="price" type="radio" value="4" class="star" /> <input
-						name="price" type="radio" value="5" class="star" /></td>
+					<td><input name="price" type="radio" value="1" class="star" title="Strongly Disagree"/>
+						<input name="price" type="radio" value="2" class="star" title="Disagree" /> 
+						<input name="price" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
+						<input name="price" type="radio" value="4" class="star" title="Agree" /> 
+						<input name="price" type="radio" value="5" class="star" title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>07.</td>
 					<td width="80%">The brand is reputable.</td>
-					<td><input name="brand" type="radio" value="1" class="star" />
-						<input name="brand" type="radio" value="2" class="star" /> <input
-						name="brand" type="radio" value="3" class="star" /> <input
-						name="brand" type="radio" value="4" class="star" /> <input
-						name="brand" type="radio" value="5" class="star" /></td>
+					<td><input name="brand" type="radio" value="1" class="star" title="Strongly Disagree"/>
+						<input name="brand" type="radio" value="2" class="star" title="Disagree" /> 
+						<input name="brand" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
+						<input name="brand" type="radio" value="4" class="star" title="Agree" /> 
+						<input name="brand" type="radio" value="5" class="star" title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>08.</td>
 					<td width="80%">The virtual store is well-designed.</td>
-					<td><input name="store" type="radio" value="1" class="star" />
-						<input name="store" type="radio" value="2" class="star" /> <input
-						name="store" type="radio" value="3" class="star" /> <input
-						name="store" type="radio" value="4" class="star" /> <input
-						name="store" type="radio" value="5" class="star" /></td>
+					<td><input name="store" type="radio" value="1" class="star" title="Strongly Disagree" />
+						<input name="store" type="radio" value="2" class="star" title="Disagree" /> 
+						<input name="store" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
+						<input name="store" type="radio" value="4" class="star" title="Agree" /> 
+						<input name="store" type="radio" value="5" class="star" title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>09.</td>
 					<td width="80%">The shipping is convenient.</td>
-					<td><input name="shipping" type="radio" value="1" class="star" />
-						<input name="shipping" type="radio" value="2" class="star" /> <input
-						name="shipping" type="radio" value="3" class="star" /> <input
-						name="shipping" type="radio" value="4" class="star" /> <input
-						name="shipping" type="radio" value="5" class="star" /></td>
+					<td><input name="shipping" type="radio" value="1" class="star" title="Strongly Disagree" />
+						<input name="shipping" type="radio" value="2" class="star" title="Disagree" /> 
+						<input name="shipping" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
+						<input name="shipping" type="radio" value="4" class="star" title="Agree" /> 
+						<input name="shipping" type="radio" value="5" class="star" title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>10.</td>
 					<td width="80%">In total, the quality of this t-shirt is good.
 					</td>
-					<td><input name="quality" type="radio" value="1" class="star" />
-						<input name="quality" type="radio" value="2" class="star" /> <input
-						name="quality" type="radio" value="3" class="star" /> <input
-						name="quality" type="radio" value="4" class="star" /> <input
-						name="quality" type="radio" value="5" class="star" /></td>
+					<td><input name="quality" type="radio" value="1" class="star" title="Strongly Disagree" />
+						<input name="quality" type="radio" value="2" class="star" title="Disagree" /> 
+						<input name="quality" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
+						<input name="quality" type="radio" value="4" class="star" title="Agree" /> 
+						<input name="quality" type="radio" value="5" class="star" title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>11.</td>
 					<td width="80%">In total, you need to spend a lot to obtain
 						this t-shirt <br /> in terms of price, time, effort, etc.</td>
-					<td><input name="cost" type="radio" value="1" class="star" />
-						<input name="cost" type="radio" value="2" class="star" /> <input
-						name="cost" type="radio" value="3" class="star" /> <input
-						name="cost" type="radio" value="4" class="star" /> <input
-						name="cost" type="radio" value="5" class="star" /></td>
+					<td><input name="cost" type="radio" value="1" class="star" title="Strongly Disagree" />
+						<input name="cost" type="radio" value="2" class="star" title="Disagree" /> 
+						<input name="cost" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
+						<input name="cost" type="radio" value="4" class="star" title="Agree" /> 
+						<input name="cost" type="radio" value="5" class="star" title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>12.</td>
 					<td width="80%">In total, this t-shirt is worthy purchasing.</td>
-					<td><input name="value" type="radio" value="1" class="star" />
-						<input name="value" type="radio" value="2" class="star" /> <input
-						name="value" type="radio" value="3" class="star" /> <input
-						name="value" type="radio" value="4" class="star" /> <input
-						name="value" type="radio" value="5" class="star" /></td>
+					<td><input name="value" type="radio" value="1" class="star" title="Strongly Disagree" />
+						<input name="value" type="radio" value="2" class="star" title="Disagree" /> 
+						<input name="value" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
+						<input name="value" type="radio" value="4" class="star" title="Agree" /> 
+						<input name="value" type="radio" value="5" class="star" title="Strongly Agree" /></td>
 				</tr>
 			</table>
 			<p>
 				Comments&nbsp;&nbsp;(optional): <br />
 				<textarea id="comments" name="comments" cols="50" rows="7">${rating.comments }</textarea>
 			</p>
-			<input type="submit" value="Submit Rating" class="submit" /><span
+			<input type="submit" value="Submit Ratings" class="submit" /><span
 				id="result" style="margin: 5px 0px 10px 20px; color: red;"></span>
 		</form>
 	</div>

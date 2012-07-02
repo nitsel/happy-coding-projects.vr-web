@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.felix.db.Environment;
+import org.felix.db.PilotStudy;
 import org.felix.db.Tee;
 import org.felix.db.User;
 import org.felix.db.VirtualRating;
@@ -24,7 +25,7 @@ public class TShirtServlet extends HttpServlet
 {
 	private final static Tee80sDao	dao					= new Tee80sDao();
 	// all tees
-	private final static List<Tee>	tees				= dao.queryAllTees();
+	private final static List<Tee>	tees				= dao.queryTees();
 
 	private static final long		serialVersionUID	= 1L;
 
@@ -43,6 +44,50 @@ public class TShirtServlet extends HttpServlet
 		if (action == null)
 		{
 			req.getRequestDispatcher("index.jsp").forward(req, resp);
+		} else if ("pilot".equals(action))
+		{
+			req.getRequestDispatcher("pilot.jsp").forward(req, resp);
+		} else if ("pilot_sub".equals(action))
+		{
+			PilotStudy p = new PilotStudy();
+			p.setUserId(req.getParameter("userId"));
+			p.setAppearance(Integer.parseInt(req.getParameter("appearance")));
+			p.setMaterial(Integer.parseInt(req.getParameter("material")));
+			p.setFit(Integer.parseInt(req.getParameter("fit")));
+			p.setSituation(Integer.parseInt(req.getParameter("situation")));
+			p.setCustomization(Integer.parseInt(req.getParameter("customization")));
+			p.setRating(Integer.parseInt(req.getParameter("rating")));
+			p.setBrand(Integer.parseInt(req.getParameter("brand")));
+			p.setStore(Integer.parseInt(req.getParameter("store")));
+			p.setRecommendation(Integer.parseInt(req.getParameter("recommendation")));
+			p.setCategory(Integer.parseInt(req.getParameter("category")));
+			p.setWarranty(Integer.parseInt(req.getParameter("warranty")));
+			p.setPrice(Integer.parseInt(req.getParameter("price")));
+			p.setPromotion(Integer.parseInt(req.getParameter("promotion")));
+			p.setShipping(Integer.parseInt(req.getParameter("shipping")));
+
+			String otherFeature = req.getParameter("otherFeature").trim();
+			if (!otherFeature.isEmpty())
+			{
+				p.setOtherFeature(otherFeature);
+				p.setOthers(Integer.parseInt(req.getParameter("others")));
+			}
+
+			p.setComments(req.getParameter("comments"));
+			p.setcDate(new Date(System.currentTimeMillis()));
+
+			if (dao.queryPilot(p.getUserId()) != null)
+			{
+				req.setAttribute("thanks", "The name '" + p.getUserId() + "' has been used.");
+				req.setAttribute("p", p);
+				req.getRequestDispatcher("pilot.jsp").forward(req, resp);
+			} else
+			{
+				dao.insert(p);
+				req.setAttribute("thanks", "Your ratings are saved. Thanks for your greate support.");
+				req.getRequestDispatcher("./userStudy?action=pilot").forward(req, resp);
+			}
+
 		} else if ("env".equals(action))
 		{
 			if ((Integer) req.getSession().getAttribute("step") == 1) req.getSession().setAttribute("step", 2);
