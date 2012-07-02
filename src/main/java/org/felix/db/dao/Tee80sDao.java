@@ -691,79 +691,85 @@ public class Tee80sDao extends DerbyDao
 		stmt.execute(sql);
 	}
 
-	public static void main(String[] args) throws Exception
+	public void clearDB() throws Exception
 	{
-		Timer.start();
-		// FileUtils.deleteDirectory(database);
+		clearRatings();
+		clearPilots();
+	}
 
-		String[] tables = new String[] { "tee80s", "ratings", "reviews", "users", "envs", "pilots" };
-		boolean meta = true;
-		boolean data = true;
+	public void clearRatings() throws Exception
+	{
+		String[] tables = { "users", "envs", "ratings" };
+		clearTables(tables);
+	}
 
-		Tee80sDao dao = new Tee80sDao();
-		dao.dropTable("pilots");
-		dao.createPilots();
+	public void clearPilots() throws Exception
+	{
+		clearTable("pilots");
+	}
 
-		if (!meta)
+	public void buildDB() throws Exception
+	{
+		FileUtils.deleteDirectory(database);
+
+		createTables();
+
+		Tee80sShirtClient client = new Tee80sShirtClient();
+		List<String> links = FileUtils.readAsList("links.txt");
+		for (String link : links)
 		{
-			// dao.clearTables(tables);
-			// dao.dropTables(tables);
-			dao.createTables();
-		}
+			Tee t = new Tee();
+			t.setName(link.split("::")[2]);
 
-		if (!data)
-		{
-			// dao.clearTables();
-			Tee80sShirtClient client = new Tee80sShirtClient();
-			List<String> links = FileUtils.readAsList("links.txt");
-			for (String link : links)
+			/* Tees */
+			String dirPath = "./src/main/webapp/Htmls/";
+			String html = FileUtils.readAsString(dirPath + t.getName() + ".htm");
+			client.parseTee80s(html, t);
+			insert(t);
+
+			/* Reviews */
+			boolean reviewFlag = true;
+			if (reviewFlag)
 			{
-				Tee t = new Tee();
-				t.setName(link.split("::")[2]);
-
-				/* Tees */
-				String html = FileUtils.readAsString("./src/main/webapp/Htmls/" + t.getName() + ".htm");
-				client.parseTee80s(html, t);
-				dao.insert(t);
-
-				/* Reviews */
-				boolean reviewFlag = true;
-				if (reviewFlag)
+				int pages = t.getNumRating() / 10 + (t.getNumRating() % 10 == 0 ? 0 : 1);
+				for (int i = 1; i < pages + 1; i++)
 				{
-					int pages = t.getNumRating() / 10 + (t.getNumRating() % 10 == 0 ? 0 : 1);
-					for (int i = 1; i < pages + 1; i++)
+					String page = i == 1 ? "" : "-" + i;
+					html = FileUtils.readAsString(dirPath + t.getName() + page + ".htm");
+					List<Review> rs = client.parseReview(html);
+					for (Review r : rs)
 					{
-						String page = i == 1 ? "" : "-" + i;
-						html = FileUtils.readAsString("./src/main/webapp/Htmls/" + t.getName() + page + ".htm");
-						List<Review> rs = client.parseReview(html);
-						for (Review r : rs)
-						{
-							r.setProductId(t.getId());
-							dao.insert(r);
-						}
+						r.setProductId(t.getId());
+						insert(r);
 					}
 				}
 			}
+		}
 
-			/* Images of Tees */
-			boolean images = true;
-			if (!images)
+		/* Images of Tees */
+		boolean images = true;
+		if (!images)
+		{
+			int j = 0;
+			for (String link : links)
 			{
-				int j = 0;
-				for (String link : links)
-				{
-					j++;
-					String[] d = link.split("::");
-					String url = d[4];
-					String html = URLReader.read(url);
+				j++;
+				String[] d = link.split("::");
+				String url = d[4];
+				String html = URLReader.read(url);
 
-					List<String> imageList = client.parseImages(html);
+				List<String> imageList = client.parseImages(html);
 
-					FileUtils.writeString("images.txt", j + "\n" + url, true);
-					FileUtils.writeList("images.txt", imageList, true);
-				}
+				FileUtils.writeString("images.txt", j + "\n" + url, true);
+				FileUtils.writeList("images.txt", imageList, true);
 			}
 		}
+	}
+
+	public static void main(String[] args) throws Exception
+	{
+		Timer.start();
+		new Tee80sDao().buildDB();
 
 		logger.debug("Consumed {} to be finished.", Timer.end());
 	}

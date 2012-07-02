@@ -260,3 +260,22 @@ select{
 .bar {
 	width: 600px;
 }
+
+.admin{
+	font-size: 22px;
+}
+
+.admin label{
+	margin-right: 20px;
+	text-transform: capitalize;
+	font-weight: bold;
+	color: red;
+}
+
+.admin li{
+	margin:10px 0px;
+}
+
+.admin a{
+	text-decoration: none;
+}
