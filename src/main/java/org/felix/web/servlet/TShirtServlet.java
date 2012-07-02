@@ -64,13 +64,13 @@ public class TShirtServlet extends HttpServlet
 		{
 			try
 			{
-				dao.clearRatings();
-				String msg = "Users\' pilot study data is cleared. ";
+				dao.clearPilots();
+				String msg = "All pilot studies are cleared. ";
 				finishStudy(resp, msg);
 			} catch (Exception e)
 			{
 				e.printStackTrace();
-				String msg = "Users\' pilot study is not cleared as errors \'" + e.getMessage() + "\' occurs";
+				String msg = "All pilot studies are not cleared as errors \'" + e.getMessage() + "\' occurs";
 				finishStudy(resp, msg);
 			}
 		} else if ("clearRatings".equals(action))
@@ -78,12 +78,12 @@ public class TShirtServlet extends HttpServlet
 			try
 			{
 				dao.clearRatings();
-				String msg = "Users\' rating data is cleared. ";
+				String msg = "All virtual ratings are cleared. ";
 				finishStudy(resp, msg);
 			} catch (Exception e)
 			{
 				e.printStackTrace();
-				String msg = "Users\' rating data is not cleared as errors \'" + e.getMessage() + "\' occurs";
+				String msg = "All virtual ratings are not cleared as errors \'" + e.getMessage() + "\' occurs";
 				finishStudy(resp, msg);
 			}
 		} else if ("pilot".equals(action))
@@ -372,7 +372,7 @@ public class TShirtServlet extends HttpServlet
 	private void finishStudy(HttpServletResponse resp, String msg) throws IOException
 	{
 		String out = "<script>alert('" + msg + "');</script>";
-		resp.setHeader("Refresh", "3; URL=./userStudy");
+		resp.setHeader("Refresh", "5; URL=./userStudy");
 		resp.getOutputStream().write(out.getBytes());
 	}
 
