@@ -132,19 +132,19 @@
 				<tr>
 					<td>13.</td>
 					<td width="80%">You are confident about your ratings.</td>
-					<td><input name="confidence" type="radio" value="1" class="star" 
+					<td><input name="confidence" type="radio" value="1" class="star" title="Strongly Disagree" 
 							<c:if test="${env.confidence==1 }">checked</c:if>
 						/>
-						<input name="confidence" type="radio" value="2" class="star" 
+						<input name="confidence" type="radio" value="2" class="star" title="Disagree" 
 							<c:if test="${env.confidence==2 }">checked</c:if>
 						/> 
-						<input name="confidence" type="radio" value="3" class="star" 
+						<input name="confidence" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" 
 							<c:if test="${env.confidence==3 }">checked</c:if>
 						/> 
-						<input name="confidence" type="radio" value="4" class="star" 
+						<input name="confidence" type="radio" value="4" class="star" title="Agree" 
 							<c:if test="${env.confidence==4 }">checked</c:if>
 						/> 
-						<input name="confidence" type="radio" value="5" class="star" 
+						<input name="confidence" type="radio" value="5" class="star" title="Strongly Agree" 
 							<c:if test="${env.confidence==5 }">checked</c:if>
 						/>
 					</td>
@@ -154,19 +154,19 @@
 					<td width="80%">It feels the same that inspecting the t-shirt 
 					in the environment is just as if you were in a real store and
 					had a real t-shirt in hand. </td>
-					<td><input name="presence" type="radio" value="1" class="star" 
+					<td><input name="presence" type="radio" value="1" class="star" title="Strongly Disagree" 
 							<c:if test="${env.presence==1 }">checked</c:if>
 						/>
-						<input name="presence" type="radio" value="2" class="star" 
+						<input name="presence" type="radio" value="2" class="star" title="Disagree" 
 							<c:if test="${env.presence==2 }">checked</c:if>
 						/> 
-						<input name="presence" type="radio" value="3" class="star" 
+						<input name="presence" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" 
 							<c:if test="${env.presence==3 }">checked</c:if>
 						/> 
-						<input name="presence" type="radio" value="4" class="star" 
+						<input name="presence" type="radio" value="4" class="star" title="Agree" 
 							<c:if test="${env.presence==4 }">checked</c:if>
 						/> 
-						<input name="presence" type="radio" value="5" class="star" 
+						<input name="presence" type="radio" value="5" class="star" title="Strongly Agree" 
 							<c:if test="${env.presence==5 }">checked</c:if>
 						/>
 					</td>
@@ -174,19 +174,19 @@
 				<tr>
 					<td>15.</td>
 					<td width="80%">You are comfortable to give ratings in the tested environment.</td>
-					<td><input name="comfort" type="radio" value="1" class="star" 
+					<td><input name="comfort" type="radio" value="1" class="star" title="Strongly Disagree" 
 							<c:if test="${env.comfort==1 }">checked</c:if>
 						/>
-						<input name="comfort" type="radio" value="2" class="star" 
+						<input name="comfort" type="radio" value="2" class="star" title="Disagree" 
 							<c:if test="${env.comfort==2 }">checked</c:if>
 						/> 
-						<input name="comfort" type="radio" value="3" class="star" 
+						<input name="comfort" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" 
 							<c:if test="${env.comfort==3 }">checked</c:if>
 						/> 
-						<input name="comfort" type="radio" value="4" class="star" 
+						<input name="comfort" type="radio" value="4" class="star" title="Agree" 
 							<c:if test="${env.comfort==4 }">checked</c:if>
 						/> 
-						<input name="comfort" type="radio" value="5" class="star" 
+						<input name="comfort" type="radio" value="5" class="star" title="Strongly Agree" 
 							<c:if test="${env.comfort==5 }">checked</c:if>
 						/>
 					</td>
