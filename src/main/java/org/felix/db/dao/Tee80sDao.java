@@ -761,7 +761,7 @@ public class Tee80sDao extends DerbyDao
 				List<String> imageList = client.parseImages(html);
 
 				FileUtils.writeString("images.txt", j + "\n" + url, true);
-				FileUtils.writeList("images.txt", imageList, true);
+				FileUtils.writeCollection("images.txt", imageList, true);
 			}
 		}
 	}
