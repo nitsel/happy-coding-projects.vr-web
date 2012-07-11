@@ -80,7 +80,7 @@ public class BookDao extends DerbyDao
 
 		while (rs.next())
 		{
-			if (results == null) results = new ArrayList<String>();
+			if (results == null) results = new ArrayList<>();
 			results.add(rs.getString("isbn"));
 		}
 

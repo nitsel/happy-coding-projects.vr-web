@@ -90,7 +90,7 @@ public class AmazonBookLookup
 		 * http://docs.amazonwebservices.com/AWSECommerceService/latest
 		 * /DG/CHAP_ResponseGroupsList.html
 		 */
-		Map<String, String> params = new HashMap<String, String>();
+		Map<String, String> params = new HashMap<>();
 		params.put("Service", "AWSECommerceService");
 		params.put("Version", date);
 		params.put("Operation", "ItemLookup");

@@ -127,7 +127,7 @@ public class AmazonBookClient extends DefaultWebClient
 	public List<BookReview> searchReviews(Book book) throws Exception
 	{
 		// int max = 20; // 20 reviews for each product is good enough
-		List<BookReview> reviews = new ArrayList<BookReview>();
+		List<BookReview> reviews = new ArrayList<>();
 
 		String html = super.extractHtml(new HttpGet(book.getReviewUrl()));
 		// FileOperUtil.write("reviews.html", html);
