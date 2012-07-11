@@ -63,7 +63,7 @@ public class ZazzleShirtClient extends DefaultWebClient
 
 	private List<String> retrieveUrls(String html)
 	{
-		List<String> urls = new ArrayList<String>();
+		List<String> urls = new ArrayList<>();
 
 		Document doc = Jsoup.parse(html);
 		Elements es = null;

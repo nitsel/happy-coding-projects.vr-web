@@ -167,7 +167,7 @@ public class TShirtServlet extends HttpServlet
 			{
 				/* key: progress; value: teeId */
 				Map<Integer, String> visitedTees = (Map<Integer, String>) req.getSession().getAttribute("vTees");
-				if (visitedTees == null) visitedTees = new HashMap<Integer, String>();
+				if (visitedTees == null) visitedTees = new HashMap<>();
 
 				/* how many t-shirts are rated */
 				int progress = visitedTees.size();

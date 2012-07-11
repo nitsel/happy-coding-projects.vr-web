@@ -193,7 +193,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 	 */
 	public List<Review> parseReview(String html) throws Exception
 	{
-		List<Review> reviews = new ArrayList<Review>();
+		List<Review> reviews = new ArrayList<>();
 
 		Document doc = Jsoup.parse(html);
 		Elements es = null, els = null;
@@ -379,7 +379,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 
 	public List<String> parseImages(String html) throws Exception
 	{
-		List<String> images = new ArrayList<String>();
+		List<String> images = new ArrayList<>();
 		Document doc = Jsoup.parse(html);
 		Elements es = doc.select("div#imageBar td a");
 		Element e = null;

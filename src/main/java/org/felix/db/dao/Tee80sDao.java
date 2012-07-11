@@ -268,7 +268,7 @@ public class Tee80sDao extends DerbyDao
 		String sql = "SELECT * FROM ratings WHERE userId = '" + userId + "' AND environment='" + environment + "'";
 		logger.debug("Query ratings: {}", sql);
 
-		List<VirtualRating> trs = new ArrayList<VirtualRating>();
+		List<VirtualRating> trs = new ArrayList<>();
 		ResultSet rs = null;
 		VirtualRating r = null;
 		try
@@ -356,7 +356,7 @@ public class Tee80sDao extends DerbyDao
 	public List<Tee> queryTees()
 	{
 		String sql = "SELECT * FROM tee80s";
-		List<Tee> ts = new ArrayList<Tee>();
+		List<Tee> ts = new ArrayList<>();
 
 		ResultSet rs = null;
 		Tee t = null;
@@ -595,7 +595,7 @@ public class Tee80sDao extends DerbyDao
 		logger.debug("Query reviews: {}", sql);
 
 		ResultSet rs = null;
-		List<Review> ls = new ArrayList<Review>();
+		List<Review> ls = new ArrayList<>();
 		try
 		{
 			rs = stmt.executeQuery(sql);
