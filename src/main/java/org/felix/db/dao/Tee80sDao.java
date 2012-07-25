@@ -710,7 +710,7 @@ public class Tee80sDao extends DerbyDao
 
 	public void buildDB() throws Exception
 	{
-		FileUtils.deleteDirectory(database);
+		// FileUtils.deleteDirectory(database);
 
 		createTables();
 
