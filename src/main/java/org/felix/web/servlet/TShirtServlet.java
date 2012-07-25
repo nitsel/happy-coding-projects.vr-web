@@ -19,7 +19,7 @@ import org.felix.db.Tee;
 import org.felix.db.User;
 import org.felix.db.VirtualRating;
 import org.felix.db.dao.Tee80sDao;
-import org.felix.system.RandomUtils;
+import org.felix.math.RandomUtils;
 
 public class TShirtServlet extends HttpServlet
 {
@@ -189,7 +189,7 @@ public class TShirtServlet extends HttpServlet
 					while (true)
 					{
 						found = false;
-						int index = RandomUtils.nextInt(tees.size());
+						int index = RandomUtils.randInt(tees.size());
 						Tee t = tees.get(index);
 						for (VirtualRating r : rs)
 						{
