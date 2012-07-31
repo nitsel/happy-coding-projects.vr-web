@@ -29,11 +29,11 @@
 		}
 		
 		function submit_rating(){
-			var userId=$('input[name="userId"]').val();
-			if(!userId){
-				alert('Please input the user name.');
-				return false;
-			}
+// 			var userId=$('input[name="userId"]').val();
+// 			if(!userId){
+// 				alert('Please input the user name.');
+// 				return false;
+// 			}
 			
 			var otherFeature=$('input[name="otherFeature"]').val();
 			if(otherFeature){
@@ -61,7 +61,7 @@
 			var promotion = getRating('input[name="promotion"]');
 			
 			if(!appearance ||!material ||!fit ||!situation ||!customization ||!rating ||!brand ||!store ||!recommendation ||!category ||!warranty ||!price ||!promotion ||!shipping ) {
-				alert("Rate each question before submitting your ratings!");
+				alert("Please rate all required questions (the last one is optional) before submitting your ratings!");
 				return false;
 			}
 			
@@ -116,11 +116,12 @@
 		</ul>
 		<form id="ratingForm" action="./userStudy?action=pilot_sub"
 			method="post" onsubmit="return submit_rating()">
+			<c:if test="${!empty requestScope.thanks}">
 			<p>
-			<span>New User: </span>
-			<input type="text" name="userId" value="${p.userId }" class="underline_box"/>
-			<span id="result" style="margin: 0px 10px; color: red;">${requestScope.thanks}</span>
+				<span id="result" style="margin: 0px 10px; color: red;">${requestScope.thanks}</span>
+				<button type="button" style="padding: 5px 5px; font-size: 18px;">Exit Pilot Study</button>
 			</p>
+			</c:if>
 			<table class="questions">
 				<tr>
 					<td>01.</td>

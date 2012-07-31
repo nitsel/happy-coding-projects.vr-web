@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class PilotStudy
 {
-	private String	userId;
+	private int		userId;
 	private int		appearance;
 	private int		material;
 	private int		fit;
@@ -204,12 +204,12 @@ public class PilotStudy
 		this.otherFeature = otherFeature;
 	}
 
-	public String getUserId()
+	public int getUserId()
 	{
 		return userId;
 	}
 
-	public void setUserId(String userId)
+	public void setUserId(int userId)
 	{
 		this.userId = userId;
 	}

@@ -480,20 +480,21 @@ public class Tee80sDao extends DerbyDao
 		return u;
 	}
 
-	public PilotStudy queryPilot(String userId)
+	public List<PilotStudy> queryPilots()
 	{
-		String sql = "SELECT * FROM pilots WHERE userId = '" + userId + "'";
+		String sql = "SELECT * FROM pilots";
 		logger.debug("Query pilots: {}", sql);
 
 		ResultSet rs;
-		PilotStudy p = null;
+		List<PilotStudy> ps = new ArrayList<>();
+
 		try
 		{
 			rs = stmt.executeQuery(sql);
-			if (rs.next())
+			while (rs.next())
 			{
-				p = new PilotStudy();
-				p.setUserId(rs.getString("userId"));
+				PilotStudy p = new PilotStudy();
+				p.setUserId(Integer.parseInt(rs.getString("userId")));
 				p.setAppearance(Integer.parseInt(rs.getString("appearance")));
 				p.setMaterial(Integer.parseInt(rs.getString("material")));
 				p.setFit(Integer.parseInt(rs.getString("fit")));
@@ -512,13 +513,15 @@ public class Tee80sDao extends DerbyDao
 				p.setOtherFeature(rs.getString("otherFeature"));
 				p.setComments(rs.getString("comments"));
 				p.setcDate(DateUtils.parseString(rs.getString("cDate")));
+
+				ps.add(p);
 			}
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 
-		return p;
+		return ps;
 	}
 
 	public Environment queryEnvironment(String userId, String environment)

@@ -92,7 +92,6 @@ public class TShirtServlet extends HttpServlet
 		} else if ("pilot_sub".equals(action))
 		{
 			PilotStudy p = new PilotStudy();
-			p.setUserId(req.getParameter("userId"));
 			p.setAppearance(Integer.parseInt(req.getParameter("appearance")));
 			p.setMaterial(Integer.parseInt(req.getParameter("material")));
 			p.setFit(Integer.parseInt(req.getParameter("fit")));
@@ -118,17 +117,10 @@ public class TShirtServlet extends HttpServlet
 			p.setComments(req.getParameter("comments"));
 			p.setcDate(new Date(System.currentTimeMillis()));
 
-			if (dao.queryPilot(p.getUserId()) != null)
-			{
-				req.setAttribute("thanks", "The name '" + p.getUserId() + "' has been used.");
-				req.setAttribute("p", p);
-				req.getRequestDispatcher("pilot.jsp").forward(req, resp);
-			} else
-			{
-				dao.insert(p);
-				req.setAttribute("thanks", "Your ratings are saved. Thanks for your greate support.");
-				req.getRequestDispatcher("./userStudy?action=pilot").forward(req, resp);
-			}
+			// auto insert, no consideration of frauds
+			dao.insert(p);
+			req.setAttribute("thanks", "Your ratings are saved. Thanks for your greate support.");
+			req.getRequestDispatcher("./userStudy?action=pilot").forward(req, resp);
 
 		} else if ("env".equals(action))
 		{
