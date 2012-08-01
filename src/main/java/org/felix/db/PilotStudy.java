@@ -2,7 +2,7 @@ package org.felix.db;
 
 import java.sql.Date;
 
-public class PilotStudy
+public class PilotStudy extends DBObject
 {
 	private int		userId;
 	private int		appearance;
@@ -181,7 +181,7 @@ public class PilotStudy
 
 	public void setComments(String comments)
 	{
-		this.comments = comments;
+		this.comments = replace(comments);
 	}
 
 	public Date getcDate()
@@ -201,7 +201,7 @@ public class PilotStudy
 
 	public void setOtherFeature(String otherFeature)
 	{
-		this.otherFeature = otherFeature;
+		this.otherFeature = replace(otherFeature);
 	}
 
 	public int getUserId()
