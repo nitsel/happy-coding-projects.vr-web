@@ -69,7 +69,7 @@ public class Environment extends DBObject
 
 	public void setEnvironment(String environment)
 	{
-		this.environment = environment;
+		this.environment = replace(environment);
 	}
 
 	public Date getcDate()
