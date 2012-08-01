@@ -431,8 +431,66 @@
 				Comments&nbsp;&nbsp;(optional): <br />
 				<textarea id="comments" name="comments" cols="50" rows="7">${rating.comments }</textarea>
 			</p>
+			<p>
 			<input type="submit" value="Submit Ratings" class="submit" /><span
 				id="result" style="margin: 5px 0px 10px 20px; color: red;"></span>
+			<span class="pages"> 
+				<c:forEach var="progress" begin="1" end="${sessionScope.maxProgress+1}">
+				<c:if test="${sessionScope.environment eq 'web site' }">
+					<c:choose>
+						<c:when test="${progress<=sessionScope.progress }">
+							<a href="./userStudy?action=info&teeId=${sessionScope.vTees[progress] }">
+						</c:when>
+						<c:when test="${sessionScope.progress==sessionScope.maxProgress }">
+							<a href="./userStudy?action=env" onclick="return check_rating()"
+								title="To Last Part of User Study">
+						</c:when>
+						<c:when test="${progress==sessionScope.progress+1}">
+							<a href="./userStudy?action=info&survey=next"
+								onclick="return check_rating()">
+						</c:when>
+					</c:choose>
+				</c:if>
+				<c:if test="${progress==sessionScope.maxProgress+1 
+							&& sessionScope.vrProgress>=sessionScope.maxProgress
+							&& sessionScope.environment eq 'virtual reality' }">
+						<a href="./userStudy?action=env" onclick="return check_rating()" title="To Last Part of User Study">
+				</c:if>
+					<span
+						<c:choose>
+							<c:when test="${progress<sessionScope.progress 
+											&& sessionScope.environment eq 'web site'}">class="block-reco"</c:when>
+							<c:when test="${progress==sessionScope.progress 
+											&& sessionScope.step>=2
+											&& sessionScope.environment eq 'web site'}">class="block-reco"</c:when>
+							<c:when test="${progress==sessionScope.progress && sessionScope.environment eq 'web site'}">class="block-red"</c:when>
+							<c:when test="${progress==sessionScope.progress+1 
+											&& sessionScope.step==3
+											&& sessionScope.environment eq 'web site'}">class="block-reco"</c:when>
+							<c:when test="${progress==sessionScope.progress+1 
+											&& sessionScope.step==2
+											&& sessionScope.environment eq 'web site'}">class="block-red"</c:when>
+							<c:when test="${progress==sessionScope.progress+1 && sessionScope.environment eq 'web site'}">class="block-rating"</c:when>
+							<c:when test="${progress<sessionScope.vrProgress && sessionScope.environment eq 'virtual reality'}">class="block-reco"</c:when>
+							<c:when test="${progress==sessionScope.vrProgress && sessionScope.environment eq 'virtual reality'}">class="block-red"</c:when>
+							<c:when test="${progress==sessionScope.vrProgress+1 && sessionScope.environment eq 'virtual reality'}">class="block-rating"</c:when>
+							<c:otherwise>class="block-gray"</c:otherwise>
+						</c:choose>>
+						<c:choose>
+							<c:when test="${progress==sessionScope.maxProgress+1 }">>></c:when>
+							<c:otherwise>${progress}</c:otherwise>
+						</c:choose> </span>
+					<c:if test="${progress<=sessionScope.progress+1 && sessionScope.environment eq 'web site'}">
+						</a>
+					</c:if>
+					<c:if test="${progress==sessionScope.maxProgress+1 
+							&& sessionScope.vrProgress>=sessionScope.maxProgress
+							&& sessionScope.environment eq 'virtual reality' }">
+						</a>
+					</c:if>
+				</c:forEach> 
+			</span>
+			</p>
 		</form>
 	</div>
 

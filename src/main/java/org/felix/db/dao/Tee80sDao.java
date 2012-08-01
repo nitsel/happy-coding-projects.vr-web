@@ -24,11 +24,27 @@ public class Tee80sDao extends DerbyDao
 		database = "Tee80sDB";
 	}
 
+	public int getUserId()
+	{
+		String sql = "SELECT COUNT(*) AS numUsers FROM users";
+		ResultSet rs = null;
+		int userId = 0;
+		try
+		{
+			rs = stmt.executeQuery(sql);
+			if (rs != null && rs.next()) userId = Integer.parseInt(rs.getString("numUsers"));
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return userId;
+	}
+
 	public void update(User u)
 	{
 		String sql = "UPDATE users SET age='" + u.getAge() + "', gender='" + u.getGender() + "', education='"
 				+ u.getEducation() + "', job='" + u.getJob() + "', shoppingExperience='" + u.getShoppingExperience()
-				+ "', vrExperience='" + u.getVrExperience() + "' WHERE userId='" + u.getUserId() + "'";
+				+ "', vrExperience='" + u.getVrExperience() + "' WHERE userId=" + u.getUserId();
 		logger.debug("Update users: {}", sql);
 
 		try
@@ -44,7 +60,7 @@ public class Tee80sDao extends DerbyDao
 	{
 		String sql = "UPDATE envs SET confidence=" + env.getConfidence() + ", presence=" + env.getPresence()
 				+ ", comfort=" + env.getComfort() + ", reasons='" + env.getReasons() + "', cDate='" + env.getcDate()
-				+ "' WHERE userId='" + env.getUserId() + "' AND environment='" + env.getEnvironment() + "'";
+				+ "' WHERE userId=" + env.getUserId() + " AND environment='" + env.getEnvironment() + "'";
 		logger.debug("Update envs: {}", sql);
 
 		try
@@ -78,7 +94,7 @@ public class Tee80sDao extends DerbyDao
 				+ ", material=" + r.getMaterial() + ", fit=" + r.getFit() + ", category=" + r.getCategory()
 				+ ", price=" + r.getPrice() + ", brand=" + r.getBrand() + ", store=" + r.getStore() + ", shipping="
 				+ r.getShipping() + ", quality=" + r.getQuality() + ", cost=" + r.getCost() + ", value=" + r.getValue()
-				+ " WHERE userId = '" + r.getUserId() + "' AND teeId = '" + r.getTeeId() + "'";
+				+ " WHERE userId = " + r.getUserId() + " AND teeId = '" + r.getTeeId() + "'";
 
 		logger.debug("Update ratings: {}", sql);
 		try
@@ -99,7 +115,7 @@ public class Tee80sDao extends DerbyDao
 				+ ", warranty = " + p.getWarranty() + ", price = " + p.getPrice() + ", promotion = " + p.getPromotion()
 				+ ", shipping = " + p.getShipping() + ", otherFaeture = '" + p.getOtherFeature() + "', others = "
 				+ p.getOthers() + ", comments = '" + p.getComments() + "', cDate = '" + p.getcDate()
-				+ "' WHERE userId = '" + p.getUserId() + "'";
+				+ "' WHERE userId = " + p.getUserId();
 
 		logger.debug("Update pilots: {}", sql);
 		try
@@ -127,10 +143,10 @@ public class Tee80sDao extends DerbyDao
 
 	public void insert(User u)
 	{
-		String meta = "userId, gender, age, education, job, shoppingExperience, vrExperience, cDate";
-		String sql = "INSERT INTO users (" + meta + ") VALUES ('" + u.getUserId() + "', '" + u.getGender() + "', '"
-				+ u.getAge() + "', '" + u.getEducation() + "', '" + u.getJob() + "', '" + u.getShoppingExperience()
-				+ "', '" + u.getVrExperience() + "', '" + u.getcDate() + "')";
+		String meta = "gender, age, education, job, shoppingExperience, vrExperience, cDate";
+		String sql = "INSERT INTO users (" + meta + ") VALUES ('" + u.getGender() + "', '" + u.getAge() + "', '"
+				+ u.getEducation() + "', '" + u.getJob() + "', '" + u.getShoppingExperience() + "', '"
+				+ u.getVrExperience() + "', '" + u.getcDate() + "')";
 		logger.debug("Insert user: {}", sql);
 		try
 		{
@@ -144,7 +160,7 @@ public class Tee80sDao extends DerbyDao
 	public void insert(Environment env)
 	{
 		String meta = "userId, confidence, presence, comfort, reasons, environment, cDate";
-		String sql = "INSERT INTO envs (" + meta + ") VALUES ('" + env.getUserId() + "', " + env.getConfidence() + ", "
+		String sql = "INSERT INTO envs (" + meta + ") VALUES (" + env.getUserId() + ", " + env.getConfidence() + ", "
 				+ env.getPresence() + ", " + env.getComfort() + ", '" + env.getReasons() + "', '"
 				+ env.getEnvironment() + "', '" + env.getcDate() + "')";
 		logger.debug("Insert env: {}", sql);
@@ -185,7 +201,7 @@ public class Tee80sDao extends DerbyDao
 	public void insert(VirtualRating r)
 	{
 		String meta = "userId, teeId, comments, cDate, environment, overall, appearance, material, fit, category, price, brand, store, shipping, quality, cost, value";
-		String sql = "INSERT INTO ratings (" + meta + ") VALUES ('" + r.getUserId() + "', '" + r.getTeeId() + "', '"
+		String sql = "INSERT INTO ratings (" + meta + ") VALUES (" + r.getUserId() + ", '" + r.getTeeId() + "', '"
 				+ r.getComments() + "', '" + r.getcDate() + "', '" + r.getEnvironment() + "', " + r.getOverall() + ", "
 				+ r.getAppearance() + ", " + r.getMaterial() + ", " + r.getFit() + ", " + r.getCategory() + ", "
 				+ r.getPrice() + ", " + r.getBrand() + ", " + r.getStore() + ", " + r.getShipping() + ", "
@@ -204,13 +220,12 @@ public class Tee80sDao extends DerbyDao
 
 	public void insert(PilotStudy p)
 	{
-		String meta = "userId, appearance, material, fit, situation, customization, rating, brand, store, recommendation, category, warranty, price, promotion, shipping, otherFeature, others, comments, cDate";
-		String sql = "INSERT INTO pilots (" + meta + ") VALUES ('" + p.getUserId() + "', " + p.getAppearance() + ", "
-				+ p.getMaterial() + ", " + p.getFit() + ", " + p.getSituation() + ", " + p.getCustomization() + ", "
-				+ p.getRating() + ", " + p.getBrand() + ", " + p.getStore() + ", " + p.getRecommendation() + ", "
-				+ p.getCategory() + ", " + p.getWarranty() + ", " + p.getPrice() + ", " + p.getPromotion() + ", "
-				+ p.getShipping() + ", '" + p.getOtherFeature() + "', " + p.getOthers() + ", '" + p.getComments()
-				+ "', '" + p.getcDate() + "')";
+		String meta = "appearance, material, fit, situation, customization, rating, brand, store, recommendation, category, warranty, price, promotion, shipping, otherFeature, others, comments, cDate";
+		String sql = "INSERT INTO pilots (" + meta + ") VALUES (" + p.getAppearance() + ", " + p.getMaterial() + ", "
+				+ p.getFit() + ", " + p.getSituation() + ", " + p.getCustomization() + ", " + p.getRating() + ", "
+				+ p.getBrand() + ", " + p.getStore() + ", " + p.getRecommendation() + ", " + p.getCategory() + ", "
+				+ p.getWarranty() + ", " + p.getPrice() + ", " + p.getPromotion() + ", " + p.getShipping() + ", '"
+				+ p.getOtherFeature() + "', " + p.getOthers() + ", '" + p.getComments() + "', '" + p.getcDate() + "')";
 
 		logger.debug("Insert pilot: {}", sql);
 
@@ -223,9 +238,9 @@ public class Tee80sDao extends DerbyDao
 		}
 	}
 
-	public VirtualRating queryVirtualRating(String userId, String teeId)
+	public VirtualRating queryVirtualRating(int userId, String teeId)
 	{
-		String sql = "SELECT * FROM ratings WHERE userId = '" + userId + "' AND teeId ='" + teeId + "'";
+		String sql = "SELECT * FROM ratings WHERE userId = " + userId + " AND teeId ='" + teeId + "'";
 		logger.debug("Query ratings: {}", sql);
 
 		ResultSet rs = null;
@@ -236,7 +251,7 @@ public class Tee80sDao extends DerbyDao
 			if (rs.next())
 			{
 				r = new VirtualRating();
-				r.setUserId(rs.getString("userId"));
+				r.setUserId(Integer.parseInt(rs.getString("userId")));
 				r.setTeeId(rs.getString("teeId"));
 				r.setComments(rs.getString("comments"));
 				r.setcDate(DateUtils.parseString(rs.getString("cDate")));
@@ -263,9 +278,10 @@ public class Tee80sDao extends DerbyDao
 		return r;
 	}
 
-	public List<VirtualRating> queryVirtualRatings(String userId, String environment)
+	// no repeat tees in different envs to remove memory effects. 
+	public List<VirtualRating> queryVirtualRatings(int userId)
 	{
-		String sql = "SELECT * FROM ratings WHERE userId = '" + userId + "' AND environment='" + environment + "'";
+		String sql = "SELECT * FROM ratings WHERE userId = " + userId;
 		logger.debug("Query ratings: {}", sql);
 
 		List<VirtualRating> trs = new ArrayList<>();
@@ -277,7 +293,7 @@ public class Tee80sDao extends DerbyDao
 			while (rs.next())
 			{
 				r = new VirtualRating();
-				r.setUserId(rs.getString("userId"));
+				r.setUserId(Integer.parseInt(rs.getString("userId")));
 				r.setTeeId(rs.getString("teeId"));
 				r.setComments(rs.getString("comments"));
 				r.setcDate(DateUtils.parseString(rs.getString("cDate")));
@@ -339,7 +355,7 @@ public class Tee80sDao extends DerbyDao
 
 	public void delete(User u) throws Exception
 	{
-		String sql = "DELETE FROM users WHERE userId = '" + u.getUserId() + "'";
+		String sql = "DELETE FROM users WHERE userId = " + u.getUserId();
 
 		logger.debug("Delete users: {}", sql);
 		stmt.executeUpdate(sql);
@@ -450,9 +466,9 @@ public class Tee80sDao extends DerbyDao
 		return stmt.executeQuery(sql);
 	}
 
-	public User queryUser(String userId)
+	public User queryUser(int userId)
 	{
-		String sql = "SELECT * FROM users WHERE userId = '" + userId + "'";
+		String sql = "SELECT * FROM users WHERE userId = " + userId;
 		logger.debug("Query users: {}", sql);
 
 		ResultSet rs;
@@ -463,7 +479,7 @@ public class Tee80sDao extends DerbyDao
 			if (rs.next())
 			{
 				u = new User();
-				u.setUserId(rs.getString("userId"));
+				u.setUserId(Integer.parseInt(rs.getString("userId")));
 				u.setAge(rs.getString("age"));
 				u.setGender(rs.getString("gender"));
 				u.setEducation(rs.getString("education"));
@@ -524,10 +540,10 @@ public class Tee80sDao extends DerbyDao
 		return ps;
 	}
 
-	public Environment queryEnvironment(String userId, String environment)
+	public Environment queryEnvironment(int userId, String environment)
 	{
-		String sql = "SELECT * FROM envs WHERE userId = '" + userId + "' AND environment = '" + environment + "'";
-		logger.debug("Query users: {}", sql);
+		String sql = "SELECT * FROM envs WHERE userId = " + userId + " AND environment = '" + environment + "'";
+		logger.debug("Query envs: {}", sql);
 
 		ResultSet rs;
 		Environment env = null;
@@ -537,7 +553,7 @@ public class Tee80sDao extends DerbyDao
 			if (rs.next())
 			{
 				env = new Environment();
-				env.setUserId(rs.getString("userId"));
+				env.setUserId(Integer.parseInt(rs.getString("userId")));
 				env.setConfidence(Integer.parseInt(rs.getString("confidence")));
 				env.setComfort(Integer.parseInt(rs.getString("comfort")));
 				env.setPresence(Integer.parseInt(rs.getString("presence")));
@@ -635,19 +651,19 @@ public class Tee80sDao extends DerbyDao
 
 	public void createUsers() throws Exception
 	{
-		String sql = "CREATE TABLE users (userId VARCHAR(50) PRIMARY KEY NOT NULL, gender VARCHAR(50) DEFAULT 'Male', age VARCHAR(50), education VARCHAR(100), job VARCHAR(100), shoppingExperience VARCHAR(100), vrExperience VARCHAR(50), cDate DATE)";
+		String sql = "CREATE TABLE users (userId INT GENERATED ALWAYS AS IDENTITY, gender VARCHAR(50) DEFAULT 'Male', age VARCHAR(50), education VARCHAR(100), job VARCHAR(100), shoppingExperience VARCHAR(100), vrExperience VARCHAR(50), cDate DATE)";
 		createTable(sql);
 	}
 
 	public void createPilots() throws Exception
 	{
-		String sql = "CREATE TABLE pilots (userId VARCHAR(50) PRIMARY KEY NOT NULL, appearance INT, material INT, fit INT, situation INT, customization INT, rating INT, brand INT, store INT, recommendation INT, category INT, warranty INT, price INT, promotion INT, shipping INT, others INT, otherFeature VARCHAR(50), comments VARCHAR(1000), cDate DATE)";
+		String sql = "CREATE TABLE pilots (userId INT GENERATED ALWAYS AS IDENTITY, appearance INT, material INT, fit INT, situation INT, customization INT, rating INT, brand INT, store INT, recommendation INT, category INT, warranty INT, price INT, promotion INT, shipping INT, others INT, otherFeature VARCHAR(50), comments VARCHAR(1000), cDate DATE)";
 		createTable(sql);
 	}
 
 	public void createEnvs() throws Exception
 	{
-		String sql = "CREATE TABLE envs (userId VARCHAR(50), confidence INT, presence INT, comfort INT, reasons VARCHAR(2000), environment VARCHAR(50), cDate DATE, PRIMARY KEY (userId, environment))";
+		String sql = "CREATE TABLE envs (userId INT, confidence INT, presence INT, comfort INT, reasons VARCHAR(2000), environment VARCHAR(50), cDate DATE, PRIMARY KEY (userId, environment))";
 		createTable(sql);
 	}
 
@@ -661,7 +677,7 @@ public class Tee80sDao extends DerbyDao
 
 	public void createRatings() throws Exception
 	{
-		String sql = "CREATE TABLE ratings (userId VARCHAR(50) NOT NULL, teeId VARCHAR(50) NOT NULL, comments VARCHAR(2000), cDate DATE, environment VARCHAR(50), overall INT, appearance INT, material INT, fit INT, category INT, price INT, brand INT, store INT, shipping INT, quality INT, cost INT, value INT, PRIMARY KEY (userId, teeId))";
+		String sql = "CREATE TABLE ratings (userId INT, teeId VARCHAR(50) NOT NULL, comments VARCHAR(2000), cDate DATE, environment VARCHAR(50), overall INT, appearance INT, material INT, fit INT, category INT, price INT, brand INT, store INT, shipping INT, quality INT, cost INT, value INT, PRIMARY KEY (userId, teeId))";
 		createTable(sql);
 	}
 
@@ -772,7 +788,14 @@ public class Tee80sDao extends DerbyDao
 	public static void main(String[] args) throws Exception
 	{
 		Timer.start();
-		new Tee80sDao().buildDB();
+		Tee80sDao dao = new Tee80sDao();
+		dao.clearTable("users");
+		dao.clearTable("envs");
+		dao.clearTable("ratings");
+		dao.dropTables(new String[] { "users", "envs", "ratings" });
+		dao.createUsers();
+		dao.createEnvs();
+		dao.createRatings();
 
 		logger.debug("Consumed {} to be finished.", Timer.end());
 	}

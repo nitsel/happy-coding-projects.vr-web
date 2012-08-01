@@ -102,7 +102,7 @@
 			virtual environments (e.g. online web sites, virtual malls), given
 			that the retailers are honest and reputable. In order to evaluate the
 			quality/value of the t-shirt, how important would it be to you that
-			the t-shirt ... (please select one answer for each question)</p>
+			the t-shirt ... (please select star(s) for each question)</p>
 		<ul class="stars-list">
 			<li style="list-style-image: url(img/star1.PNG);">of very little
 				or no importance</li>
@@ -119,7 +119,7 @@
 			<c:if test="${!empty requestScope.thanks}">
 			<p>
 				<span id="result" style="margin: 0px 10px; color: red;">${requestScope.thanks}</span>
-				<button type="button" style="padding: 5px 5px; font-size: 18px;">Exit Pilot Study</button>
+				<button type="button" style="padding: 5px 5px; font-size: 18px;" onclick="javascript:window.close();">Exit Pilot Study</button>
 			</p>
 			</c:if>
 			<table class="questions">
@@ -193,7 +193,7 @@
 				</tr>
 				<tr>
 					<td>06.</td>
-					<td width="80%">is rated highly by other buyers.</td>
+					<td width="80%">is highly rated by other buyers.</td>
 					<td><input name="rating" type="radio" value="1" class="star"
 						title="of very little or no importance" /> <input name="rating"
 						type="radio" value="2" class="star" title="of little importance" />
@@ -335,7 +335,9 @@
 				Comments&nbsp;&nbsp;(optional): <br />
 				<textarea id="comments" name="comments" cols="50" rows="7"></textarea>
 			</p>
+			<c:if test="${empty requestScope.thanks }">
 			<input type="submit" value="Submit Ratings" class="submit" />
+			</c:if>
 		</form>
 	</div>
 </body>
