@@ -17,16 +17,26 @@
 		<h2>User Study - Administration</h2>
 
 		<ul class="admin">
-			<li><label>User Study:</label><a href="./userStudy" target="_blank">~/VR-web/userStudy</a>
-			<li><label>Pilot Study:</label><a href="./userStudy?action=pilot" target="_blank">~/VR-web/userStudy?action=pilot</a>
-			<li><label>Pilot Study:</label><a href="./userStudy?action=pilotProgress" target="_blank">~/VR-web/userStudy?action=pilotProgress</a>
+			<li><label>User Study:</label><a href="./userStudy"
+				target="_blank">~/VR-web/userStudy</a>
+			<li><label>Pilot Study:</label><a
+				href="./userStudy?action=pilot" target="_blank">~/VR-web/userStudy?action=pilot</a>
+			<li><label>Pilot Study:</label><a
+				href="./userStudy?action=pilotProgress" target="_blank">~/VR-web/userStudy?action=pilotProgress</a>
 		</ul>
-		
+
 		<h2>Debug Operations</h2>
 		<ul class="admin">
-			<li><label>Clear Users' Data:</label><a href="./userStudy?action=clearDB" target="_blank" onclick="return confirm('Please double check if you really want to clear all the data base. Harmful!');">~/VR-web/userStudy?action=clearDB</a>
-			<li><label>Clear Pilot Studies:</label><a href="./userStudy?action=clearPilots" target="_blank" onclick="return confirm('Please double check if you really want to clear all the pilot study data. Harmful!');">~/VR-web/userStudy?action=clearPilots</a>
-			<li><label>Clear Virtual Ratings:</label><a href="./userStudy?action=clearRatings" target="_blank" onclick="return confirm('Please double check if you really want to clear all the rating data. Harmful!');">~/VR-web/userStudy?action=clearRatings</a>
+			<li><label>Clear Users' Data:</label><a
+				href="./userStudy?action=clearDB" target="_blank"
+				onclick="return confirm('Please double check if you really want to clear all the data base. Harmful!');">~/VR-web/userStudy?action=clearDB</a>
+				&nbsp;&nbsp;(including 'users', 'ratings', 'envs');
+			<li><label>Clear Pilot Studies:</label><a
+				href="./userStudy?action=clearPilots" target="_blank"
+				onclick="return confirm('Please double check if you really want to clear all the pilot study data. Harmful!');">~/VR-web/userStudy?action=clearPilots</a>
+			<li><label>Clear Virtual Ratings:</label><a
+				href="./userStudy?action=clearRatings" target="_blank"
+				onclick="return confirm('Please double check if you really want to clear all the rating data. Harmful!');">~/VR-web/userStudy?action=clearRatings</a>
 		</ul>
 	</div>
 </body>
