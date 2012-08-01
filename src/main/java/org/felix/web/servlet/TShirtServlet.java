@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,11 +37,13 @@ public class TShirtServlet extends HttpServlet
 	{
 		String action = req.getParameter("action");
 		String teeId = req.getParameter("teeId");
-		String userId = (String) req.getSession().getAttribute("userId");
+		Integer userId = (Integer) req.getSession().getAttribute("userId");
 		String environment = (String) req.getSession().getAttribute("environment");
 
 		if (action == null)
 		{
+			int id = dao.getUserId() + 1;
+			req.setAttribute("userId", id);
 			req.getRequestDispatcher("index.jsp").forward(req, resp);
 		} else if ("admin".equals(action))
 		{
@@ -89,6 +90,11 @@ public class TShirtServlet extends HttpServlet
 		} else if ("pilot".equals(action))
 		{
 			req.getRequestDispatcher("pilot.jsp").forward(req, resp);
+		} else if ("pilotProgress".equals(action))
+		{
+			List<PilotStudy> ps = dao.queryPilots();
+			req.setAttribute("records", ps);
+			req.getRequestDispatcher("pilotProgress.jsp").forward(req, resp);
 		} else if ("pilot_sub".equals(action))
 		{
 			PilotStudy p = new PilotStudy();
@@ -175,7 +181,7 @@ public class TShirtServlet extends HttpServlet
 				if ((progress == 0) || (next != null && next.equals("next")))
 				{
 					/* prepare next survey t-shirt */
-					List<VirtualRating> rs = dao.queryVirtualRatings(userId, environment);
+					List<VirtualRating> rs = dao.queryVirtualRatings(userId);
 
 					boolean found = false;
 					while (true)
@@ -281,11 +287,9 @@ public class TShirtServlet extends HttpServlet
 			os.close();
 		} else if ("user".equals(action))
 		{
-			userId = req.getParameter("userId");
 			environment = req.getParameter("environment");
 
 			User u = new User();
-			u.setUserId(userId);
 			u.setGender(req.getParameter("gender"));
 			String job = req.getParameter("job");
 			if (job != null && job.equals("student")) job += "::" + req.getParameter("job1");
@@ -297,40 +301,30 @@ public class TShirtServlet extends HttpServlet
 			u.setVrExperience(req.getParameter("vrExperience"));
 			u.setcDate(new Date(System.currentTimeMillis()));
 
-			if (dao.queryUser(u.getUserId()) == null)
+			dao.insert(u);
+			userId = dao.getUserId();
+			u.setUserId(userId);
+			resetSession(req, userId, environment);
+
+			if ("virtual reality".equals(environment))
 			{
-				dao.insert(u);
-
-				resetSession(req, userId, environment);
-
-				if ("virtual reality".equals(environment))
-				{
-					String msg = "* New user '" + u.getUserId() + "' is created successfully. "
-							+ "Please use 'second life viewer (RLV)' to continue this user study.";
-					req.setAttribute("error", msg);
-					req.setAttribute("user", u);
-					req.getRequestDispatcher("index.jsp").forward(req, resp);
-				} else
-				{
-					req.getRequestDispatcher("./userStudy?action=info").forward(req, resp);
-				}
+				String msg = "* New UserID '" + u.getUserId() + "' is created successfully. "
+						+ "Please use 'second life viewer (RLV)' to continue this user study.";
+				req.setAttribute("error", msg);
+				req.setAttribute("user", u);
+				req.getRequestDispatcher("index.jsp").forward(req, resp);
 			} else
 			{
-				String error = "* The name '" + u.getUserId() + "' has been used.";
-				req.setAttribute("error", error);
-				req.setAttribute("user", u);
-
-				RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
-				rd.forward(req, resp);
+				req.getRequestDispatcher("./userStudy?action=info").forward(req, resp);
 			}
 		} else if ("user_in".equals(action))
 		{
-			userId = req.getParameter("userId2");
+			userId = Integer.parseInt(req.getParameter("userId"));
 			environment = req.getParameter("environment");
 
 			if (dao.queryUser(userId) == null)
 			{
-				req.setAttribute("error_in", "* User id '" + userId + "' does not exist.");
+				req.setAttribute("error_in", "* UserID '" + userId + "' does not exist.");
 				req.getRequestDispatcher("index.jsp").forward(req, resp);
 			} else
 			{
@@ -348,7 +342,7 @@ public class TShirtServlet extends HttpServlet
 		}
 	}
 
-	private void resetSession(HttpServletRequest req, String userId, String environment)
+	private void resetSession(HttpServletRequest req, int userId, String environment)
 	{
 		req.getSession().setAttribute("userId", userId);
 		req.getSession().setAttribute("environment", environment);

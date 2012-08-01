@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Environment extends DBObject
 {
-	private String	userId;
+	private int		userId;
 	private int		confidence;
 	private int		presence;
 	private int		comfort;
@@ -12,12 +12,12 @@ public class Environment extends DBObject
 	private String	environment;
 	private Date	cDate;
 
-	public String getUserId()
+	public int getUserId()
 	{
 		return userId;
 	}
 
-	public void setUserId(String userId)
+	public void setUserId(int userId)
 	{
 		this.userId = userId;
 	}

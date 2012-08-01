@@ -28,10 +28,10 @@
 	
 	function check_name()
 	{
-		var userId = $('input[name="userId2"]').val();
+		var userId = $('input[name="userId"]').val();
 		if(!userId)
 		{
-			alert("Please enter your user name");
+			alert("Please enter your UserID");
 			return false;
 		}
 		
@@ -40,13 +40,6 @@
 	
 	function validate()
 	{
-		var userId = $('input[name="userId"]').val();
-		if(!userId)
-		{
-			alert("Please input your name.");	
-			return false;
-		}
-		
 		var gender = getValue('input[name="gender"]');
 		if(!gender)
 		{
@@ -118,7 +111,7 @@
 		<h4>NOTE: All information will be kept confidential and only for
 			research purpose.</h4>
 		<form action="./userStudy?action=user_in" method="post" class="userForm" onsubmit="return check_name()">
-			<label>Existing User:</label><input name="userId2" type="text" value="${sessionScope.userId }" width="150px" class="underline_box"/>
+			<label>Existing UserID:</label><input name="userId" type="text" value="${sessionScope.userId }" width="150px" class="underline_box"/>
 			<select name="environment">
 				<option value="web site" 
 					<c:if test="${sessionScope.environment eq 'web site' }">selected="selected"</c:if>
@@ -133,8 +126,7 @@
 		<div class="hr"></div>
 		<form action="./userStudy?action=user" method="post" class="userForm"
 			onsubmit="return validate()">
-			<label>New User:</label><input type="text" name="userId"
-				class="underline_box" value="${user.userId }" />
+			<label>New UserID:</label><span style="margin: 0px 10px; color: red;">${userId }</span>
 				Environment: 
 				<select name="environment">
 					<option value="web site" 
