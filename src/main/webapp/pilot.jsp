@@ -99,7 +99,7 @@
 	<div class="entry">
 		<h2>Pilot Study</h2>
 		<p style="width: 820px;">Please think of purchasing a t-shirt in
-			virtual environments (e.g. online web sites, virtual malls), given
+			virtual spaces (e.g. online web sites, virtual malls), given
 			that the retailers are honest and reputable. In order to evaluate the
 			quality/value of the t-shirt, how important would it be to you that
 			the t-shirt ... (please select star(s) for each question)</p>
