@@ -25,3 +25,5 @@ syntax: regexp
 ^target$
 syntax: regexp
 ^target$
+syntax: regexp
+^target$
