@@ -309,7 +309,7 @@ public class TShirtServlet extends HttpServlet
 			if ("virtual reality".equals(environment))
 			{
 				String msg = "* New UserID '" + u.getUserId() + "' is created successfully. "
-						+ "Please use 'second life viewer (RLV)' to continue this user study.";
+						+ "Please proceed to the t-shirt showcase to continue this user study.";
 				req.setAttribute("error", msg);
 				req.setAttribute("user", u);
 				req.getRequestDispatcher("index.jsp").forward(req, resp);
@@ -332,7 +332,8 @@ public class TShirtServlet extends HttpServlet
 
 				if ("virtual reality".equals(environment))
 				{
-					req.setAttribute("error_in", "* Please use 'second life viewer (RLV)' to continue this user study.");
+					req.setAttribute("error_in",
+							"* Please proceed to the t-shirt showcase to continue this user study.");
 					req.getRequestDispatcher("index.jsp").forward(req, resp);
 				} else
 				{

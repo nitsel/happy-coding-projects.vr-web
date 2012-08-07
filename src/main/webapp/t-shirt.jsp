@@ -161,33 +161,36 @@
 
 <body>
 	<div class="entry">
-<%-- 	<p>Session.progress=${sessionScope.progress }, Session.vrProgress=${sessionScope.vrProgress}, Session.step=${sessionScope.step }</p> --%>
+		<%-- 	<p>Session.progress=${sessionScope.progress }, Session.vrProgress=${sessionScope.vrProgress}, Session.step=${sessionScope.step }</p> --%>
 		<p>
 			<strong>Current Progress (<span style="color: red;">${sessionScope.userId
-					}@${sessionScope.environment }</span>) </strong> 
-				
-			<span class="pages"> 
-				<c:forEach var="progress" begin="1" end="${sessionScope.maxProgress+1}">
-				<c:if test="${sessionScope.environment eq 'web site' }">
-					<c:choose>
-						<c:when test="${progress<=sessionScope.progress }">
-							<a href="./userStudy?action=info&teeId=${sessionScope.vTees[progress] }">
-						</c:when>
-						<c:when test="${sessionScope.progress==sessionScope.maxProgress }">
-							<a href="./userStudy?action=env" onclick="return check_rating()"
-								title="To Last Part of User Study">
-						</c:when>
-						<c:when test="${progress==sessionScope.progress+1}">
-							<a href="./userStudy?action=info&survey=next"
-								onclick="return check_rating()">
-						</c:when>
-					</c:choose>
-				</c:if>
-				<c:if test="${progress==sessionScope.maxProgress+1 
+					}@${sessionScope.environment }</span>)
+			</strong> <span class="pages"> <c:forEach var="progress" begin="1"
+					end="${sessionScope.maxProgress+1}">
+					<c:if test="${sessionScope.environment eq 'web site' }">
+						<c:choose>
+							<c:when test="${progress<=sessionScope.progress }">
+								<a
+									href="./userStudy?action=info&teeId=${sessionScope.vTees[progress] }">
+							</c:when>
+							<c:when
+								test="${sessionScope.progress==sessionScope.maxProgress }">
+								<a href="./userStudy?action=env" onclick="return check_rating()"
+									title="To Last Part of User Study">
+							</c:when>
+							<c:when test="${progress==sessionScope.progress+1}">
+								<a href="./userStudy?action=info&survey=next"
+									onclick="return check_rating()">
+							</c:when>
+						</c:choose>
+					</c:if>
+					<c:if
+						test="${progress==sessionScope.maxProgress+1 
 							&& sessionScope.vrProgress>=sessionScope.maxProgress
 							&& sessionScope.environment eq 'virtual reality' }">
-						<a href="./userStudy?action=env" onclick="return check_rating()" title="To Last Part of User Study">
-				</c:if>
+						<a href="./userStudy?action=env" onclick="return check_rating()"
+							title="To Last Part of User Study">
+					</c:if>
 					<span
 						<c:choose>
 							<c:when test="${progress<sessionScope.progress 
@@ -211,21 +214,24 @@
 						<c:choose>
 							<c:when test="${progress==sessionScope.maxProgress+1 }">>></c:when>
 							<c:otherwise>${progress}</c:otherwise>
-						</c:choose> </span>
-					<c:if test="${progress<=sessionScope.progress+1 && sessionScope.environment eq 'web site'}">
+						</c:choose>
+					</span>
+					<c:if
+						test="${progress<=sessionScope.progress+1 && sessionScope.environment eq 'web site'}">
 						</a>
 					</c:if>
-					<c:if test="${progress==sessionScope.maxProgress+1 
+					<c:if
+						test="${progress==sessionScope.maxProgress+1 
 							&& sessionScope.vrProgress>=sessionScope.maxProgress
 							&& sessionScope.environment eq 'virtual reality' }">
 						</a>
 					</c:if>
-				</c:forEach> 
+				</c:forEach>
 			</span>
 		</p>
 		<h2>T-Shirt Info</h2>
 		<img alt="T-shirt Image" src="./Htmls/${tee.image }"
-			class="float-image" onload="javascript:DrawImage(this, 200, 280)"/>
+			class="float-image" onload="javascript:DrawImage(this, 200, 280)" />
 		<ul class="ul-properties">
 			<li><span>Name: </span><a style="text-transform: capitalize"
 				name="#">${tee.name}</a></li>
@@ -304,127 +310,169 @@
 		<p>To what extent do you agree or disagree with each of the
 			following statements?
 		<ul class="stars-list">
-			<li style="list-style-image: url(img/star1.PNG);">Strongly Disagree</li>
+			<li style="list-style-image: url(img/star1.PNG);">Strongly
+				Disagree</li>
 			<li style="list-style-image: url(img/star2.PNG)">Disagree</li>
-			<li style="list-style-image: url(img/star3.PNG)">Slightly Disagree or Slightly Agree</li>
+			<li style="list-style-image: url(img/star3.PNG)">Slightly
+				Disagree or Slightly Agree</li>
 			<li style="list-style-image: url(img/star4.PNG)">Agree</li>
 			<li style="list-style-image: url(img/star5.PNG)">Strongly Agree</li>
 		</ul>
 		</p>
-		<form id="ratingForm" action="#" method="post" onsubmit="return submit_rating()">
+		<form id="ratingForm" action="#" method="post"
+			onsubmit="return submit_rating()">
 			<input id="page" type="hidden" value="${param.page }" />
 			<table class="questions">
 				<tr>
 					<td>01.</td>
 					<td width="80%">Overall, you like this t-shirt.</td>
-					<td><input name="overall" type="radio" value="1" class="star" title="Strongly Disagree"/>
-						<input name="overall" type="radio" value="2" class="star" title="Disagree" /> 
-						<input name="overall" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
-						<input name="overall" type="radio" value="4" class="star" title="Agree" /> 
-						<input name="overall" type="radio" value="5" class="star" title="Strongly Agree" /></td>
+					<td><input name="overall" type="radio" value="1" class="star"
+						title="Strongly Disagree" /> <input name="overall" type="radio"
+						value="2" class="star" title="Disagree" /> <input name="overall"
+						type="radio" value="3" class="star"
+						title="Slightly Disagree or Slightly Agree" /> <input
+						name="overall" type="radio" value="4" class="star" title="Agree" />
+						<input name="overall" type="radio" value="5" class="star"
+						title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>02.</td>
 					<td width="80%">This t-shirt has a good looking <br /> in
-						terms of color, patterns, style, etc.</td>
-					<td><input name="appearance" type="radio" value="1" class="star" title="Strongly Disagree" /> 
-						<input name="appearance" type="radio" value="2" class="star" title="Disagree" /> 
-						<input name="appearance" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree"/> 
-						<input name="appearance" type="radio" value="4" class="star" title="Agree" /> 
-						<input name="appearance" type="radio" value="5" class="star" title="Strongly Agree" /></td>
+						terms of color, patterns, style, etc.
+					</td>
+					<td><input name="appearance" type="radio" value="1"
+						class="star" title="Strongly Disagree" /> <input
+						name="appearance" type="radio" value="2" class="star"
+						title="Disagree" /> <input name="appearance" type="radio"
+						value="3" class="star" title="Slightly Disagree or Slightly Agree" />
+						<input name="appearance" type="radio" value="4" class="star"
+						title="Agree" /> <input name="appearance" type="radio" value="5"
+						class="star" title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>03.</td>
 					<td width="80%">This t-shirt is made of good material.</td>
-					<td><input name="material" type="radio" value="1" class="star" title="Strongly Disagree"/>
-						<input name="material" type="radio" value="2" class="star" title="Disagree" /> 
-						<input name="material" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
-						<input name="material" type="radio" value="4" class="star" title="Agree" /> 
-						<input name="material" type="radio" value="5" class="star" title="Strongly Agree" /></td>
+					<td><input name="material" type="radio" value="1" class="star"
+						title="Strongly Disagree" /> <input name="material" type="radio"
+						value="2" class="star" title="Disagree" /> <input name="material"
+						type="radio" value="3" class="star"
+						title="Slightly Disagree or Slightly Agree" /> <input
+						name="material" type="radio" value="4" class="star" title="Agree" />
+						<input name="material" type="radio" value="5" class="star"
+						title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>04.</td>
 					<td width="80%">This t-shirt fits you well.</td>
-					<td><input name="fit" type="radio" value="1" class="star" title="Strongly Disagree"/>
-						<input name="fit" type="radio" value="2" class="star" title="Disagree" /> 
-						<input name="fit" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
-						<input name="fit" type="radio" value="4" class="star" title="Agree" /> 
-						<input name="fit" type="radio" value="5" class="star" title="Strongly Agree" /></td>
+					<td><input name="fit" type="radio" value="1" class="star"
+						title="Strongly Disagree" /> <input name="fit" type="radio"
+						value="2" class="star" title="Disagree" /> <input name="fit"
+						type="radio" value="3" class="star"
+						title="Slightly Disagree or Slightly Agree" /> <input name="fit"
+						type="radio" value="4" class="star" title="Agree" /> <input
+						name="fit" type="radio" value="5" class="star"
+						title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>05.</td>
 					<td width="80%">The category of this t-shirt is of your favor.</td>
-					<td><input name="category" type="radio" value="1" class="star" title="Strongly Disagree"/>
-						<input name="category" type="radio" value="2" class="star" title="Disagree" /> 
-						<input name="category" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
-						<input name="category" type="radio" value="4" class="star" title="Agree" /> 
-						<input name="category" type="radio" value="5" class="star" title="Strongly Agree" /></td>
+					<td><input name="category" type="radio" value="1" class="star"
+						title="Strongly Disagree" /> <input name="category" type="radio"
+						value="2" class="star" title="Disagree" /> <input name="category"
+						type="radio" value="3" class="star"
+						title="Slightly Disagree or Slightly Agree" /> <input
+						name="category" type="radio" value="4" class="star" title="Agree" />
+						<input name="category" type="radio" value="5" class="star"
+						title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>06.</td>
 					<td width="80%">The price of this t-shirt is acceptable, <br />
-						including base price, tax and shipping fees.</td>
-					<td><input name="price" type="radio" value="1" class="star" title="Strongly Disagree"/>
-						<input name="price" type="radio" value="2" class="star" title="Disagree" /> 
-						<input name="price" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
-						<input name="price" type="radio" value="4" class="star" title="Agree" /> 
-						<input name="price" type="radio" value="5" class="star" title="Strongly Agree" /></td>
+						including base price, tax and shipping fees.
+					</td>
+					<td><input name="price" type="radio" value="1" class="star"
+						title="Strongly Disagree" /> <input name="price" type="radio"
+						value="2" class="star" title="Disagree" /> <input name="price"
+						type="radio" value="3" class="star"
+						title="Slightly Disagree or Slightly Agree" /> <input
+						name="price" type="radio" value="4" class="star" title="Agree" />
+						<input name="price" type="radio" value="5" class="star"
+						title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>07.</td>
 					<td width="80%">The brand is reputable.</td>
-					<td><input name="brand" type="radio" value="1" class="star" title="Strongly Disagree"/>
-						<input name="brand" type="radio" value="2" class="star" title="Disagree" /> 
-						<input name="brand" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
-						<input name="brand" type="radio" value="4" class="star" title="Agree" /> 
-						<input name="brand" type="radio" value="5" class="star" title="Strongly Agree" /></td>
+					<td><input name="brand" type="radio" value="1" class="star"
+						title="Strongly Disagree" /> <input name="brand" type="radio"
+						value="2" class="star" title="Disagree" /> <input name="brand"
+						type="radio" value="3" class="star"
+						title="Slightly Disagree or Slightly Agree" /> <input
+						name="brand" type="radio" value="4" class="star" title="Agree" />
+						<input name="brand" type="radio" value="5" class="star"
+						title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>08.</td>
 					<td width="80%">The virtual store is well-designed.</td>
-					<td><input name="store" type="radio" value="1" class="star" title="Strongly Disagree" />
-						<input name="store" type="radio" value="2" class="star" title="Disagree" /> 
-						<input name="store" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
-						<input name="store" type="radio" value="4" class="star" title="Agree" /> 
-						<input name="store" type="radio" value="5" class="star" title="Strongly Agree" /></td>
+					<td><input name="store" type="radio" value="1" class="star"
+						title="Strongly Disagree" /> <input name="store" type="radio"
+						value="2" class="star" title="Disagree" /> <input name="store"
+						type="radio" value="3" class="star"
+						title="Slightly Disagree or Slightly Agree" /> <input
+						name="store" type="radio" value="4" class="star" title="Agree" />
+						<input name="store" type="radio" value="5" class="star"
+						title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>09.</td>
 					<td width="80%">The shipping is convenient.</td>
-					<td><input name="shipping" type="radio" value="1" class="star" title="Strongly Disagree" />
-						<input name="shipping" type="radio" value="2" class="star" title="Disagree" /> 
-						<input name="shipping" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
-						<input name="shipping" type="radio" value="4" class="star" title="Agree" /> 
-						<input name="shipping" type="radio" value="5" class="star" title="Strongly Agree" /></td>
+					<td><input name="shipping" type="radio" value="1" class="star"
+						title="Strongly Disagree" /> <input name="shipping" type="radio"
+						value="2" class="star" title="Disagree" /> <input name="shipping"
+						type="radio" value="3" class="star"
+						title="Slightly Disagree or Slightly Agree" /> <input
+						name="shipping" type="radio" value="4" class="star" title="Agree" />
+						<input name="shipping" type="radio" value="5" class="star"
+						title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>10.</td>
 					<td width="80%">In total, the quality of this t-shirt is good.
 					</td>
-					<td><input name="quality" type="radio" value="1" class="star" title="Strongly Disagree" />
-						<input name="quality" type="radio" value="2" class="star" title="Disagree" /> 
-						<input name="quality" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
-						<input name="quality" type="radio" value="4" class="star" title="Agree" /> 
-						<input name="quality" type="radio" value="5" class="star" title="Strongly Agree" /></td>
+					<td><input name="quality" type="radio" value="1" class="star"
+						title="Strongly Disagree" /> <input name="quality" type="radio"
+						value="2" class="star" title="Disagree" /> <input name="quality"
+						type="radio" value="3" class="star"
+						title="Slightly Disagree or Slightly Agree" /> <input
+						name="quality" type="radio" value="4" class="star" title="Agree" />
+						<input name="quality" type="radio" value="5" class="star"
+						title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>11.</td>
 					<td width="80%">In total, you need to spend a lot to obtain
-						this t-shirt <br /> in terms of price, time, effort, etc.</td>
-					<td><input name="cost" type="radio" value="1" class="star" title="Strongly Disagree" />
-						<input name="cost" type="radio" value="2" class="star" title="Disagree" /> 
-						<input name="cost" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
-						<input name="cost" type="radio" value="4" class="star" title="Agree" /> 
-						<input name="cost" type="radio" value="5" class="star" title="Strongly Agree" /></td>
+						this t-shirt <br /> in terms of price, time, effort, etc.
+					</td>
+					<td><input name="cost" type="radio" value="1" class="star"
+						title="Strongly Disagree" /> <input name="cost" type="radio"
+						value="2" class="star" title="Disagree" /> <input name="cost"
+						type="radio" value="3" class="star"
+						title="Slightly Disagree or Slightly Agree" /> <input name="cost"
+						type="radio" value="4" class="star" title="Agree" /> <input
+						name="cost" type="radio" value="5" class="star"
+						title="Strongly Agree" /></td>
 				</tr>
 				<tr>
 					<td>12.</td>
 					<td width="80%">In total, this t-shirt is worthy purchasing.</td>
-					<td><input name="value" type="radio" value="1" class="star" title="Strongly Disagree" />
-						<input name="value" type="radio" value="2" class="star" title="Disagree" /> 
-						<input name="value" type="radio" value="3" class="star" title="Slightly Disagree or Slightly Agree" /> 
-						<input name="value" type="radio" value="4" class="star" title="Agree" /> 
-						<input name="value" type="radio" value="5" class="star" title="Strongly Agree" /></td>
+					<td><input name="value" type="radio" value="1" class="star"
+						title="Strongly Disagree" /> <input name="value" type="radio"
+						value="2" class="star" title="Disagree" /> <input name="value"
+						type="radio" value="3" class="star"
+						title="Slightly Disagree or Slightly Agree" /> <input
+						name="value" type="radio" value="4" class="star" title="Agree" />
+						<input name="value" type="radio" value="5" class="star"
+						title="Strongly Agree" /></td>
 				</tr>
 			</table>
 			<p>
@@ -432,32 +480,39 @@
 				<textarea id="comments" name="comments" cols="50" rows="7">${rating.comments }</textarea>
 			</p>
 			<p>
-			<input type="submit" value="Submit Ratings" class="submit" /><span
-				id="result" style="margin: 5px 0px 10px 20px; color: red;"></span>
-			<span class="pages"> 
-				<c:forEach var="progress" begin="1" end="${sessionScope.maxProgress+1}">
-				<c:if test="${sessionScope.environment eq 'web site' }">
-					<c:choose>
-						<c:when test="${progress<=sessionScope.progress }">
-							<a href="./userStudy?action=info&teeId=${sessionScope.vTees[progress] }">
-						</c:when>
-						<c:when test="${sessionScope.progress==sessionScope.maxProgress }">
-							<a href="./userStudy?action=env" onclick="return check_rating()"
-								title="To Last Part of User Study">
-						</c:when>
-						<c:when test="${progress==sessionScope.progress+1}">
-							<a href="./userStudy?action=info&survey=next"
-								onclick="return check_rating()">
-						</c:when>
-					</c:choose>
-				</c:if>
-				<c:if test="${progress==sessionScope.maxProgress+1 
+			<c:out value="${requsetScope.rating }"></c:out>
+				<input type="submit" value="Submit Ratings" class="submit" 
+				<c:if test="${(sessionScope.environment=='virtual reality') && (!empty rating.cDate) }">disabled="disabled"</c:if>/>
+				<span id="result" style="margin: 5px 0px 10px 20px; color: red;"></span>
+				<span class="pages"> <c:forEach var="progress" begin="1"
+						end="${sessionScope.maxProgress+1}">
+						<c:if test="${sessionScope.environment eq 'web site' }">
+							<c:choose>
+								<c:when test="${progress<=sessionScope.progress }">
+									<a
+										href="./userStudy?action=info&teeId=${sessionScope.vTees[progress] }">
+								</c:when>
+								<c:when
+									test="${sessionScope.progress==sessionScope.maxProgress }">
+									<a href="./userStudy?action=env"
+										onclick="return check_rating()"
+										title="To Last Part of User Study">
+								</c:when>
+								<c:when test="${progress==sessionScope.progress+1}">
+									<a href="./userStudy?action=info&survey=next"
+										onclick="return check_rating()">
+								</c:when>
+							</c:choose>
+						</c:if>
+						<c:if
+							test="${progress==sessionScope.maxProgress+1 
 							&& sessionScope.vrProgress>=sessionScope.maxProgress
 							&& sessionScope.environment eq 'virtual reality' }">
-						<a href="./userStudy?action=env" onclick="return check_rating()" title="To Last Part of User Study">
-				</c:if>
-					<span
-						<c:choose>
+							<a href="./userStudy?action=env" onclick="return check_rating()"
+								title="To Last Part of User Study">
+						</c:if>
+						<span
+							<c:choose>
 							<c:when test="${progress<sessionScope.progress 
 											&& sessionScope.environment eq 'web site'}">class="block-reco"</c:when>
 							<c:when test="${progress==sessionScope.progress 
@@ -476,20 +531,23 @@
 							<c:when test="${progress==sessionScope.vrProgress+1 && sessionScope.environment eq 'virtual reality'}">class="block-rating"</c:when>
 							<c:otherwise>class="block-gray"</c:otherwise>
 						</c:choose>>
-						<c:choose>
-							<c:when test="${progress==sessionScope.maxProgress+1 }">>></c:when>
-							<c:otherwise>${progress}</c:otherwise>
-						</c:choose> </span>
-					<c:if test="${progress<=sessionScope.progress+1 && sessionScope.environment eq 'web site'}">
-						</a>
-					</c:if>
-					<c:if test="${progress==sessionScope.maxProgress+1 
+							<c:choose>
+								<c:when test="${progress==sessionScope.maxProgress+1 }">>></c:when>
+								<c:otherwise>${progress}</c:otherwise>
+							</c:choose>
+						</span>
+						<c:if
+							test="${progress<=sessionScope.progress+1 && sessionScope.environment eq 'web site'}">
+							</a>
+						</c:if>
+						<c:if
+							test="${progress==sessionScope.maxProgress+1 
 							&& sessionScope.vrProgress>=sessionScope.maxProgress
 							&& sessionScope.environment eq 'virtual reality' }">
-						</a>
-					</c:if>
-				</c:forEach> 
-			</span>
+							</a>
+						</c:if>
+					</c:forEach>
+				</span>
 			</p>
 		</form>
 	</div>
@@ -552,8 +610,8 @@
 						</table>
 					</li>
 					<c:if test="${!empty r.comments }">
-						<li><span>Comments about <em>${tee.name}</em> </span><br />
-							${r.comments }</li>
+						<li><span>Comments about <em>${tee.name}</em>
+						</span><br /> ${r.comments }</li>
 					</c:if>
 					<c:if test="${!empty r.services }">
 						<li><span>Service and delivery comments</span><br />
