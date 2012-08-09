@@ -1,5 +1,5 @@
 package org.felix.db;
-
+ 
 import java.sql.Date;
 
 public class BookReview extends DBObject
