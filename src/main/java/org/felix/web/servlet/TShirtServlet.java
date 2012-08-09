@@ -156,6 +156,11 @@ public class TShirtServlet extends HttpServlet
 			req.getSession().setAttribute("step", 3);
 			req.getRequestDispatcher("ack.jsp").forward(req, resp);
 
+		} else if ("envProgress".equals(action))
+		{
+			List<Environment> ps = dao.queryEnvironments();
+			req.setAttribute("records", ps);
+			req.getRequestDispatcher("envProgress.jsp").forward(req, resp);
 		} else if ("info".equals(action))
 		{
 			/*
@@ -285,6 +290,11 @@ public class TShirtServlet extends HttpServlet
 				os.write(("Thanks. Your ratings and comments are saved.").getBytes());
 			}
 			os.close();
+		} else if ("ratingProgress".equals(action))
+		{
+			List<VirtualRating> ps = dao.queryVirtualRatings();
+			req.setAttribute("records", ps);
+			req.getRequestDispatcher("ratingProgress.jsp").forward(req, resp);
 		} else if ("user".equals(action))
 		{
 			environment = req.getParameter("environment");
@@ -294,6 +304,7 @@ public class TShirtServlet extends HttpServlet
 			String job = req.getParameter("job");
 			if (job != null && job.equals("student")) job += "::" + req.getParameter("job1");
 			else if (job != null && job.equals("staff")) job += "::" + req.getParameter("job2");
+			else if (job != null && job.equals("others")) job += "::" + req.getParameter("job3");
 			u.setJob(job);
 			u.setAge(req.getParameter("age"));
 			u.setEducation(req.getParameter("education"));
@@ -302,7 +313,7 @@ public class TShirtServlet extends HttpServlet
 			u.setcDate(new Date(System.currentTimeMillis()));
 
 			dao.insert(u);
-			userId = dao.getUserId();
+			userId = dao.getUserId(u);
 			u.setUserId(userId);
 			resetSession(req, userId, environment);
 
@@ -340,6 +351,11 @@ public class TShirtServlet extends HttpServlet
 					req.getRequestDispatcher("./userStudy?action=info").forward(req, resp);
 				}
 			}
+		} else if ("userProgress".equals(action))
+		{
+			List<User> ps = dao.queryUsers();
+			req.setAttribute("records", ps);
+			req.getRequestDispatcher("userProgress.jsp").forward(req, resp);
 		}
 	}
 

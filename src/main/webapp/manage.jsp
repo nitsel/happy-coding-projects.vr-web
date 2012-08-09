@@ -19,6 +19,12 @@
 		<ul class="admin">
 			<li><label>User Study:</label><a href="./userStudy"
 				target="_blank">~/VR-web/userStudy</a>
+			<li><label style="color: blue;">Users:</label><a href="./userStudy?action=userProgress"
+				target="_blank">~/VR-web/userStudy?action=userProgress</a>
+			<li><label style="color: blue;">Envs:</label><a href="./userStudy?action=envProgress"
+				target="_blank">~/VR-web/userStudy?action=envProgress</a>
+			<li><label style="color: blue;">Ratings:</label><a href="./userStudy?action=ratingProgress"
+				target="_blank">~/VR-web/userStudy?action=ratingProgress</a>
 			<li><label>Pilot Study:</label><a
 				href="./userStudy?action=pilot" target="_blank">~/VR-web/userStudy?action=pilot</a>
 			<li><label>Pilot Study:</label><a

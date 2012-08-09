@@ -131,7 +131,8 @@
 			<table class="questions">
 				<tr>
 					<td>13.</td>
-					<td width="80%">You are confident about your ratings.</td>
+					<td width="80%">You are confident about your ratings. 
+					When you gave ratings, you feel confident and no hesitations to make a judgement.  </td>
 					<td><input name="confidence" type="radio" value="1" class="star" title="Strongly Disagree" 
 							<c:if test="${env.confidence==1 }">checked</c:if>
 						/>
