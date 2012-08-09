@@ -40,7 +40,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
-
+ 
 /**
  * This class contains all the logic for signing requests
  * to the Amazon Product Advertising API.

@@ -16,7 +16,7 @@ import org.felix.io.URLReader;
 import org.felix.system.DateUtils;
 import org.felix.system.Timer;
 import org.felix.web.client.Tee80sShirtClient;
-
+ 
 public class Tee80sDao extends DerbyDao
 {
 	static

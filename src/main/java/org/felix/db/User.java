@@ -72,7 +72,7 @@ public class User
 	{
 		this.shoppingExperience = shoppingExperience;
 	}
-
+ 
 	public String getVrExperience()
 	{
 		return vrExperience;

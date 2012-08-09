@@ -74,7 +74,7 @@ public class AmazonBookLookup
 	 * @throws Exception
 	 */
 	public static void retrieveBook(Book book) throws Exception
-	{
+	{ 
 		/*
 		 * Set up the signed requests helper
 		 */

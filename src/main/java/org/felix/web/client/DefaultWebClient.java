@@ -15,7 +15,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+ 
 public class DefaultWebClient
 {
 	protected static Logger	logger	= LoggerFactory.getLogger(DefaultWebClient.class);
