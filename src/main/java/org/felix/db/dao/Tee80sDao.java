@@ -40,6 +40,25 @@ public class Tee80sDao extends DerbyDao
 		return userId;
 	}
 
+	public int getUserId(User u)
+	{
+		String sql = "SELECT * FROM users WHERE gender='" + u.getGender() + "' AND age='" + u.getAge()
+				+ "' AND education='" + u.getEducation() + "' AND job='" + u.getJob() + "' AND shoppingExperience='"
+				+ u.getShoppingExperience() + "' AND vrExperience='" + u.getVrExperience() + "' AND cDate='"
+				+ u.getcDate() + "'";
+		ResultSet rs = null;
+		int userId = 0;
+		try
+		{
+			rs = stmt.executeQuery(sql);
+			if (rs != null && rs.next()) userId = Integer.parseInt(rs.getString("userId"));
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return userId;
+	}
+
 	public void update(User u)
 	{
 		String sql = "UPDATE users SET age='" + u.getAge() + "', gender='" + u.getGender() + "', education='"
@@ -321,6 +340,48 @@ public class Tee80sDao extends DerbyDao
 		return trs;
 	}
 
+	public List<VirtualRating> queryVirtualRatings()
+	{
+		String sql = "SELECT * FROM ratings";
+		logger.debug("Query ratings: {}", sql);
+
+		List<VirtualRating> trs = new ArrayList<>();
+		ResultSet rs = null;
+		VirtualRating r = null;
+		try
+		{
+			rs = stmt.executeQuery(sql);
+			while (rs.next())
+			{
+				r = new VirtualRating();
+				r.setUserId(Integer.parseInt(rs.getString("userId")));
+				r.setTeeId(rs.getString("teeId"));
+				r.setComments(rs.getString("comments"));
+				r.setcDate(DateUtils.parseString(rs.getString("cDate")));
+				r.setEnvironment(rs.getString("environment"));
+
+				r.setOverall(Integer.parseInt(rs.getString("overall")));
+				r.setAppearance(Integer.parseInt(rs.getString("appearance")));
+				r.setMaterial(Integer.parseInt(rs.getString("material")));
+				r.setFit(Integer.parseInt(rs.getString("fit")));
+				r.setCategory(Integer.parseInt(rs.getString("category")));
+				r.setPrice(Integer.parseInt(rs.getString("price")));
+				r.setBrand(Integer.parseInt(rs.getString("brand")));
+				r.setStore(Integer.parseInt(rs.getString("store")));
+				r.setShipping(Integer.parseInt(rs.getString("shipping")));
+				r.setQuality(Integer.parseInt(rs.getString("quality")));
+				r.setCost(Integer.parseInt(rs.getString("cost")));
+				r.setValue(Integer.parseInt(rs.getString("value")));
+				trs.add(r);
+			}
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		return trs;
+	}
+
 	public void insert(Review r) throws Exception
 	{
 		// check if it is already exist
@@ -496,6 +557,38 @@ public class Tee80sDao extends DerbyDao
 		return u;
 	}
 
+	public List<User> queryUsers()
+	{
+		String sql = "SELECT * FROM users";
+		logger.debug("Query users: {}", sql);
+
+		ResultSet rs;
+		List<User> users = new ArrayList<>();
+		try
+		{
+			rs = stmt.executeQuery(sql);
+			while (rs.next())
+			{
+				User u = new User();
+				u.setUserId(Integer.parseInt(rs.getString("userId")));
+				u.setAge(rs.getString("age"));
+				u.setGender(rs.getString("gender"));
+				u.setEducation(rs.getString("education"));
+				u.setJob(rs.getString("job"));
+				u.setShoppingExperience(rs.getString("shoppingExperience"));
+				u.setVrExperience(rs.getString("vrExperience"));
+				u.setcDate(DateUtils.parseString(rs.getString("cDate")));
+
+				users.add(u);
+			}
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		return users;
+	}
+
 	public List<PilotStudy> queryPilots()
 	{
 		String sql = "SELECT * FROM pilots";
@@ -567,6 +660,37 @@ public class Tee80sDao extends DerbyDao
 		}
 
 		return env;
+	}
+
+	public List<Environment> queryEnvironments()
+	{
+		String sql = "SELECT * FROM envs";
+		logger.debug("Query envs: {}", sql);
+
+		ResultSet rs;
+		List<Environment> envs = new ArrayList<>();
+		try
+		{
+			rs = stmt.executeQuery(sql);
+			if (rs.next())
+			{
+				Environment env = new Environment();
+				env.setUserId(Integer.parseInt(rs.getString("userId")));
+				env.setConfidence(Integer.parseInt(rs.getString("confidence")));
+				env.setComfort(Integer.parseInt(rs.getString("comfort")));
+				env.setPresence(Integer.parseInt(rs.getString("presence")));
+				env.setReasons(rs.getString("reasons"));
+				env.setEnvironment(rs.getString("environment"));
+				env.setcDate(DateUtils.parseString(rs.getString("cDate")));
+
+				envs.add(env);
+			}
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		return envs;
 	}
 
 	public Review queryReview(String reviewId) throws Exception

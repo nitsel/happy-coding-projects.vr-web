@@ -13,95 +13,80 @@
 <link rel="shortcut icon" href="img/users.ico" />
 <script type="text/javascript" src='js/jquery.js'></script>
 <script>
-	function getValue(selector){
-		var stars=$(selector);
+	function getValue(selector) {
+		var stars = $(selector);
 		var value;
-		for(var i=0; i<stars.length; i++)
-		{
-			if(stars[i].checked){
-				value=stars[i].value;
+		for ( var i = 0; i < stars.length; i++) {
+			if (stars[i].checked) {
+				value = stars[i].value;
 				break;
 			}
 		}
 		return value; // if not rated, return 0. 
 	}
-	
-	function check_name()
-	{
+
+	function check_name() {
 		var userId = $('input[name="userId"]').val();
-		if(!userId)
-		{
+		if (!userId) {
 			alert("Please enter your UserID");
 			return false;
 		}
-		
+
 		return true;
 	}
-	
-	function validate()
-	{
+
+	function validate() {
 		var gender = getValue('input[name="gender"]');
-		if(!gender)
-		{
-			alert("Please select your gender. ");	
+		if (!gender) {
+			alert("Please select your gender. ");
 			return false;
 		}
 		var age = getValue('input[name="age"]');
-		if(!age)
-		{
-			alert("Please select your age. ");	
+		if (!age) {
+			alert("Please select your age. ");
 			return false;
 		}
 		var education = getValue('input[name="education"]');
-		if(!education)
-		{
-			alert("Please select your education. ");	
+		if (!education) {
+			alert("Please select your education. ");
 			return false;
 		}
-		
+
 		var job = getValue('input[name="job"]');
-		if(!job)
-		{
-			alert("Please select your job. ");	
+		if (!job) {
+			alert("Please select your job. ");
 			return false;
 		}
-		
-		if(job=='student')
-		{
+
+		if (job == 'student') {
 			var school = $('input[name="job1"]').val();
-			if(!school)
-			{
+			if (!school) {
 				alert("Please input your school.");
 				return false;
 			}
-		}else if(job=='staff')
-		{
+		} else if (job == 'staff') {
 			var area = $('input[name="job2"]').val();
-			if(!area)
-			{
+			if (!area) {
 				alert("Please input your working area.");
 				return false;
 			}
 		}
-		
+
 		var shoppingExperience = getValue('input[name="shoppingExperience"]');
-		if(!shoppingExperience)
-		{
-			alert("Please select your shopping experience. ");	
+		if (!shoppingExperience) {
+			alert("Please select your shopping experience. ");
 			return false;
 		}
-		
+
 		var vrExperience = getValue('input[name="vrExperience"]');
-		if(!vrExperience)
-		{
-			alert("Please select your virtual reality experience. ");	
+		if (!vrExperience) {
+			alert("Please select your virtual reality experience. ");
 			return false;
 		}
-		
+
 		return true;
 	}
-		
-	</script>
+</script>
 
 </head>
 
@@ -110,34 +95,34 @@
 		<h2>User Study: Some Information About You</h2>
 		<h4>NOTE: All information will be kept confidential and only for
 			research purpose.</h4>
-		<form action="./userStudy?action=user_in" method="post" class="userForm" onsubmit="return check_name()">
-			<label>Existing UserID:</label><input name="userId" type="text" value="${sessionScope.userId }" width="150px" class="underline_box"/>
+		<form action="./userStudy?action=user_in" method="post"
+			class="userForm" onsubmit="return check_name()">
+			<label>Existing UserID:</label><input name="userId" type="text"
+				value="${sessionScope.userId }" width="150px" class="underline_box" />
 			<select name="environment">
-				<option value="web site" 
-					<c:if test="${sessionScope.environment eq 'web site' }">selected="selected"</c:if>
-				>Web Site</option>
+				<option value="web site"
+					<c:if test="${sessionScope.environment eq 'web site' }">selected="selected"</c:if>>Web
+					Site</option>
 				<option value="virtual reality"
-					<c:if test="${sessionScope.environment eq 'virtual reality' }">selected="selected"</c:if>
-				>Virtual Reality</option>
-			</select>
-			<input type="submit" value="Start User Study" class="submit"/>
-			<p style="display: inherit; color:red;">${requestScope.error_in }</p>
+					<c:if test="${sessionScope.environment eq 'virtual reality' }">selected="selected"</c:if>>Virtual
+					Reality</option>
+			</select> <input type="submit" value="Start User Study" class="submit" />
+			<p style="display: inherit; color: red;">${requestScope.error_in
+				}</p>
 		</form>
 		<div class="hr"></div>
 		<form action="./userStudy?action=user" method="post" class="userForm"
 			onsubmit="return validate()">
-			<label>New UserID:</label><span style="margin: 0px 10px; color: red;">${userId }</span>
-				Environment: 
-				<select name="environment">
-					<option value="web site" 
-						<c:if test="${sessionScope.environment eq 'web site' }">selected="selected"</c:if>
-					>Web Site</option>
-					<option value="virtual reality"
-						<c:if test="${sessionScope.environment eq 'virtual reality' }">selected="selected"</c:if>
-					>Virtual Reality</option>
-				</select><br />
-			<span style="color: red;">${requestScope.error }</span>
-			
+			<label>New UserID:</label><span style="margin: 0px 10px; color: red;">${userId
+				}</span> Environment: <select name="environment">
+				<option value="web site"
+					<c:if test="${sessionScope.environment eq 'web site' }">selected="selected"</c:if>>Web
+					Site</option>
+				<option value="virtual reality"
+					<c:if test="${sessionScope.environment eq 'virtual reality' }">selected="selected"</c:if>>Virtual
+					Reality</option>
+			</select><br /> <span style="color: red;">${requestScope.error }</span>
+
 			<ol>
 				<li><label>You are</label><br /> <input type="radio"
 					name="gender" value="Male"
@@ -158,8 +143,7 @@
 					<c:if test="${user.age eq '50 - 59' }">checked</c:if> />50 - 59<br />
 					<input type="radio" name="age" value="60 or Above"
 					<c:if test="${user.age eq '60 or Above' }">checked</c:if> />60 or
-					Above<br />
-				</li>
+					Above<br /></li>
 				<li><label>What is your educational level?</label><br /> <input
 					type="radio" name="education" value="Some College"
 					<c:if test="${user.education eq 'Some College' }">checked</c:if> />Some
@@ -173,8 +157,7 @@
 					<c:if test="${user.education eq 'Master' }">checked</c:if> />Master
 					degree<br /> <input type="radio" name="education" value="Doctoral"
 					<c:if test="${user.education eq 'Doctoral' }">checked</c:if> />Doctoral
-					degree<br />
-				</li>
+					degree<br /></li>
 				<li><label>You are</label><br /> <input type="radio"
 					name="job" value="student"
 					<c:if test="${fn:substring(user.job, 0, fn:indexOf(user.job,'::')) eq 'student' }">checked</c:if> />A
@@ -190,7 +173,7 @@
 					<c:if test="${fn:substring(user.job, 0, fn:indexOf(user.job,'::')) eq 'staff' }">
 						value="${fn:substringAfter(user.job,'::') }"
 					</c:if> /><br />
-				</li>
+					<input type="radio" name="job" value="others" />Others: <input type="text" name="job3" class="underline_box"/><br /></li>
 				<li><label>On the average, you shop online</label><br /> <input
 					type="radio" name="shoppingExperience" value="Very frequently"
 					<c:if test="${user.shoppingExperience eq 'Very frequently' }">checked</c:if> />Very
@@ -225,8 +208,7 @@
 					less than 1 year<br /> <input type="radio" name="vrExperience"
 					value="couple of years"
 					<c:if test="${user.vrExperience eq 'couple of years' }">checked</c:if> />Yes,
-					couple of years<br />
-				</li>
+					couple of years<br /></li>
 			</ol>
 			<input type="submit" value="Start User Study" class="submit">
 		</form>
