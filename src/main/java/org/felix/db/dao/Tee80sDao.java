@@ -913,13 +913,7 @@ public class Tee80sDao extends DerbyDao
 	{
 		Timer.start();
 		Tee80sDao dao = new Tee80sDao();
-		dao.clearTable("users");
-		dao.clearTable("envs");
-		dao.clearTable("ratings");
-		dao.dropTables(new String[] { "users", "envs", "ratings" });
-		dao.createUsers();
-		dao.createEnvs();
-		dao.createRatings();
+		dao.buildDB();
 
 		logger.debug("Consumed {} to be finished.", Timer.end());
 	}
