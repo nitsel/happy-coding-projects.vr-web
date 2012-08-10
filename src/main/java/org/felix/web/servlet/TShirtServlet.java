@@ -28,7 +28,7 @@ public class TShirtServlet extends HttpServlet
 
 	private static final long		serialVersionUID	= 1L;
 
-	private final static int		maxProgress			= 2;
+	private final static int		maxProgress			= 8;
 	private final static int		pageSize			= 10;
 
 	@SuppressWarnings("unchecked")
