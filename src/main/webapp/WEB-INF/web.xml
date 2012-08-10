@@ -28,5 +28,8 @@
 		<servlet-name>userStudy</servlet-name>
 		<url-pattern>/userStudy</url-pattern>
 	</servlet-mapping>
+	<listener>
+		<listener-class>org.felix.web.servlet.ContextListener</listener-class>
+	</listener>
 
 </web-app>

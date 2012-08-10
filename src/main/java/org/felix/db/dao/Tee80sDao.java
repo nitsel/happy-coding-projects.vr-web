@@ -672,7 +672,7 @@ public class Tee80sDao extends DerbyDao
 		try
 		{
 			rs = stmt.executeQuery(sql);
-			if (rs.next())
+			while (rs.next())
 			{
 				Environment env = new Environment();
 				env.setUserId(Integer.parseInt(rs.getString("userId")));
