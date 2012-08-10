@@ -1,8 +1,9 @@
 package org.felix.web.servlet;
- 
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,25 +20,54 @@ import org.felix.db.User;
 import org.felix.db.VirtualRating;
 import org.felix.db.dao.Tee80sDao;
 import org.felix.math.RandomUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TShirtServlet extends HttpServlet
 {
-	private final static Tee80sDao	dao					= new Tee80sDao();
+	private final static Logger			logger				= LoggerFactory.getLogger(TShirtServlet.class);
+	private final static List<String>	femaleShirts		= new ArrayList<>();
+	private final static List<String>	maleShirts			= new ArrayList<>();
+
+	private final static Tee80sDao		dao					= new Tee80sDao();
 	// all tees
-	private final static List<Tee>	tees				= dao.queryTees();
+	private final static List<Tee>		tees				= dao.queryTees();
 
-	private static final long		serialVersionUID	= 1L;
+	private static final long			serialVersionUID	= 1L;
 
-	private final static int		maxProgress			= 8;
-	private final static int		pageSize			= 10;
+	private final static int			maxProgress			= 8;
+	private final static int			pageSize			= 10;
 
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
+		if (femaleShirts.size() == 0)
+		{
+			femaleShirts.add("TRAN109");
+			femaleShirts.add("GIZMO027");
+			femaleShirts.add("JEM024");
+			femaleShirts.add("GMB010");
+			femaleShirts.add("MASK003");
+			femaleShirts.add("DD029");
+			femaleShirts.add("TOPGN034");
+			femaleShirts.add("NFL002");
+			femaleShirts.add("LM058");
+
+			maleShirts.add("FBDO027");
+			maleShirts.add("TMNT083");
+			maleShirts.add("TMNT038");
+			maleShirts.add("TMNT028");
+			maleShirts.add("KISS014");
+			maleShirts.add("PARKS002");
+			maleShirts.add("MIGHT008");
+			maleShirts.add("JIJOE051");
+		}
+
 		String action = req.getParameter("action");
 		String teeId = req.getParameter("teeId");
 		Integer userId = (Integer) req.getSession().getAttribute("userId");
+		String gender = (String) req.getSession().getAttribute("gender");
 		String environment = (String) req.getSession().getAttribute("environment");
 
 		if (action == null)
@@ -194,6 +224,15 @@ public class TShirtServlet extends HttpServlet
 						found = false;
 						int index = RandomUtils.randInt(tees.size());
 						Tee t = tees.get(index);
+						if (gender.equalsIgnoreCase("male") && femaleShirts.contains(t.getId()))
+						{
+							logger.debug("Males are not surpposed to rate women's T-Shirts like ({}).", t.getId());
+							continue;
+						} else if (gender.equalsIgnoreCase("female") && maleShirts.contains(t.getId()))
+						{
+							logger.debug("Females are not surpposed to rate men's T-Shirts like ({}).", t.getId());
+							continue;
+						}
 						for (VirtualRating r : rs)
 						{
 							if (r.getTeeId().equals(t.getId()))
@@ -315,7 +354,7 @@ public class TShirtServlet extends HttpServlet
 			dao.insert(u);
 			userId = dao.getUserId(u);
 			u.setUserId(userId);
-			resetSession(req, userId, environment);
+			resetSession(req, u, environment);
 
 			if ("virtual reality".equals(environment))
 			{
@@ -333,13 +372,15 @@ public class TShirtServlet extends HttpServlet
 			userId = Integer.parseInt(req.getParameter("userId"));
 			environment = req.getParameter("environment");
 
-			if (dao.queryUser(userId) == null)
+			User u = dao.queryUser(userId);
+
+			if (u == null)
 			{
 				req.setAttribute("error_in", "* UserID '" + userId + "' does not exist.");
 				req.getRequestDispatcher("index.jsp").forward(req, resp);
 			} else
 			{
-				resetSession(req, userId, environment);
+				resetSession(req, u, environment);
 
 				if ("virtual reality".equals(environment))
 				{
@@ -359,9 +400,10 @@ public class TShirtServlet extends HttpServlet
 		}
 	}
 
-	private void resetSession(HttpServletRequest req, int userId, String environment)
+	private void resetSession(HttpServletRequest req, User u, String environment)
 	{
-		req.getSession().setAttribute("userId", userId);
+		req.getSession().setAttribute("userId", u.getUserId());
+		req.getSession().setAttribute("gender", u.getGender());
 		req.getSession().setAttribute("environment", environment);
 
 		req.getSession().setAttribute("progress", 1);

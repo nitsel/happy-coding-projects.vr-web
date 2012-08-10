@@ -260,7 +260,6 @@ public class Tee80sDao extends DerbyDao
 	public VirtualRating queryVirtualRating(int userId, String teeId)
 	{
 		String sql = "SELECT * FROM ratings WHERE userId = " + userId + " AND teeId ='" + teeId + "'";
-		logger.debug("Query ratings: {}", sql);
 
 		ResultSet rs = null;
 		VirtualRating r = null;
@@ -301,7 +300,6 @@ public class Tee80sDao extends DerbyDao
 	public List<VirtualRating> queryVirtualRatings(int userId)
 	{
 		String sql = "SELECT * FROM ratings WHERE userId = " + userId;
-		logger.debug("Query ratings: {}", sql);
 
 		List<VirtualRating> trs = new ArrayList<>();
 		ResultSet rs = null;
@@ -343,7 +341,6 @@ public class Tee80sDao extends DerbyDao
 	public List<VirtualRating> queryVirtualRatings()
 	{
 		String sql = "SELECT * FROM ratings";
-		logger.debug("Query ratings: {}", sql);
 
 		List<VirtualRating> trs = new ArrayList<>();
 		ResultSet rs = null;
@@ -478,7 +475,6 @@ public class Tee80sDao extends DerbyDao
 	public Tee queryTee(String id)
 	{
 		String sql = "SELECT * FROM tee80s WHERE id = '" + id + "'";
-		logger.debug("Query tee80s: {}", sql);
 
 		ResultSet rs = null;
 		Tee t = null;
@@ -523,14 +519,12 @@ public class Tee80sDao extends DerbyDao
 		String sql = "SELECT * FROM reviews WHERE productId = '" + r.getProductId() + "' AND userName = '"
 				+ r.getUserName() + "'";
 
-		logger.debug("Query reviews: {}", sql);
 		return stmt.executeQuery(sql);
 	}
 
 	public User queryUser(int userId)
 	{
 		String sql = "SELECT * FROM users WHERE userId = " + userId;
-		logger.debug("Query users: {}", sql);
 
 		ResultSet rs;
 		User u = null;
@@ -560,7 +554,6 @@ public class Tee80sDao extends DerbyDao
 	public List<User> queryUsers()
 	{
 		String sql = "SELECT * FROM users";
-		logger.debug("Query users: {}", sql);
 
 		ResultSet rs;
 		List<User> users = new ArrayList<>();
@@ -592,7 +585,6 @@ public class Tee80sDao extends DerbyDao
 	public List<PilotStudy> queryPilots()
 	{
 		String sql = "SELECT * FROM pilots";
-		logger.debug("Query pilots: {}", sql);
 
 		ResultSet rs;
 		List<PilotStudy> ps = new ArrayList<>();
@@ -636,7 +628,6 @@ public class Tee80sDao extends DerbyDao
 	public Environment queryEnvironment(int userId, String environment)
 	{
 		String sql = "SELECT * FROM envs WHERE userId = " + userId + " AND environment = '" + environment + "'";
-		logger.debug("Query envs: {}", sql);
 
 		ResultSet rs;
 		Environment env = null;
@@ -665,7 +656,6 @@ public class Tee80sDao extends DerbyDao
 	public List<Environment> queryEnvironments()
 	{
 		String sql = "SELECT * FROM envs";
-		logger.debug("Query envs: {}", sql);
 
 		ResultSet rs;
 		List<Environment> envs = new ArrayList<>();
@@ -696,7 +686,6 @@ public class Tee80sDao extends DerbyDao
 	public Review queryReview(String reviewId) throws Exception
 	{
 		String sql = "SELECT * FROM reviews WHERE id = '" + reviewId + "'";
-		logger.debug("Query reviews: {}", sql);
 
 		ResultSet rs = stmt.executeQuery(sql);
 		Review r = null;
@@ -735,7 +724,6 @@ public class Tee80sDao extends DerbyDao
 		String sql = "SELECT * FROM reviews WHERE productId = '" + productId + "' ORDER BY vDate DESC"
 				+ (page > 0 ? " OFFSET " + (page - 1) * pageSize + " ROWS" : "")
 				+ (pageSize > 0 ? " FETCH NEXT " + pageSize + " ROWS ONLY" : "");
-		logger.debug("Query reviews: {}", sql);
 
 		ResultSet rs = null;
 		List<Review> ls = new ArrayList<>();
