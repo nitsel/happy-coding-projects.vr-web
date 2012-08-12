@@ -413,7 +413,7 @@
 				</tr>
 				<tr>
 					<td>08.</td>
-					<td width="80%">The virtual store is well-designed.</td>
+					<td width="80%">The web site (or virtual store) is well-designed.</td>
 					<td><input name="store" type="radio" value="1" class="star"
 						title="Strongly Disagree" /> <input name="store" type="radio"
 						value="2" class="star" title="Disagree" /> <input name="store"
