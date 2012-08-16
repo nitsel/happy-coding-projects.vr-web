@@ -56,7 +56,7 @@
 			To protect all the information you provided, we will keep it safe and confidential, and only use it for research purpose.<br/>
 			If you have not completed the other study (@<span style="color: blue">
 			<c:if test="${sessionScope.environment eq 'web site' }">virtual reality</c:if>
-			<c:if test="${sessionScope.environment eq 'virtual reality' }">web site</c:if></span>), click and <input type="button" value="Go to Start Page" class="submit" onclick="javascript:window.location.href='./userStudy'"/> to continue user study.
+			<c:if test="${sessionScope.environment eq 'virtual reality' }">web site</c:if></span>), please proceed to continue user study.
 		</p>
 			
 			Best Regards, <br/>
