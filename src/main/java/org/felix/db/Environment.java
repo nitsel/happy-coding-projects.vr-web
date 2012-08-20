@@ -1,5 +1,5 @@
 package org.felix.db;
- 
+
 import java.sql.Date;
 
 public class Environment extends DBObject
@@ -11,6 +11,22 @@ public class Environment extends DBObject
 	private String	reasons;
 	private String	environment;
 	private Date	cDate;
+
+	@Override
+	public String toString()
+	{
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(userId + sep);
+		sb.append(environment + sep);
+		sb.append(confidence + sep);
+		sb.append(presence + sep);
+		sb.append(comfort + sep);
+		sb.append(reasons + sep);
+		sb.append(cDate);
+
+		return sb.toString();
+	}
 
 	public int getUserId()
 	{
