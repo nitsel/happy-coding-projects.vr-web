@@ -2,7 +2,7 @@ package org.felix.db;
 
 import java.sql.Date;
 
-public class User
+public class User extends DBObject
 {
 	private int		userId;
 	private String	gender;
@@ -12,6 +12,23 @@ public class User
 	private String	shoppingExperience;
 	private String	vrExperience;
 	private Date	cDate;				// create date
+
+	@Override
+	public String toString()
+	{
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(userId + sep);
+		sb.append(gender + sep);
+		sb.append(age + sep);
+		sb.append(education + sep);
+		sb.append(job + sep);
+		sb.append(shoppingExperience + sep);
+		sb.append(vrExperience + sep);
+		sb.append(cDate);
+
+		return sb.toString();
+	}
 
 	public int getUserId()
 	{
@@ -72,7 +89,7 @@ public class User
 	{
 		this.shoppingExperience = shoppingExperience;
 	}
- 
+
 	public String getVrExperience()
 	{
 		return vrExperience;

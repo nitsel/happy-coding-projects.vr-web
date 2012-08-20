@@ -24,6 +24,13 @@ public class VirtualRating extends DBObject
 	private int		cost;
 	private int		value;
 
+	@Override
+	public String toString()
+	{
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
+
 	public int getUserId()
 	{
 		return userId;

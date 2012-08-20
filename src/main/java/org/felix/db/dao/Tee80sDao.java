@@ -16,7 +16,7 @@ import org.felix.io.URLReader;
 import org.felix.system.DateUtils;
 import org.felix.system.Timer;
 import org.felix.web.client.Tee80sShirtClient;
- 
+
 public class Tee80sDao extends DerbyDao
 {
 	static
@@ -897,11 +897,23 @@ public class Tee80sDao extends DerbyDao
 		}
 	}
 
+	public void retrieveDB() throws Exception
+	{
+		String dirPath = FileUtils.makeDirectory("./DBData/");
+
+		List<User> users = queryUsers();
+		FileUtils.writeCollection(dirPath + "users.txt", users);
+
+		List<Environment> envs = queryEnvironments();
+		FileUtils.writeCollection(dirPath + "envs.txt", envs);
+	}
+
 	public static void main(String[] args) throws Exception
 	{
 		Timer.start();
 		Tee80sDao dao = new Tee80sDao();
-		dao.buildDB();
+		//dao.buildDB();
+		dao.retrieveDB();
 
 		logger.debug("Consumed {} to be finished.", Timer.end());
 	}
