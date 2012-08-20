@@ -27,8 +27,27 @@ public class VirtualRating extends DBObject
 	@Override
 	public String toString()
 	{
-		// TODO Auto-generated method stub
-		return super.toString();
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(userId + sep);
+		sb.append(teeId + sep);
+		sb.append(overall + sep);
+		sb.append(environment + sep);
+		sb.append(appearance + sep);
+		sb.append(material + sep);
+		sb.append(fit + sep);
+		sb.append(category + sep);
+		sb.append(price + sep);
+		sb.append(brand + sep);
+		sb.append(store + sep);
+		sb.append(shipping + sep);
+		sb.append(quality + sep);
+		sb.append(cost + sep);
+		sb.append(value + sep);
+		sb.append(comments + sep);
+		sb.append(cDate);
+
+		return sb.toString();
 	}
 
 	public int getUserId()
