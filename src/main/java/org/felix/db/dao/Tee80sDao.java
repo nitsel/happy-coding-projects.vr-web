@@ -906,6 +906,9 @@ public class Tee80sDao extends DerbyDao
 
 		List<Environment> envs = queryEnvironments();
 		FileUtils.writeCollection(dirPath + "envs.txt", envs);
+
+		List<VirtualRating> ratings = queryVirtualRatings();
+		FileUtils.writeCollection(dirPath + "ratings.txt", ratings);
 	}
 
 	public static void main(String[] args) throws Exception
