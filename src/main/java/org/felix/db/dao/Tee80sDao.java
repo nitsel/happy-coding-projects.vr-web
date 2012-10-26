@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.felix.db.Environment;
+import org.felix.db.PhyRating;
 import org.felix.db.PilotStudy;
 import org.felix.db.Review;
 import org.felix.db.Tee;
 import org.felix.db.User;
+import org.felix.db.VirRating;
 import org.felix.db.VirtualRating;
 import org.felix.io.FileUtils;
 import org.felix.io.URLReader;
@@ -719,6 +721,46 @@ public class Tee80sDao extends DerbyDao
 		return queryReviews(productId, 0, 0);
 	}
 
+	public List<Review> queryReviews()
+	{
+		String sql = "SELECT * FROM reviews";
+
+		ResultSet rs = null;
+		List<Review> ls = new ArrayList<>();
+		try
+		{
+			rs = stmt.executeQuery(sql);
+			while (rs.next())
+			{
+				Review r = new Review();
+				r.setId(Integer.parseInt(rs.getString("id")));
+				r.setProductId(rs.getString("productId"));
+				r.setRating(Float.parseFloat(rs.getString("rating")));
+				r.setUserName(rs.getString("userName"));
+				r.setUserLocation(rs.getString("userLocation"));
+				r.setTags(rs.getString("tags"));
+				r.setTitle(rs.getString("title"));
+				r.setComments(rs.getString("comments"));
+				r.setServices(rs.getString("services"));
+				r.setPros(rs.getString("pros"));
+				r.setCons(rs.getString("cons"));
+				r.setBestUses(rs.getString("bestUses"));
+				r.setFit(rs.getString("fit"));
+				r.setLength(rs.getString("length"));
+				r.setGift(rs.getString("gift"));
+				r.setRecommendation(rs.getString("recommendation"));
+				r.setvDate(DateUtils.parseString(rs.getString("vDate")));
+
+				ls.add(r);
+			}
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		return ls;
+	}
+
 	public List<Review> queryReviews(String productId, int page, int pageSize)
 	{
 		String sql = "SELECT * FROM reviews WHERE productId = '" + productId + "' ORDER BY vDate DESC"
@@ -901,14 +943,59 @@ public class Tee80sDao extends DerbyDao
 	{
 		String dirPath = FileUtils.makeDirectory("./DBData/");
 
-		List<User> users = queryUsers();
-		FileUtils.writeCollection(dirPath + "users.txt", users);
-
 		List<Environment> envs = queryEnvironments();
-		FileUtils.writeCollection(dirPath + "envs.txt", envs);
-
 		List<VirtualRating> ratings = queryVirtualRatings();
-		FileUtils.writeCollection(dirPath + "ratings.txt", ratings);
+		List<Review> reviews = queryReviews();
+
+		List<VirRating> virtualRatingsWS = new ArrayList<>();
+		List<VirRating> virtualRatingsVR = new ArrayList<>();
+
+		List<PhyRating> physicalRatings = new ArrayList<>();
+		for (Review r : reviews)
+		{
+			PhyRating pr = new PhyRating();
+
+			pr.setUserName(r.getUserName());
+			pr.setTeeID(r.getProductId());
+			pr.setRating(r.getRating());
+			pr.setrDate(r.getvDate());
+
+			physicalRatings.add(pr);
+		}
+		FileUtils.writeCollection(dirPath + "phy-ratings.txt", physicalRatings);
+
+		for (VirtualRating r : ratings)
+		{
+			// data cleaning
+			int userId = r.getUserId();
+			if (userId == 1 || userId == 46) continue;
+			if (userId == 26 || userId == 39) continue;
+			if (userId == 33 && r.getTeeId().equalsIgnoreCase("CAD010")) continue;
+
+			// data filling
+			VirRating vr = new VirRating();
+			vr.setUserId(userId);
+			vr.setTeeId(r.getTeeId());
+			vr.setRating(r.getOverall());
+			vr.setrDate(r.getcDate());
+			vr.setEnvironment(r.getEnvironment());
+
+			for (Environment en : envs)
+			{
+				if (en.getUserId() == userId && en.getEnvironment().equals(r.getEnvironment()))
+				{
+					vr.setConfidence(en.getConfidence());
+					vr.setPresence(en.getPresence());
+					break;
+				}
+			}
+
+			if (r.getEnvironment().equals("web site")) virtualRatingsWS.add(vr);
+			else virtualRatingsVR.add(vr);
+		}
+
+		FileUtils.writeCollection(dirPath + "vr-ratings-ws.txt", virtualRatingsWS);
+		FileUtils.writeCollection(dirPath + "vr-ratings-vr.txt", virtualRatingsVR);
 	}
 
 	public static void main(String[] args) throws Exception
