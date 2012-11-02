@@ -3,22 +3,87 @@ package org.felix.web.client;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.client.methods.HttpGet;
-import org.felix.db.Tee;
 import org.felix.db.Review;
+import org.felix.db.Tee;
 import org.felix.io.FileUtils;
 import org.felix.system.DateUtils;
+import org.felix.system.SystemUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.junit.Test;
 
 public class Tee80sShirtClient extends DefaultWebClient
 {
 	private final static String	SEPARATOR	= "<br/>";
+	private final static int	pages		= 118;		//page number at 2012-11-2 
+
+	@Test
+	public void crawlAllTee80s() throws Exception
+	{
+		List<Tee> ts = new ArrayList<>();
+		HttpGet get = new HttpGet();
+		get.getParams().setParameter("http.connection.timeout", 1000);
+		for (int page = 1; page < pages; page++)
+		{
+			String pageLink = "http://search.80stees.com/?i=1&page=" + page;
+			get.setURI(URI.create(pageLink));
+			String html = super.extractHtml(get);
+
+			//FileUtils.writeString(SystemUtils.getDesktop() + "html.txt", html);
+
+			Document doc = Jsoup.parse(html);
+			Element tab = doc.select("table.atomz_gs_results").last();
+			Elements es = tab.select("tr");
+			for (int i = 0; i < es.size(); i += 5)
+			{
+				Element e = es.get(i);
+				Elements tds = e.select("td[valign=top]");
+				if (tds == null) break;
+
+				for (Element td : tds)
+				{
+					// each t-shirt
+					Tee t = new Tee();
+					String image = td.select("div.image img").attr("src").intern();
+					t.setImage(image);
+
+					String url = td.select("div.image a").attr("href").intern();
+					t.setUrl(url);
+
+					String name = td.select("div.name a").first().text();
+					t.setName(name);
+
+					String price = td.select("div.price span.messageisprice").first().text();
+					t.setPrice(price);
+
+					Elements ee = td.select("div.prSnippetNumberOfRatingsText");
+					if (ee == null || ee.first() == null)
+					{
+						t.setNumRating(0);
+						t.setAvgRating(0);
+					} else
+					{
+						String numRating = ee.first().text();
+						int num = Integer.parseInt(numRating.substring(1, numRating.indexOf(" ")));
+						t.setNumRating(num);
+
+						// for overall and specific ratings, we need to check specific t-shirt page (url) to get
+					}
+
+					ts.add(t);
+				}
+			}
+		}
+
+		FileUtils.writeCollection(SystemUtils.getDesktop() + "allTee80s.txt", ts);
+	}
 
 	/**
 	 * parse html to obtain properties of tee80s
