@@ -14,7 +14,7 @@ import org.felix.db.User;
 import org.felix.db.VirRating;
 import org.felix.db.VirtualRating;
 import org.felix.io.FileUtils;
-import org.felix.io.URLReader;
+import org.felix.io.web.URLReader;
 import org.felix.system.DateUtils;
 import org.felix.system.Timer;
 import org.felix.web.client.Tee80sShirtClient;

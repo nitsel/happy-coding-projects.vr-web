@@ -5,18 +5,23 @@ import java.io.File;
 import java.io.FileWriter;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.http.client.methods.HttpGet;
 import org.felix.db.Review;
 import org.felix.db.Tee;
 import org.felix.io.FileUtils;
+import org.felix.io.ReaderHelper;
+import org.felix.io.WriterHelper;
 import org.felix.system.DateUtils;
 import org.felix.system.SystemUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class Tee80sShirtClient extends DefaultWebClient
@@ -25,18 +30,26 @@ public class Tee80sShirtClient extends DefaultWebClient
 	private final static int	pages		= 118;		//page number at 2012-11-2 
 
 	@Test
+	@Ignore
 	public void crawlAllTee80s() throws Exception
 	{
 		List<Tee> ts = new ArrayList<>();
 		HttpGet get = new HttpGet();
-		get.getParams().setParameter("http.connection.timeout", 1000);
-		for (int page = 1; page < pages; page++)
+		//get.getParams().setParameter("http.connection.timeout", 1000);
+		for (int page = 1; page <= pages; page++)
 		{
-			String pageLink = "http://search.80stees.com/?i=1&page=" + page;
-			get.setURI(URI.create(pageLink));
-			String html = super.extractHtml(get);
-
-			//FileUtils.writeString(SystemUtils.getDesktop() + "html.txt", html);
+			String filePath = SystemUtils.getDesktop() + "html-pages" + SystemUtils.FILE_SEPARATOR + "page" + page
+					+ ".html";
+			File fp = new File(filePath);
+			String html = null;
+			if (fp.exists()) html = FileUtils.readAsString(filePath);
+			else
+			{
+				String pageLink = "http://search.80stees.com/?i=1&page=" + page;
+				get.setURI(URI.create(pageLink));
+				html = super.extractHtml(get);
+				FileUtils.writeString(filePath, html);
+			}
 
 			Document doc = Jsoup.parse(html);
 			Element tab = doc.select("table.atomz_gs_results").last();
@@ -73,6 +86,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 						String numRating = ee.first().text();
 						int num = Integer.parseInt(numRating.substring(1, numRating.indexOf(" ")));
 						t.setNumRating(num);
+						t.setAvgRating(0);
 
 						// for overall and specific ratings, we need to check specific t-shirt page (url) to get
 					}
@@ -82,7 +96,67 @@ public class Tee80sShirtClient extends DefaultWebClient
 			}
 		}
 
-		FileUtils.writeCollection(SystemUtils.getDesktop() + "allTee80s.txt", ts);
+		FileUtils.writeCollection(SystemUtils.getDesktop() + "allTee80s.txt", ts, new WriterHelper<Tee>() {
+
+			@Override
+			public String processObject(Tee t)
+			{
+				return t.getName() + "::" + t.getUrl() + "::" + t.getImage() + "::" + t.getPrice() + "::"
+						+ t.getNumRating() + "::" + t.getAvgRating();
+			}
+		}, false);
+	}
+
+	@Test
+	public void parseAllTee80s() throws Exception
+	{
+		String filePath = SystemUtils.getDesktop() + "allTee80s.txt";
+		List<Tee> ts = FileUtils.readAsList(filePath, new ReaderHelper<Tee>() {
+
+			@Override
+			public Tee processLine(String line)
+			{
+				String[] data = line.split("::");
+				Tee t = new Tee();
+				t.setName(data[0]);
+				t.setUrl(data[1]);
+				t.setImage(data[2]);
+				t.setPrice(data[3]);
+				t.setNumRating(Integer.parseInt(data[4]));
+				t.setAvgRating(Float.parseFloat(data[5]));
+
+				return t;
+			}
+		});
+
+		Set<String> names = new HashSet<>();
+		for (Tee t : ts)
+		{
+			String url = t.getUrl();
+			// url = "http://www.80stees.com/products/MVP-Collection-Troy-Polamalu-Bust.asp";
+			String html = null;
+			String name = t.getName().replace("/", " ").replace("*", "-");
+			if (names.contains(name)) name += "-2";
+			names.add(name);
+			t.setName(name);
+			filePath = SystemUtils.getDesktop() + "html-tees2" + SystemUtils.FILE_SEPARATOR + name + ".html";
+			File file = new File(filePath);
+			if (!file.exists())
+			{
+				url = url.replace(" ", "%20");
+
+				html = Jsoup.connect(url).get().html();
+				FileUtils.writeString(filePath, html);
+			}
+		}
+
+		for (Tee t : ts)
+		{
+			filePath = SystemUtils.getDesktop() + "html-tees" + SystemUtils.FILE_SEPARATOR + t.getName() + ".html";
+			String html = FileUtils.readAsString(filePath);
+
+			Document doc = Jsoup.parse(html);
+		}
 	}
 
 	/**
