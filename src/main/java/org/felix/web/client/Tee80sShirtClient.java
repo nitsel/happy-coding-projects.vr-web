@@ -5,14 +5,17 @@ import java.io.File;
 import java.io.FileWriter;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.http.client.methods.HttpGet;
 import org.felix.db.Review;
 import org.felix.db.Tee;
 import org.felix.io.FileUtils;
+import org.felix.io.PrintUtils;
 import org.felix.io.ReaderHelper;
 import org.felix.io.WriterHelper;
 import org.felix.system.DateUtils;
@@ -38,8 +41,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 		//get.getParams().setParameter("http.connection.timeout", 1000);
 		for (int page = 1; page <= pages; page++)
 		{
-			String filePath = SystemUtils.getDesktop() + "html-pages" + SystemUtils.FILE_SEPARATOR + "page" + page
-					+ ".html";
+			String filePath = "./Htmls/" + "html-pages" + SystemUtils.FILE_SEPARATOR + "page" + page + ".html";
 			File fp = new File(filePath);
 			String html = null;
 			if (fp.exists()) html = FileUtils.readAsString(filePath);
@@ -96,7 +98,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 			}
 		}
 
-		FileUtils.writeCollection(SystemUtils.getDesktop() + "allTee80s.txt", ts, new WriterHelper<Tee>() {
+		FileUtils.writeCollection("./Htmls/" + "allTee80s.txt", ts, new WriterHelper<Tee>() {
 
 			@Override
 			public String processObject(Tee t)
@@ -108,9 +110,49 @@ public class Tee80sShirtClient extends DefaultWebClient
 	}
 
 	@Test
+	public void ratingDist() throws Exception
+	{
+		String dirPath = "./Htmls/";
+		String filePath = dirPath + "ratings.txt";
+
+		Map<Double, Integer> ratingDist = FileUtils.readAsMap(filePath, new ReaderHelper<Object[]>() {
+
+			Map<Double, List<Review>>	revs	= new HashMap<>();
+
+			@Override
+			public Object[] processLine(String line) throws Exception
+			{
+				String[] data = line.split("::");
+
+				Double rating = Double.parseDouble(data[3]);
+
+				Review rev = new Review();
+				rev.setUserName(data[0]);
+				rev.setTitle(data[1]);
+				rev.setProductId(data[2]);
+				rev.setRating(rating.floatValue());
+				rev.setvDate(DateUtils.parseString(data[4]));
+
+				List<Review> rs = null;
+				if (revs.containsKey(rating)) rs = revs.get(rating);
+				else rs = new ArrayList<>();
+				rs.add(rev);
+
+				revs.put(rating, rs);
+
+				return new Object[] { rating, rs.size() };
+			}
+		});
+
+		System.out.println(PrintUtils.printMap(ratingDist));
+
+	}
+
+	@Test
+	@Ignore
 	public void parseAllTee80s() throws Exception
 	{
-		String filePath = SystemUtils.getDesktop() + "allTee80s.txt";
+		String filePath = "./Htmls/" + "allTee80s.txt";
 		List<Tee> ts = FileUtils.readAsList(filePath, new ReaderHelper<Tee>() {
 
 			@Override
@@ -130,33 +172,96 @@ public class Tee80sShirtClient extends DefaultWebClient
 		});
 
 		Set<String> names = new HashSet<>();
+		List<Review> revs = new ArrayList<>();
 		for (Tee t : ts)
 		{
-			String url = t.getUrl();
-			// url = "http://www.80stees.com/products/MVP-Collection-Troy-Polamalu-Bust.asp";
-			String html = null;
 			String name = t.getName().replace("/", " ").replace("*", "-");
 			if (names.contains(name)) name += "-2";
 			names.add(name);
 			t.setName(name);
-			filePath = SystemUtils.getDesktop() + "html-tees2" + SystemUtils.FILE_SEPARATOR + name + ".html";
-			File file = new File(filePath);
-			if (!file.exists())
-			{
-				url = url.replace(" ", "%20");
+			filePath = "./Htmls/" + "html-tees" + SystemUtils.FILE_SEPARATOR + name + ".html";
 
-				html = Jsoup.connect(url).get().html();
-				FileUtils.writeString(filePath, html);
-			}
-		}
-
-		for (Tee t : ts)
-		{
-			filePath = SystemUtils.getDesktop() + "html-tees" + SystemUtils.FILE_SEPARATOR + t.getName() + ".html";
 			String html = FileUtils.readAsString(filePath);
-
 			Document doc = Jsoup.parse(html);
+
+			Element val = null;
+
+			Element id = doc.select("input[name=PRODUCT_ID]").first();
+			if (id == null) continue; // no complete html on this t-shirt;
+			String productId = id.attr("value");
+
+			Element div = doc.select("div#pr-contents-" + productId).first();
+			if (div == null) continue; // no ratings on this t-shirt
+
+			Element nam = doc.select("span[itemprop=name]").first();
+			String title = nam.text();
+
+			Elements reviews = div.select("div.pr-review-wrap");
+
+			for (int i = 0; i < reviews.size(); i++)
+			{
+				Element content = reviews.get(i);
+
+				Review rev = new Review();
+				rev.setProductId(productId);
+				rev.setTitle(title);
+
+				val = content.select("div.pr-review-rating-wrapper div.pr-review-rating span").first();
+				float rating = Float.parseFloat(val.text());
+				rev.setRating(rating);
+
+				val = content.select("div.pr-review-rating-wrapper div.pr-review-author-date.pr-rounded").first();
+				rev.setvDate(DateUtils.parseString(val.text(), "MM/dd/yyyy"));
+
+				//				val = content.select("div.pr-review-rating-wrapper div.pr-review-rating p.pr-review-rating-headline")
+				//						.first();
+				//				rev.setTitle(val.text());
+
+				val = content.select(
+						"div.pr-review-author div.pr-review-author-info-wrapper p.pr-review-author-name span").first();
+				rev.setUserName(val.text());
+
+				val = content.select(
+						"div.pr-review-author div.pr-review-author-info-wrapper p.pr-review-author-location span")
+						.first();
+				rev.setUserLocation(val.text());
+
+				revs.add(rev);
+			}
+
+			if (revs.size() >= 1000)
+			{
+				filePath = "./Htmls/" + "ratings.txt";
+				FileUtils.writeCollection(filePath, revs, new WriterHelper<Review>() {
+
+					@Override
+					public String processObject(Review t)
+					{
+						return t.getUserName() + "::" + t.getTitle() + "::" + t.getProductId() + "::" + t.getRating()
+								+ "::" + t.getvDate();
+					}
+				}, true);
+
+				revs.clear();
+			}
+
 		}
+
+		if (revs.size() > 0)
+		{
+			filePath = "./Htmls/" + "ratings.txt";
+			FileUtils.writeCollection(filePath, revs, new WriterHelper<Review>() {
+
+				@Override
+				public String processObject(Review t)
+				{
+					return t.getUserName() + "::" + t.getTitle() + "::" + t.getProductId() + "::" + t.getRating()
+							+ "::" + t.getvDate();
+				}
+			}, true);
+
+		}
+
 	}
 
 	/**
