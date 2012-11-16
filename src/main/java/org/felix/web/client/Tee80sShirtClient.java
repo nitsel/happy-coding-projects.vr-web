@@ -110,6 +110,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 	}
 
 	@Test
+	@Ignore
 	public void ratingDist() throws Exception
 	{
 		String dirPath = "./Htmls/";
@@ -261,6 +262,61 @@ public class Tee80sShirtClient extends DefaultWebClient
 			}, true);
 
 		}
+
+	}
+
+	@Test
+	public void parseAverageRatings() throws Exception
+	{
+		String filePath = "./Htmls/" + "allTee80s.txt";
+		List<Tee> ts = FileUtils.readAsList(filePath, new ReaderHelper<Tee>() {
+
+			@Override
+			public Tee processLine(String line)
+			{
+				String[] data = line.split("::");
+				Tee t = new Tee();
+				t.setName(data[0]);
+				t.setUrl(data[1]);
+				t.setImage(data[2]);
+				t.setPrice(data[3]);
+				t.setNumRating(Integer.parseInt(data[4]));
+				t.setAvgRating(Float.parseFloat(data[5]));
+
+				return t;
+			}
+		});
+
+		Set<String> names = new HashSet<>();
+		for (Tee t : ts)
+		{
+			String name = t.getName().replace("/", " ").replace("*", "-");
+			if (names.contains(name)) name += "-2";
+			names.add(name);
+			t.setName(name);
+			filePath = "./Htmls/" + "html-tees" + SystemUtils.FILE_SEPARATOR + name + ".html";
+
+			String html = FileUtils.readAsString(filePath);
+			Document doc = Jsoup.parse(html);
+
+			Element id = doc.select("input[name=PRODUCT_ID]").first();
+			if (id != null) t.setId(id.attr("value"));
+
+			Element val = doc.select("span.pr-snippet-rating-decimal.pr-rounded").first();
+
+			if (val != null) t.setAvgRating(Float.parseFloat(val.text()));
+
+		}
+
+		FileUtils.writeCollection("./Htmls/" + "allTee80s-2.txt", ts, new WriterHelper<Tee>() {
+
+			@Override
+			public String processObject(Tee t)
+			{
+				return t.getId() + "::" + t.getName() + "::" + t.getUrl() + "::" + t.getImage() + "::" + t.getPrice()
+						+ "::" + t.getNumRating() + "::" + t.getAvgRating();
+			}
+		}, false);
 
 	}
 
