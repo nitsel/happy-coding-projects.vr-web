@@ -15,6 +15,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.felix.db.Review;
 import org.felix.db.Tee;
 import org.felix.io.FileUtils;
+import org.felix.io.LogUtils;
 import org.felix.io.PrintUtils;
 import org.felix.io.ReaderHelper;
 import org.felix.io.WriterHelper;
@@ -161,12 +162,13 @@ public class Tee80sShirtClient extends DefaultWebClient
 			{
 				String[] data = line.split("::");
 				Tee t = new Tee();
-				t.setName(data[0]);
-				t.setUrl(data[1]);
-				t.setImage(data[2]);
-				t.setPrice(data[3]);
-				t.setNumRating(Integer.parseInt(data[4]));
-				t.setAvgRating(Float.parseFloat(data[5]));
+				t.setId(data[0]);
+				t.setName(data[1]);
+				t.setUrl(data[2]);
+				t.setImage(data[3]);
+				t.setPrice(data[4]);
+				t.setNumRating(Integer.parseInt(data[5]));
+				t.setAvgRating(Float.parseFloat(data[6]));
 
 				return t;
 			}
@@ -266,6 +268,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 	}
 
 	@Test
+	@Ignore
 	public void parseAverageRatings() throws Exception
 	{
 		String filePath = "./Htmls/" + "allTee80s.txt";
@@ -276,12 +279,13 @@ public class Tee80sShirtClient extends DefaultWebClient
 			{
 				String[] data = line.split("::");
 				Tee t = new Tee();
-				t.setName(data[0]);
-				t.setUrl(data[1]);
-				t.setImage(data[2]);
-				t.setPrice(data[3]);
-				t.setNumRating(Integer.parseInt(data[4]));
-				t.setAvgRating(Float.parseFloat(data[5]));
+				t.setId(data[0]);
+				t.setName(data[1]);
+				t.setUrl(data[2]);
+				t.setImage(data[3]);
+				t.setPrice(data[4]);
+				t.setNumRating(Integer.parseInt(data[5]));
+				t.setAvgRating(Float.parseFloat(data[6]));
 
 				return t;
 			}
@@ -299,12 +303,16 @@ public class Tee80sShirtClient extends DefaultWebClient
 			String html = FileUtils.readAsString(filePath);
 			Document doc = Jsoup.parse(html);
 
-			Element id = doc.select("input[name=PRODUCT_ID]").first();
-			if (id != null) t.setId(id.attr("value"));
-
 			Element val = doc.select("span.pr-snippet-rating-decimal.pr-rounded").first();
-
 			if (val != null) t.setAvgRating(Float.parseFloat(val.text()));
+
+			Element id = doc.select("input[name=PRODUCT_ID]").first();
+			String productId = null;
+			if (id != null)
+			{
+				productId = id.attr("value");
+				t.setId(productId);
+			}
 
 		}
 
@@ -317,6 +325,47 @@ public class Tee80sShirtClient extends DefaultWebClient
 						+ "::" + t.getNumRating() + "::" + t.getAvgRating();
 			}
 		}, false);
+
+	}
+
+	@Test
+	public void getAverageRating() throws Exception
+	{
+		String filePath = "./Htmls/" + "allTee80s.txt";
+		List<Tee> ts = FileUtils.readAsList(filePath, new ReaderHelper<Tee>() {
+
+			@Override
+			public Tee processLine(String line)
+			{
+				String[] data = line.split("::");
+				Tee t = new Tee();
+				t.setId(data[0]);
+				t.setName(data[1]);
+				t.setUrl(data[2]);
+				t.setImage(data[3]);
+				t.setPrice(data[4]);
+				t.setNumRating(Integer.parseInt(data[5]));
+				t.setAvgRating(Float.parseFloat(data[6]));
+
+				return t;
+			}
+		});
+
+		double sum = 0;
+		int count = 0;
+		for (Tee t : ts)
+		{
+			double r = t.getAvgRating();
+			int n = t.getNumRating();
+
+			if (n > 0)
+			{
+				sum += r;
+				count++;
+			}
+		}
+
+		LogUtils.getLogger().debug("Mean = {}", sum / count);
 
 	}
 
