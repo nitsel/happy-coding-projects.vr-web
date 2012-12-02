@@ -820,6 +820,12 @@ public class Tee80sDao extends DerbyDao
 		String sql = "CREATE TABLE envs (userId INT, confidence INT, presence INT, comfort INT, reasons VARCHAR(2000), environment VARCHAR(50), cDate DATE, PRIMARY KEY (userId, environment))";
 		createTable(sql);
 	}
+	
+	public void createWills() throws Exception
+	{
+		String sql = "CREATE TABLE wills (id INT GENERATED ALWAYS AS IDENTITY, willingness VARCHAR(50), yesReasons VARCHAR(2000), noReasons VARCHAR(2000), confidence VARCHAR(2000), conditions VARCHAR(50), userId VARCHAR(50))";
+		createTable(sql);
+	}
 
 	public void createReviews() throws Exception
 	{
