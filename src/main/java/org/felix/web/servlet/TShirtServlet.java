@@ -397,6 +397,9 @@ public class TShirtServlet extends HttpServlet
 			List<User> ps = dao.queryUsers();
 			req.setAttribute("records", ps);
 			req.getRequestDispatcher("userProgress.jsp").forward(req, resp);
+		}else if("willingness".equals(action))
+		{
+			
 		}
 	}
 
