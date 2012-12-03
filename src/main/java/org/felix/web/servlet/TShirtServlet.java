@@ -18,6 +18,7 @@ import org.felix.db.PilotStudy;
 import org.felix.db.Tee;
 import org.felix.db.User;
 import org.felix.db.VirtualRating;
+import org.felix.db.Will;
 import org.felix.db.dao.Tee80sDao;
 import org.felix.math.RandomUtils;
 import org.slf4j.Logger;
@@ -397,9 +398,55 @@ public class TShirtServlet extends HttpServlet
 			List<User> ps = dao.queryUsers();
 			req.setAttribute("records", ps);
 			req.getRequestDispatcher("userProgress.jsp").forward(req, resp);
-		}else if("willingness".equals(action))
+		} else if ("willingness".equals(action))
 		{
-			
+			String willingness = req.getParameter("willingness");
+			String yesReasons = req.getParameter("yesReasons");
+			String noReasons = req.getParameter("noReasons");
+			String confidence = req.getParameter("confidence");
+			String conditions = req.getParameter("conditions");
+
+			Will w = new Will();
+			w.setWillingness(willingness);
+			if (willingness.equals("yes"))
+			{
+				w.setYesReasons(yesReasons);
+				w.setConfidence(confidence);
+			} else if (willingness.equals("no"))
+			{
+				w.setNoReasons(noReasons);
+				w.setConditions(conditions);
+			}
+
+			String participated = req.getParameter("particiapted");
+			if ("no".equalsIgnoreCase(participated))
+			{
+				User u = new User();
+				u.setGender(req.getParameter("gender"));
+				String job = req.getParameter("job");
+				if (job != null && job.equals("student")) job += "::" + req.getParameter("job1");
+				else if (job != null && job.equals("staff")) job += "::" + req.getParameter("job2");
+				else if (job != null && job.equals("others")) job += "::" + req.getParameter("job3");
+				u.setJob(job);
+				u.setAge(req.getParameter("age"));
+				u.setEducation(req.getParameter("education"));
+				u.setShoppingExperience(req.getParameter("shoppingExperience"));
+				u.setVrExperience(req.getParameter("vrExperience"));
+				u.setcDate(new Date(System.currentTimeMillis()));
+
+				dao.insert(u);
+				userId = dao.getUserId(u);
+
+				w.setUserId(userId);
+			}
+			dao.insert(w);
+
+			req.getRequestDispatcher("ack2.jsp").forward(req, resp);
+		} else if ("willProgress".equals(action))
+		{
+			List<Will> ws = dao.queryWills();
+			req.setAttribute("records", ws);
+			req.getRequestDispatcher("willProgress.jsp").forward(req, resp);
 		}
 	}
 

@@ -13,6 +13,7 @@ import org.felix.db.Tee;
 import org.felix.db.User;
 import org.felix.db.VirRating;
 import org.felix.db.VirtualRating;
+import org.felix.db.Will;
 import org.felix.io.FileUtils;
 import org.felix.io.web.URLReader;
 import org.felix.system.DateUtils;
@@ -168,6 +169,22 @@ public class Tee80sDao extends DerbyDao
 		String sql = "INSERT INTO users (" + meta + ") VALUES ('" + u.getGender() + "', '" + u.getAge() + "', '"
 				+ u.getEducation() + "', '" + u.getJob() + "', '" + u.getShoppingExperience() + "', '"
 				+ u.getVrExperience() + "', '" + u.getcDate() + "')";
+		logger.debug("Insert user: {}", sql);
+		try
+		{
+			stmt.executeUpdate(sql);
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void insert(Will w)
+	{
+		String meta = "willingness, yesReasons, noReasons, confidence, conditions, userId";
+		String sql = "INSERT INTO wills (" + meta + ") VALUES ('" + w.getWillingness() + "', '" + w.getYesReasons()
+				+ "', '" + w.getNoReasons() + "', '" + w.getConfidence() + "', '" + w.getConditions() + "', "
+				+ w.getUserId() + ")";
 		logger.debug("Insert user: {}", sql);
 		try
 		{
@@ -584,6 +601,36 @@ public class Tee80sDao extends DerbyDao
 		return users;
 	}
 
+	public List<Will> queryWills()
+	{
+		String sql = "SELECT * FROM wills";
+
+		ResultSet rs;
+		List<Will> ws = new ArrayList<>();
+		try
+		{
+			rs = stmt.executeQuery(sql);
+			while (rs.next())
+			{
+				Will w = new Will();
+				w.setUserId(Integer.parseInt(rs.getString("userId")));
+				w.setId(Integer.parseInt(rs.getString("id")));
+				w.setWillingness(rs.getString("willingness"));
+				w.setConditions(rs.getString("conditions"));
+				w.setConfidence(rs.getString("confidence"));
+				w.setYesReasons(rs.getString("yesReasons"));
+				w.setNoReasons(rs.getString("noReasons"));
+
+				ws.add(w);
+			}
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		return ws;
+	}
+
 	public List<PilotStudy> queryPilots()
 	{
 		String sql = "SELECT * FROM pilots";
@@ -820,10 +867,10 @@ public class Tee80sDao extends DerbyDao
 		String sql = "CREATE TABLE envs (userId INT, confidence INT, presence INT, comfort INT, reasons VARCHAR(2000), environment VARCHAR(50), cDate DATE, PRIMARY KEY (userId, environment))";
 		createTable(sql);
 	}
-	
+
 	public void createWills() throws Exception
 	{
-		String sql = "CREATE TABLE wills (id INT GENERATED ALWAYS AS IDENTITY, willingness VARCHAR(50), yesReasons VARCHAR(2000), noReasons VARCHAR(2000), confidence VARCHAR(2000), conditions VARCHAR(50), userId VARCHAR(50))";
+		String sql = "CREATE TABLE wills (id INT GENERATED ALWAYS AS IDENTITY, willingness VARCHAR(50), yesReasons VARCHAR(2000), noReasons VARCHAR(2000), confidence VARCHAR(2000), conditions VARCHAR(50), userId INT)";
 		createTable(sql);
 	}
 
@@ -885,6 +932,11 @@ public class Tee80sDao extends DerbyDao
 	public void clearPilots() throws Exception
 	{
 		clearTable("pilots");
+	}
+
+	public void clearWills() throws Exception
+	{
+		clearTable("wills");
 	}
 
 	public void buildDB() throws Exception
@@ -1009,7 +1061,15 @@ public class Tee80sDao extends DerbyDao
 		Timer.start();
 		Tee80sDao dao = new Tee80sDao();
 		//dao.buildDB();
-		dao.retrieveDB();
+		//dao.retrieveDB();
+		// dao.createWills();
+		User u = new User();
+		u.setUserId(47);
+		dao.delete(u);
+		u.setUserId(48);
+		dao.delete(u);
+
+		dao.clearWills();
 
 		logger.debug("Consumed {} to be finished.", Timer.end());
 	}
