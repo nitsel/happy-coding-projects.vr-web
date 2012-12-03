@@ -6,11 +6,32 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>User Study - Willingness Survey</title>
+<title>Questionnaire - Willingness Survey</title>
 <link rel="stylesheet" type="text/css" href="css/t-shirt.css" />
 <link rel="shortcut icon" href="img/users.ico" />
 <script type="text/javascript" src='js/jquery.js'></script>
-<script>
+<script type="text/javascript">
+	function turn(msg) {
+		if (msg == 'yes') {
+			$('textarea[name=yesReasons]').attr("disabled", "");
+			$('textarea[name=confidence]').attr("disabled", "");
+			$('textarea[name=noReasons]').attr("disabled", "disabled");
+			$('textarea[name=conditions]').attr("disabled", "disabled");
+		} else if (msg == 'no') {
+			$('textarea[name=yesReasons]').attr("disabled", "disabled");
+			$('textarea[name=confidence]').attr("disabled", "disabled");
+			$('textarea[name=noReasons]').attr("disabled", "");
+			$('textarea[name=conditions]').attr("disabled", "");
+		}
+	}
+
+	$(document).ready(function() {
+		$('textarea[name=yesReasons]').attr("disabled", "disabled");
+		$('textarea[name=confidence]').attr("disabled", "disabled");
+		$('textarea[name=noReasons]').attr("disabled", "disabled");
+		$('textarea[name=conditions]').attr("disabled", "disabled");
+	});
+	
 	function getValue(selector) {
 		var stars = $(selector);
 		var value;
@@ -34,6 +55,32 @@
 	}
 
 	function validate() {
+		var sel = getValue('input[name=willingness]');
+		if (!sel) {
+			alert("Please answer question 1 before submission.");
+			return false;
+		}
+
+		if (sel == 'yes') {
+			if(!$('textarea[name="yesReasons"]').val()){
+				alert("please give your reasons for willing to rate.");
+				return false;
+			}
+			if(!$('textarea[name="confidence"]').val()){
+				alert("please give your reasons for whether to rate with confidences.");
+				return false;
+			}
+		} else if (sel == 'no') {
+			if(!$('textarea[name=noReasons]').val()){
+				alert("please give your reasons for willing to rate.");
+				return false;
+			}
+			if(!$('textarea[name=conditions]').val()){
+				alert("please give your conditions under which you are willing to rate.");
+				return false;
+			}
+		}
+		
 		var gender = getValue('input[name="gender"]');
 		if (!gender) {
 			alert("Please select your gender. ");
@@ -90,28 +137,28 @@
 
 <body>
 	<div class="entry">
-		<p>Based on the information and actions that you can obtain and perform in two environments, <br/>
-		if both environments enable you to rate the t-shirts regardless of or before purchasing the real t-shirts, </p>
-		
-		<form action="./userStudy?action=willingness" method="post" class="userForm"
-			onsubmit="return validate()">
+		<p>
+			Based on the information and actions that you can obtain and perform
+			in two environments, <br /> if both environments enable you to rate
+			the t-shirts regardless of or before purchasing the real t-shirts,
+		</p>
+
+		<form action="./userStudy?action=willingness" method="post"
+			class="userForm" onsubmit="return validate()">
 			<ol>
-				<li><label>Are you willing to rate the t-shirt of your interest or interacted with</label><input type="radio"
-					name="willingness" value="yes"
-					<c:if test="${user.gender eq 'Male' }">checked</c:if> />Yes
-					<input type="radio" name="will" value="no"
-					<c:if test="${user.gender eq 'Female' }">checked</c:if> />No<br />
-				</li>
-				<li>
-				<textarea rows="5" cols="50" name="yesReasons"></textarea><br/>
-				<label>Besides ratings, would you like to indicate how confident you are for your ratings? State your reasons.</label><br/>
-				<textarea rows="5" cols="50" name="confidence"></textarea>
-				</li>
-				<li><label>If no (you are unwilling to rate), it is because: </label><br/>
-				<textarea rows="5" cols="50" name="noReasons"></textarea><br/>
-				<label>In what conditions, you will rate the t-shirts? (e.g. any rewards, payoff, benefits, mood, etc.)</label><br/>
-				<textarea rows="5" cols="50" name="conditions"></textarea>
-				</li>
+				<li><label>Are you willing to rate the t-shirt of your
+						interest or interacted with</label> <input type="radio" name="willingness"
+					value="yes" onclick="turn('yes')" />Yes <input type="radio"
+					name="willingness" value="no" onclick="turn('no')" />No<br /></li>
+				<li><textarea rows="5" cols="50" name="yesReasons"></textarea><br />
+					<label>Besides ratings, would you like to indicate how
+						confident you are for your ratings? State your reasons.</label><br /> <textarea
+						rows="5" cols="50" name="confidence"></textarea></li>
+				<li><label>If no (you are unwilling to rate), it is
+						because: </label><br /> <textarea rows="5" cols="50" name="noReasons"></textarea><br />
+					<label>In what conditions, you will rate the t-shirts?
+						(e.g. any rewards, payoff, benefits, mood, etc.)</label><br /> <textarea
+						rows="5" cols="50" name="conditions"></textarea></li>
 				<li><label>You are</label><br /> <input type="radio"
 					name="gender" value="Male"
 					<c:if test="${user.gender eq 'Male' }">checked</c:if> />Male<br />
@@ -161,7 +208,8 @@
 					<c:if test="${fn:substring(user.job, 0, fn:indexOf(user.job,'::')) eq 'staff' }">
 						value="${fn:substringAfter(user.job,'::') }"
 					</c:if> /><br />
-					<input type="radio" name="job" value="others" />Others: <input type="text" name="job3" class="underline_box"/><br /></li>
+					<input type="radio" name="job" value="others" />Others: <input
+					type="text" name="job3" class="underline_box" /><br /></li>
 				<li><label>On the average, you shop online</label><br /> <input
 					type="radio" name="shoppingExperience" value="Very frequently"
 					<c:if test="${user.shoppingExperience eq 'Very frequently' }">checked</c:if> />Very
@@ -198,8 +246,8 @@
 					<c:if test="${user.vrExperience eq 'couple of years' }">checked</c:if> />Yes,
 					couple of years<br /></li>
 			</ol>
-			<input type="hidden" name="particiapted" value="yes">
-			<input type="submit" value="Submit Answers" class="submit">
+			<input type="hidden" name="particiapted" value="no"> <input
+				type="submit" value="Submit Answers" class="submit">
 		</form>
 	</div>
 

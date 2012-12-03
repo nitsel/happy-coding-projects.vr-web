@@ -1,6 +1,6 @@
 package org.felix.db;
 
-public class Will
+public class Will extends DBObject
 {
 	private int id;
 	private String willingness ;
@@ -9,7 +9,7 @@ public class Will
 	private String confidence;
 	private String conditions;
 	
-	private String userId;
+	private int		userId;
 
 	public String getWillingness()
 	{
@@ -18,7 +18,7 @@ public class Will
 
 	public void setWillingness(String willingness)
 	{
-		this.willingness = willingness;
+		this.willingness = replace(willingness);
 	}
 
 	public String getYesReasons()
@@ -28,7 +28,7 @@ public class Will
 
 	public void setYesReasons(String yesReasons)
 	{
-		this.yesReasons = yesReasons;
+		this.yesReasons = replace(yesReasons);
 	}
 
 	public String getNoReasons()
@@ -38,7 +38,7 @@ public class Will
 
 	public void setNoReasons(String noReasons)
 	{
-		this.noReasons = noReasons;
+		this.noReasons = replace(noReasons);
 	}
 
 	public String getConfidence()
@@ -48,7 +48,7 @@ public class Will
 
 	public void setConfidence(String confidence)
 	{
-		this.confidence = confidence;
+		this.confidence = replace(confidence);
 	}
 
 	public String getConditions()
@@ -58,15 +58,15 @@ public class Will
 
 	public void setConditions(String conditions)
 	{
-		this.conditions = conditions;
+		this.conditions = replace(conditions);
 	}
 
-	public String getUserId()
+	public int getUserId()
 	{
 		return userId;
 	}
 
-	public void setUserId(String userId)
+	public void setUserId(int userId)
 	{
 		this.userId = userId;
 	}
