@@ -21,17 +21,17 @@
 		<h2>Questionnaire: Will you rate a product based on virtual
 			interactions in 2D web site or 3D virtual store before real purchase?</h2>
 		<h4>NOTE: All information will be kept confidential and only for
-			research purpose.</h4>
+			research purposes.</h4>
 		<p>There are 50 t-shirts selling in two different environments:</p>
 		<ul>
-			<li><label>Web site</label> in which the following t-shirt
+			<li><strong>Web site</strong> in which the following t-shirt
 				information is available:
 				<ul>
 					<li>t-shirt images</li>
 					<li>specifications, descriptions</li>
 					<li>text reviews and ratings from other customers</li>
 				</ul></li>
-			<li><label>virtual store</label> in which not only the
+			<li><strong>virtual store</strong> in which not only the
 				information in <label>web site</label> is available, but also the
 				following actions are supported:
 				<ul>
