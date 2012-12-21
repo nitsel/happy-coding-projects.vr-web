@@ -78,10 +78,12 @@
 
 <body>
 	<div class="entry">
+	    <h4>NOTE: All information will be kept confidential and only for
+			research purposes.</h4>
 		<p>
 			Based on the information and actions that you can obtain and perform
 			in two environments, <br /> if both environments enable you to rate
-			the t-shirts regardless of or before purchasing the real t-shirts,
+			the t-shirts towards their quality and performance, regardless of or before purchasing the real t-shirts,
 		</p>
 
 		<form action="./userStudy?action=willingness" method="post"
@@ -92,9 +94,10 @@
 					value="yes" onclick="turn('yes')" />Yes <input type="radio"
 					name="willingness" value="no" onclick="turn('no')" />No<br /></li>
 				<li><label>If yes (you are willing to rate), it is
-						because: </label><br /> <textarea rows="5" cols="50" name="yesReasons"></textarea><br />
+						because: <br/>
+						(please also indicate which environment (web site or virtual store) you prefer to rate t-shirts and state your reasons) </label><br /> <textarea rows="5" cols="50" name="yesReasons"></textarea><br />
 					<label>Besides ratings, would you like to indicate how
-						confident you are for your ratings? State your reasons.</label><br /> <textarea
+						confident you are in your ratings? State your reasons.</label><br /> <textarea
 						rows="5" cols="50" name="confidence"></textarea></li>
 				<li><label>If no (you are unwilling to rate), it is
 						because: </label><br /> <textarea rows="5" cols="50" name="noReasons"></textarea><br />

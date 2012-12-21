@@ -31,7 +31,7 @@
 		$('textarea[name=noReasons]').attr("disabled", "disabled");
 		$('textarea[name=conditions]').attr("disabled", "disabled");
 	});
-	
+
 	function getValue(selector) {
 		var stars = $(selector);
 		var value;
@@ -62,25 +62,25 @@
 		}
 
 		if (sel == 'yes') {
-			if(!$('textarea[name="yesReasons"]').val()){
+			if (!$('textarea[name="yesReasons"]').val()) {
 				alert("please give your reasons for willing to rate.");
 				return false;
 			}
-			if(!$('textarea[name="confidence"]').val()){
+			if (!$('textarea[name="confidence"]').val()) {
 				alert("please give your reasons for whether to rate with confidences.");
 				return false;
 			}
 		} else if (sel == 'no') {
-			if(!$('textarea[name=noReasons]').val()){
+			if (!$('textarea[name=noReasons]').val()) {
 				alert("please give your reasons for willing to rate.");
 				return false;
 			}
-			if(!$('textarea[name=conditions]').val()){
+			if (!$('textarea[name=conditions]').val()) {
 				alert("please give your conditions under which you are willing to rate.");
 				return false;
 			}
 		}
-		
+
 		var gender = getValue('input[name="gender"]');
 		if (!gender) {
 			alert("Please select your gender. ");
@@ -137,10 +137,13 @@
 
 <body>
 	<div class="entry">
+		<h4>NOTE: All information will be kept confidential and only for
+			research purposes.</h4>
 		<p>
 			Based on the information and actions that you can obtain and perform
 			in two environments, <br /> if both environments enable you to rate
-			the t-shirts regardless of or before purchasing the real t-shirts,
+			the t-shirts towards their quality and performance, regardless of or
+			before purchasing the real t-shirts,
 		</p>
 
 		<form action="./userStudy?action=willingness" method="post"
@@ -150,9 +153,12 @@
 						interest or interacted with</label> <input type="radio" name="willingness"
 					value="yes" onclick="turn('yes')" />Yes <input type="radio"
 					name="willingness" value="no" onclick="turn('no')" />No<br /></li>
-				<li><textarea rows="5" cols="50" name="yesReasons"></textarea><br />
+				<li><label>If yes (you are willing to rate), it is
+						because: <br /> (please also indicate which environment (web site or
+						virtual store) you prefer to rate t-shirts and state your reasons)
+				</label><br /> <textarea rows="5" cols="50" name="yesReasons"></textarea><br />
 					<label>Besides ratings, would you like to indicate how
-						confident you are for your ratings? State your reasons.</label><br /> <textarea
+						confident you are in your ratings? State your reasons.</label><br /> <textarea
 						rows="5" cols="50" name="confidence"></textarea></li>
 				<li><label>If no (you are unwilling to rate), it is
 						because: </label><br /> <textarea rows="5" cols="50" name="noReasons"></textarea><br />
@@ -160,91 +166,51 @@
 						(e.g. any rewards, payoff, benefits, mood, etc.)</label><br /> <textarea
 						rows="5" cols="50" name="conditions"></textarea></li>
 				<li><label>You are</label><br /> <input type="radio"
-					name="gender" value="Male"
-					<c:if test="${user.gender eq 'Male' }">checked</c:if> />Male<br />
-					<input type="radio" name="gender" value="Female"
-					<c:if test="${user.gender eq 'Female' }">checked</c:if> />Female<br />
+					name="gender" value="Male" />Male<br />
+					<input type="radio" name="gender" value="Female" />Female<br />
 				</li>
 				<li><label>How old are you?</label><br /> <input type="radio"
-					name="age" value="Below 20"
-					<c:if test="${user.age eq 'Below 20' }">checked</c:if> />Below 20<br />
-					<input type="radio" name="age" value="20 - 29"
-					<c:if test="${user.age eq '20 - 29' }">checked</c:if> />20 - 29<br />
-					<input type="radio" name="age" value="30 - 39"
-					<c:if test="${user.age eq '30 - 39' }">checked</c:if> />30 - 39<br />
-					<input type="radio" name="age" value="40 - 49"
-					<c:if test="${user.age eq '40 - 49' }">checked</c:if> />40 - 49<br />
-					<input type="radio" name="age" value="50 - 59"
-					<c:if test="${user.age eq '50 - 59' }">checked</c:if> />50 - 59<br />
-					<input type="radio" name="age" value="60 or Above"
-					<c:if test="${user.age eq '60 or Above' }">checked</c:if> />60 or
-					Above<br /></li>
+					name="age" value="Below 20" />Below 20<br /> <input type="radio"
+					name="age" value="20 - 29" />20 - 29<br /> <input type="radio"
+					name="age" value="30 - 39" />30 - 39<br /> <input type="radio"
+					name="age" value="40 - 49" />40 - 49<br /> <input type="radio"
+					name="age" value="50 - 59" />50 - 59<br /> <input type="radio"
+					name="age" value="60 or Above" />60 or Above<br /></li>
 				<li><label>What is your educational level?</label><br /> <input
-					type="radio" name="education" value="Some College"
-					<c:if test="${user.education eq 'Some College' }">checked</c:if> />Some
-					College<br /> <input type="radio" name="education" value="College"
-					<c:if test="${user.education eq 'College' }">checked</c:if> />College
+					type="radio" name="education" value="Some College" />Some College<br />
+					<input type="radio" name="education" value="College" />College
 					(associate degree)<br /> <input type="radio" name="education"
-					value="Bachelor"
-					<c:if test="${user.education eq 'Bachelor' }">checked</c:if> />University
-					(Bachelor degree)<br /> <input type="radio" name="education"
-					value="Master"
-					<c:if test="${user.education eq 'Master' }">checked</c:if> />Master
-					degree<br /> <input type="radio" name="education" value="Doctoral"
-					<c:if test="${user.education eq 'Doctoral' }">checked</c:if> />Doctoral
+					value="Bachelor" />University (Bachelor degree)<br /> <input
+					type="radio" name="education" value="Master" />Master degree<br />
+					<input type="radio" name="education" value="Doctoral" />Doctoral
 					degree<br /></li>
 				<li><label>You are</label><br /> <input type="radio"
-					name="job" value="student"
-					<c:if test="${fn:substring(user.job, 0, fn:indexOf(user.job,'::')) eq 'student' }">checked</c:if> />A
-					Student, from <input type="text" name="job1" class="underline_box"
-					<c:if test="${fn:substring(user.job, 0, fn:indexOf(user.job,'::')) eq 'student' }">
-						value="${fn:substringAfter(user.job,'::') }"
-					</c:if> />
+					name="job" value="student" />A
+					Student, from <input type="text" name="job1" class="underline_box" />
 					(e.g. School of Computer Engineering, or SCE for short)<br /> <input
 					type="radio" name="job" value="staff"
 					<c:if test="${fn:substring(user.job, 0, fn:indexOf(user.job,'::')) eq 'staff' }">checked</c:if> />A
 					Staff, the area you are working on is <input type="text"
-					name="job2" class="underline_box"
-					<c:if test="${fn:substring(user.job, 0, fn:indexOf(user.job,'::')) eq 'staff' }">
-						value="${fn:substringAfter(user.job,'::') }"
-					</c:if> /><br />
+					name="job2" class="underline_box" /><br />
 					<input type="radio" name="job" value="others" />Others: <input
 					type="text" name="job3" class="underline_box" /><br /></li>
-				<li><label>On the average, you shop online</label><br /> <input
-					type="radio" name="shoppingExperience" value="Very frequently"
-					<c:if test="${user.shoppingExperience eq 'Very frequently' }">checked</c:if> />Very
-					frequently, more than (or equal) 3 times per week<br /> <input
-					type="radio" name="shoppingExperience" value="Frequently"
-					<c:if test="${user.shoppingExperience eq 'Frequently' }">checked</c:if> />Frequently,
-					once or twice per week<br /> <input type="radio"
-					name="shoppingExperience" value="Seldom"
-					<c:if test="${user.shoppingExperience eq 'Seldom' }">checked</c:if> />Seldom,
-					once or twice per month<br /> <input type="radio"
-					name="shoppingExperience" value="Rarely"
-					<c:if test="${user.shoppingExperience eq 'Rarely' }">checked</c:if> />Rarely,
-					once or twice every several months<br /> <input type="radio"
-					name="shoppingExperience" value="Never"
-					<c:if test="${user.shoppingExperience eq 'Never' }">checked</c:if> />Never<br />
-				</li>
-				<li><label>Have you used 3D virtual environment before?</label><br />
-					<input type="radio" name="vrExperience" value="No"
-					<c:if test="${user.vrExperience eq 'No' }">checked</c:if> />No,
-					never<br /> <input type="radio" name="vrExperience"
-					value="less than 1 month"
-					<c:if test="${user.vrExperience eq 'less than 1 month' }">checked</c:if> />Yes,
-					less than 1 month<br /> <input type="radio" name="vrExperience"
-					value="less than 3 months"
-					<c:if test="${user.vrExperience eq 'less than 3 months' }">checked</c:if> />Yes,
-					less than 3 months<br /> <input type="radio" name="vrExperience"
-					value="less than 6 months"
-					<c:if test="${user.vrExperience eq 'less than 6 months' }">checked</c:if> />Yes,
-					less than 6 months<br /> <input type="radio" name="vrExperience"
-					value="less than 1 year"
-					<c:if test="${user.vrExperience eq 'less than 1 year' }">checked</c:if> />Yes,
-					less than 1 year<br /> <input type="radio" name="vrExperience"
-					value="couple of years"
-					<c:if test="${user.vrExperience eq 'couple of years' }">checked</c:if> />Yes,
-					couple of years<br /></li>
+				<li><label>About how often do you shop online?</label><br /> <input
+					type="radio" name="shoppingExperience" value="Very frequently" />Every
+					day or every other day<br /> <input type="radio"
+					name="shoppingExperience" value="Frequently" />Once a week<br />
+					<input type="radio" name="shoppingExperience" value="Seldom" />Once
+					a month<br /> <input type="radio" name="shoppingExperience"
+					value="Rarely" />Once a quarter<br /> <input type="radio"
+					name="shoppingExperience" value="Almost Never" />Once a year or
+					less<br /> <input type="radio" name="shoppingExperience"
+					value="Never" />Never<br /></li>
+				<li><label>When did you first use 3D environment?</label><br />
+					<input type="radio" name="vrExperience" value="No" />This is my first time<br />
+					<input type="radio" name="vrExperience" value="less than 1 month" />Last month<br /> <input type="radio" name="vrExperience"
+					value="less than 3 months" />Last quarter<br /> <input
+					type="radio" name="vrExperience" value="less than 6 months" />Last half a year<br /> <input type="radio" name="vrExperience"
+					value="less than 1 year" />Last year<br /> <input
+					type="radio" name="vrExperience" value="couple of years" />More than two years ago<br /></li>
 			</ol>
 			<input type="hidden" name="particiapted" value="no"> <input
 				type="submit" value="Submit Answers" class="submit">
