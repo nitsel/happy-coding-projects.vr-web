@@ -20,7 +20,7 @@ import org.felix.db.User;
 import org.felix.db.VirtualRating;
 import org.felix.db.Will;
 import org.felix.db.dao.Tee80sDao;
-import org.felix.math.RandomUtils;
+import org.felix.math.Randoms;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -223,7 +223,7 @@ public class TShirtServlet extends HttpServlet
 					while (true)
 					{
 						found = false;
-						int index = RandomUtils.randInt(tees.size());
+						int index = Randoms.randInt(tees.size());
 						Tee t = tees.get(index);
 						if (gender.equalsIgnoreCase("male") && femaleShirts.contains(t.getId()))
 						{

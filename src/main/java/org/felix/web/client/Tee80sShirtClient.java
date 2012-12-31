@@ -15,12 +15,12 @@ import org.apache.http.client.methods.HttpGet;
 import org.felix.db.Review;
 import org.felix.db.Tee;
 import org.felix.io.FileUtils;
-import org.felix.io.LogUtils;
-import org.felix.io.PrintUtils;
+import org.felix.io.Logs;
+import org.felix.io.Printer;
 import org.felix.io.ReaderHelper;
 import org.felix.io.WriterHelper;
-import org.felix.system.DateUtils;
-import org.felix.system.SystemUtils;
+import org.felix.system.Dates;
+import org.felix.system.Systems;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -42,7 +42,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 		//get.getParams().setParameter("http.connection.timeout", 1000);
 		for (int page = 1; page <= pages; page++)
 		{
-			String filePath = "./Htmls/" + "html-pages" + SystemUtils.FILE_SEPARATOR + "page" + page + ".html";
+			String filePath = "./Htmls/" + "html-pages" + Systems.FILE_SEPARATOR + "page" + page + ".html";
 			File fp = new File(filePath);
 			String html = null;
 			if (fp.exists()) html = FileUtils.readAsString(filePath);
@@ -133,7 +133,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 				rev.setTitle(data[1]);
 				rev.setProductId(data[2]);
 				rev.setRating(rating.floatValue());
-				rev.setvDate(DateUtils.parseString(data[4]));
+				rev.setvDate(Dates.parseString(data[4]));
 
 				List<Review> rs = null;
 				if (revs.containsKey(rating)) rs = revs.get(rating);
@@ -146,7 +146,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 			}
 		});
 
-		System.out.println(PrintUtils.printMap(ratingDist));
+		System.out.println(Printer.printMap(ratingDist));
 
 	}
 
@@ -182,7 +182,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 			if (names.contains(name)) name += "-2";
 			names.add(name);
 			t.setName(name);
-			filePath = "./Htmls/" + "html-tees" + SystemUtils.FILE_SEPARATOR + name + ".html";
+			filePath = "./Htmls/" + "html-tees" + Systems.FILE_SEPARATOR + name + ".html";
 
 			String html = FileUtils.readAsString(filePath);
 			Document doc = Jsoup.parse(html);
@@ -214,7 +214,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 				rev.setRating(rating);
 
 				val = content.select("div.pr-review-rating-wrapper div.pr-review-author-date.pr-rounded").first();
-				rev.setvDate(DateUtils.parseString(val.text(), "MM/dd/yyyy"));
+				rev.setvDate(Dates.parseString(val.text(), "MM/dd/yyyy"));
 
 				//				val = content.select("div.pr-review-rating-wrapper div.pr-review-rating p.pr-review-rating-headline")
 				//						.first();
@@ -298,7 +298,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 			if (names.contains(name)) name += "-2";
 			names.add(name);
 			t.setName(name);
-			filePath = "./Htmls/" + "html-tees" + SystemUtils.FILE_SEPARATOR + name + ".html";
+			filePath = "./Htmls/" + "html-tees" + Systems.FILE_SEPARATOR + name + ".html";
 
 			String html = FileUtils.readAsString(filePath);
 			Document doc = Jsoup.parse(html);
@@ -365,7 +365,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 			}
 		}
 
-		LogUtils.getLogger().debug("Mean = {}", sum / count);
+		Logs.getLogger().debug("Mean = {}", sum / count);
 
 	}
 
@@ -630,7 +630,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 			}
 
 			el = e.select("div.pr-review-author-date.pr-rounded").first();
-			review.setvDate(DateUtils.parseString(el.text(), DateUtils.PATTERN_MM_dd_yyyy));
+			review.setvDate(Dates.parseString(el.text(), Dates.PATTERN_MM_dd_yyyy));
 
 			els = e.select("div.pr-review-text");
 			if (els != null && els.size() > 0)

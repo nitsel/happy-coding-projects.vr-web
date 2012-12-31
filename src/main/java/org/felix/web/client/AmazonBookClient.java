@@ -8,7 +8,7 @@ import java.util.List;
 import org.apache.http.client.methods.HttpGet;
 import org.felix.db.Book;
 import org.felix.db.BookReview;
-import org.felix.system.DateUtils;
+import org.felix.system.Dates;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -62,7 +62,7 @@ public class AmazonBookClient extends DefaultWebClient
 			current = t.ownText();
 			if (previous != null && previous.equals("Publication Date:"))
 			{
-				book.setPublishDate(DateUtils.parseString(current));
+				book.setPublishDate(Dates.parseString(current));
 			} else if (previous != null && previous.equals("ISBN-13:"))
 			{
 				book.setIsbn13(current);

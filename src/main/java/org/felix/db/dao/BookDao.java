@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.felix.db.Book;
-import org.felix.system.DateUtils;
+import org.felix.system.Dates;
 
 import au.com.bytecode.opencsv.CSVReader;
 
@@ -113,7 +113,7 @@ public class BookDao extends DerbyDao
 			book.setPages(Integer.parseInt(rs.getString("pages")));
 			book.setPrice(rs.getString("price"));
 			book.setLanguage(rs.getString("language"));
-			book.setPublishDate(DateUtils.parseString(rs.getString("publishDate")));
+			book.setPublishDate(Dates.parseString(rs.getString("publishDate")));
 			book.setPublisher(rs.getString("publisher"));
 			book.setEdition(Integer.parseInt(rs.getString("edition")));
 			book.setDimensions(rs.getString("dimensions"));
