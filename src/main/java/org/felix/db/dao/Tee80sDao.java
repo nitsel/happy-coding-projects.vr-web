@@ -16,7 +16,7 @@ import org.felix.db.VirtualRating;
 import org.felix.db.Will;
 import org.felix.io.FileUtils;
 import org.felix.io.web.URLReader;
-import org.felix.system.DateUtils;
+import org.felix.system.Dates;
 import org.felix.system.Timer;
 import org.felix.web.client.Tee80sShirtClient;
 
@@ -291,7 +291,7 @@ public class Tee80sDao extends DerbyDao
 				r.setUserId(Integer.parseInt(rs.getString("userId")));
 				r.setTeeId(rs.getString("teeId"));
 				r.setComments(rs.getString("comments"));
-				r.setcDate(DateUtils.parseString(rs.getString("cDate")));
+				r.setcDate(Dates.parseString(rs.getString("cDate")));
 				r.setEnvironment(rs.getString("environment"));
 
 				r.setOverall(Integer.parseInt(rs.getString("overall")));
@@ -332,7 +332,7 @@ public class Tee80sDao extends DerbyDao
 				r.setUserId(Integer.parseInt(rs.getString("userId")));
 				r.setTeeId(rs.getString("teeId"));
 				r.setComments(rs.getString("comments"));
-				r.setcDate(DateUtils.parseString(rs.getString("cDate")));
+				r.setcDate(Dates.parseString(rs.getString("cDate")));
 				r.setEnvironment(rs.getString("environment"));
 
 				r.setOverall(Integer.parseInt(rs.getString("overall")));
@@ -373,7 +373,7 @@ public class Tee80sDao extends DerbyDao
 				r.setUserId(Integer.parseInt(rs.getString("userId")));
 				r.setTeeId(rs.getString("teeId"));
 				r.setComments(rs.getString("comments"));
-				r.setcDate(DateUtils.parseString(rs.getString("cDate")));
+				r.setcDate(Dates.parseString(rs.getString("cDate")));
 				r.setEnvironment(rs.getString("environment"));
 
 				r.setOverall(Integer.parseInt(rs.getString("overall")));
@@ -560,7 +560,7 @@ public class Tee80sDao extends DerbyDao
 				u.setJob(rs.getString("job"));
 				u.setShoppingExperience(rs.getString("shoppingExperience"));
 				u.setVrExperience(rs.getString("vrExperience"));
-				u.setcDate(DateUtils.parseString(rs.getString("cDate")));
+				u.setcDate(Dates.parseString(rs.getString("cDate")));
 			}
 		} catch (Exception e)
 		{
@@ -589,7 +589,7 @@ public class Tee80sDao extends DerbyDao
 				u.setJob(rs.getString("job"));
 				u.setShoppingExperience(rs.getString("shoppingExperience"));
 				u.setVrExperience(rs.getString("vrExperience"));
-				u.setcDate(DateUtils.parseString(rs.getString("cDate")));
+				u.setcDate(Dates.parseString(rs.getString("cDate")));
 
 				users.add(u);
 			}
@@ -662,7 +662,7 @@ public class Tee80sDao extends DerbyDao
 				p.setOthers(Integer.parseInt(rs.getString("others")));
 				p.setOtherFeature(rs.getString("otherFeature"));
 				p.setComments(rs.getString("comments"));
-				p.setcDate(DateUtils.parseString(rs.getString("cDate")));
+				p.setcDate(Dates.parseString(rs.getString("cDate")));
 
 				ps.add(p);
 			}
@@ -692,7 +692,7 @@ public class Tee80sDao extends DerbyDao
 				env.setPresence(Integer.parseInt(rs.getString("presence")));
 				env.setReasons(rs.getString("reasons"));
 				env.setEnvironment(rs.getString("environment"));
-				env.setcDate(DateUtils.parseString(rs.getString("cDate")));
+				env.setcDate(Dates.parseString(rs.getString("cDate")));
 			}
 		} catch (Exception e)
 		{
@@ -720,7 +720,7 @@ public class Tee80sDao extends DerbyDao
 				env.setPresence(Integer.parseInt(rs.getString("presence")));
 				env.setReasons(rs.getString("reasons"));
 				env.setEnvironment(rs.getString("environment"));
-				env.setcDate(DateUtils.parseString(rs.getString("cDate")));
+				env.setcDate(Dates.parseString(rs.getString("cDate")));
 
 				envs.add(env);
 			}
@@ -757,7 +757,7 @@ public class Tee80sDao extends DerbyDao
 			r.setLength(rs.getString("length"));
 			r.setGift(rs.getString("gift"));
 			r.setRecommendation(rs.getString("recommendation"));
-			r.setvDate(DateUtils.parseString(rs.getString("vDate")));
+			r.setvDate(Dates.parseString(rs.getString("vDate")));
 		}
 
 		return r;
@@ -796,7 +796,7 @@ public class Tee80sDao extends DerbyDao
 				r.setLength(rs.getString("length"));
 				r.setGift(rs.getString("gift"));
 				r.setRecommendation(rs.getString("recommendation"));
-				r.setvDate(DateUtils.parseString(rs.getString("vDate")));
+				r.setvDate(Dates.parseString(rs.getString("vDate")));
 
 				ls.add(r);
 			}
@@ -838,7 +838,7 @@ public class Tee80sDao extends DerbyDao
 				r.setLength(rs.getString("length"));
 				r.setGift(rs.getString("gift"));
 				r.setRecommendation(rs.getString("recommendation"));
-				r.setvDate(DateUtils.parseString(rs.getString("vDate")));
+				r.setvDate(Dates.parseString(rs.getString("vDate")));
 
 				ls.add(r);
 			}
