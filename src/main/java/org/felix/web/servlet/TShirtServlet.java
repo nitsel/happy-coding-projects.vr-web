@@ -223,7 +223,7 @@ public class TShirtServlet extends HttpServlet
 					while (true)
 					{
 						found = false;
-						int index = Randoms.randInt(tees.size());
+						int index = Randoms.uniform(tees.size());
 						Tee t = tees.get(index);
 						if (gender.equalsIgnoreCase("male") && femaleShirts.contains(t.getId()))
 						{
