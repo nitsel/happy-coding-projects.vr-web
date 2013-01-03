@@ -14,7 +14,7 @@ import org.felix.db.User;
 import org.felix.db.VirRating;
 import org.felix.db.VirtualRating;
 import org.felix.db.Will;
-import org.felix.io.FileUtils;
+import org.felix.io.FileIO;
 import org.felix.io.web.URLReader;
 import org.felix.system.Dates;
 import org.felix.system.Timer;
@@ -946,7 +946,7 @@ public class Tee80sDao extends DerbyDao
 		createTables();
 
 		Tee80sShirtClient client = new Tee80sShirtClient();
-		List<String> links = FileUtils.readAsList("links.txt");
+		List<String> links = FileIO.readAsList("links.txt");
 		for (String link : links)
 		{
 			Tee t = new Tee();
@@ -954,7 +954,7 @@ public class Tee80sDao extends DerbyDao
 
 			/* Tees */
 			String dirPath = "./src/main/webapp/Htmls/";
-			String html = FileUtils.readAsString(dirPath + t.getName() + ".htm");
+			String html = FileIO.readAsString(dirPath + t.getName() + ".htm");
 			client.parseTee80s(html, t);
 			insert(t);
 
@@ -966,7 +966,7 @@ public class Tee80sDao extends DerbyDao
 				for (int i = 1; i < pages + 1; i++)
 				{
 					String page = i == 1 ? "" : "-" + i;
-					html = FileUtils.readAsString(dirPath + t.getName() + page + ".htm");
+					html = FileIO.readAsString(dirPath + t.getName() + page + ".htm");
 					List<Review> rs = client.parseReview(html);
 					for (Review r : rs)
 					{
@@ -991,15 +991,15 @@ public class Tee80sDao extends DerbyDao
 
 				List<String> imageList = client.parseImages(html);
 
-				FileUtils.writeString("images.txt", j + "\n" + url, true);
-				FileUtils.writeCollection("images.txt", imageList, null, true);
+				FileIO.writeString("images.txt", j + "\n" + url, true);
+				FileIO.writeCollection("images.txt", imageList, null, true);
 			}
 		}
 	}
 
 	public void retrieveDB() throws Exception
 	{
-		String dirPath = FileUtils.makeDirectory("./DBData/");
+		String dirPath = FileIO.makeDirectory("./DBData/");
 
 		List<Environment> envs = queryEnvironments();
 		List<VirtualRating> ratings = queryVirtualRatings();
@@ -1020,7 +1020,7 @@ public class Tee80sDao extends DerbyDao
 
 			physicalRatings.add(pr);
 		}
-		FileUtils.writeCollection(dirPath + "phy-ratings.txt", physicalRatings);
+		FileIO.writeCollection(dirPath + "phy-ratings.txt", physicalRatings);
 
 		for (VirtualRating r : ratings)
 		{
@@ -1052,8 +1052,8 @@ public class Tee80sDao extends DerbyDao
 			else virtualRatingsVR.add(vr);
 		}
 
-		FileUtils.writeCollection(dirPath + "vr-ratings-ws.txt", virtualRatingsWS);
-		FileUtils.writeCollection(dirPath + "vr-ratings-vr.txt", virtualRatingsVR);
+		FileIO.writeCollection(dirPath + "vr-ratings-ws.txt", virtualRatingsWS);
+		FileIO.writeCollection(dirPath + "vr-ratings-vr.txt", virtualRatingsVR);
 	}
 
 	public static void main(String[] args) throws Exception

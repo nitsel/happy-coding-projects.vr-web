@@ -3,7 +3,7 @@ package org.felix.db;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.felix.io.FileUtils;
+import org.felix.io.FileIO;
 
 public class Scripts
 {
@@ -12,8 +12,8 @@ public class Scripts
 		String dirPath = "D:\\Dropbox\\coding\\Second_Life\\Scripts\\T-Shirts\\";
 		String template = dirPath + "t-shirt-template.lsl";
 		String textures = dirPath + "t-shirts-textures.txt";
-		String scripts = FileUtils.readAsString(template);
-		Map<String, String> texts = FileUtils.readAsMap(textures, ",");
+		String scripts = FileIO.readAsString(template);
+		Map<String, String> texts = FileIO.readAsMap(textures, ",");
 
 		for (Entry<String, String> entry : texts.entrySet())
 		{
@@ -23,7 +23,7 @@ public class Scripts
 			String newScript = scripts.replace("t-shirt-id", id);
 			newScript = newScript.replace("t-shirt-texture", texture);
 
-			FileUtils.writeString(dirPath + "\\Prims\\" + id + ".lsl", newScript);
+			FileIO.writeString(dirPath + "\\Prims\\" + id + ".lsl", newScript);
 		}
 	}
 
