@@ -18,7 +18,7 @@ import org.felix.io.FileIO;
 import org.felix.io.Logs;
 import org.felix.io.ReaderHelper;
 import org.felix.io.Strings;
-import org.felix.io.WriterHelper;
+import org.felix.io.ObjectWriter;
 import org.felix.system.Dates;
 import org.felix.system.Systems;
 import org.jsoup.Jsoup;
@@ -99,7 +99,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 			}
 		}
 
-		FileIO.writeCollection("./Htmls/" + "allTee80s.txt", ts, new WriterHelper<Tee>() {
+		FileIO.writeCollection("./Htmls/" + "allTee80s.txt", ts, new ObjectWriter<Tee>() {
 
 			@Override
 			public String processObject(Tee t)
@@ -235,7 +235,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 			if (revs.size() >= 1000)
 			{
 				filePath = "./Htmls/" + "ratings.txt";
-				FileIO.writeCollection(filePath, revs, new WriterHelper<Review>() {
+				FileIO.writeCollection(filePath, revs, new ObjectWriter<Review>() {
 
 					@Override
 					public String processObject(Review t)
@@ -253,7 +253,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 		if (revs.size() > 0)
 		{
 			filePath = "./Htmls/" + "ratings.txt";
-			FileIO.writeCollection(filePath, revs, new WriterHelper<Review>() {
+			FileIO.writeCollection(filePath, revs, new ObjectWriter<Review>() {
 
 				@Override
 				public String processObject(Review t)
@@ -316,7 +316,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 
 		}
 
-		FileIO.writeCollection("./Htmls/" + "allTee80s-2.txt", ts, new WriterHelper<Tee>() {
+		FileIO.writeCollection("./Htmls/" + "allTee80s-2.txt", ts, new ObjectWriter<Tee>() {
 
 			@Override
 			public String processObject(Tee t)
