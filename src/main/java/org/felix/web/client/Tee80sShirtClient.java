@@ -14,10 +14,10 @@ import java.util.Set;
 import org.apache.http.client.methods.HttpGet;
 import org.felix.db.Review;
 import org.felix.db.Tee;
-import org.felix.io.FileUtils;
+import org.felix.io.FileIO;
 import org.felix.io.Logs;
-import org.felix.io.Printer;
 import org.felix.io.ReaderHelper;
+import org.felix.io.Strings;
 import org.felix.io.WriterHelper;
 import org.felix.system.Dates;
 import org.felix.system.Systems;
@@ -45,13 +45,13 @@ public class Tee80sShirtClient extends DefaultWebClient
 			String filePath = "./Htmls/" + "html-pages" + Systems.FILE_SEPARATOR + "page" + page + ".html";
 			File fp = new File(filePath);
 			String html = null;
-			if (fp.exists()) html = FileUtils.readAsString(filePath);
+			if (fp.exists()) html = FileIO.readAsString(filePath);
 			else
 			{
 				String pageLink = "http://search.80stees.com/?i=1&page=" + page;
 				get.setURI(URI.create(pageLink));
 				html = super.extractHtml(get);
-				FileUtils.writeString(filePath, html);
+				FileIO.writeString(filePath, html);
 			}
 
 			Document doc = Jsoup.parse(html);
@@ -99,7 +99,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 			}
 		}
 
-		FileUtils.writeCollection("./Htmls/" + "allTee80s.txt", ts, new WriterHelper<Tee>() {
+		FileIO.writeCollection("./Htmls/" + "allTee80s.txt", ts, new WriterHelper<Tee>() {
 
 			@Override
 			public String processObject(Tee t)
@@ -117,7 +117,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 		String dirPath = "./Htmls/";
 		String filePath = dirPath + "ratings.txt";
 
-		Map<Double, Integer> ratingDist = FileUtils.readAsMap(filePath, new ReaderHelper<Object[]>() {
+		Map<Double, Integer> ratingDist = FileIO.readAsMap(filePath, new ReaderHelper<Object[]>() {
 
 			Map<Double, List<Review>>	revs	= new HashMap<>();
 
@@ -146,7 +146,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 			}
 		});
 
-		System.out.println(Printer.printMap(ratingDist));
+		System.out.println(Strings.toString(ratingDist));
 
 	}
 
@@ -155,7 +155,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 	public void parseAllTee80s() throws Exception
 	{
 		String filePath = "./Htmls/" + "allTee80s.txt";
-		List<Tee> ts = FileUtils.readAsList(filePath, new ReaderHelper<Tee>() {
+		List<Tee> ts = FileIO.readAsList(filePath, new ReaderHelper<Tee>() {
 
 			@Override
 			public Tee processLine(String line)
@@ -184,7 +184,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 			t.setName(name);
 			filePath = "./Htmls/" + "html-tees" + Systems.FILE_SEPARATOR + name + ".html";
 
-			String html = FileUtils.readAsString(filePath);
+			String html = FileIO.readAsString(filePath);
 			Document doc = Jsoup.parse(html);
 
 			Element val = null;
@@ -235,7 +235,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 			if (revs.size() >= 1000)
 			{
 				filePath = "./Htmls/" + "ratings.txt";
-				FileUtils.writeCollection(filePath, revs, new WriterHelper<Review>() {
+				FileIO.writeCollection(filePath, revs, new WriterHelper<Review>() {
 
 					@Override
 					public String processObject(Review t)
@@ -253,7 +253,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 		if (revs.size() > 0)
 		{
 			filePath = "./Htmls/" + "ratings.txt";
-			FileUtils.writeCollection(filePath, revs, new WriterHelper<Review>() {
+			FileIO.writeCollection(filePath, revs, new WriterHelper<Review>() {
 
 				@Override
 				public String processObject(Review t)
@@ -272,7 +272,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 	public void parseAverageRatings() throws Exception
 	{
 		String filePath = "./Htmls/" + "allTee80s.txt";
-		List<Tee> ts = FileUtils.readAsList(filePath, new ReaderHelper<Tee>() {
+		List<Tee> ts = FileIO.readAsList(filePath, new ReaderHelper<Tee>() {
 
 			@Override
 			public Tee processLine(String line)
@@ -300,7 +300,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 			t.setName(name);
 			filePath = "./Htmls/" + "html-tees" + Systems.FILE_SEPARATOR + name + ".html";
 
-			String html = FileUtils.readAsString(filePath);
+			String html = FileIO.readAsString(filePath);
 			Document doc = Jsoup.parse(html);
 
 			Element val = doc.select("span.pr-snippet-rating-decimal.pr-rounded").first();
@@ -316,7 +316,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 
 		}
 
-		FileUtils.writeCollection("./Htmls/" + "allTee80s-2.txt", ts, new WriterHelper<Tee>() {
+		FileIO.writeCollection("./Htmls/" + "allTee80s-2.txt", ts, new WriterHelper<Tee>() {
 
 			@Override
 			public String processObject(Tee t)
@@ -332,7 +332,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 	public void getAverageRating() throws Exception
 	{
 		String filePath = "./Htmls/" + "allTee80s.txt";
-		List<Tee> ts = FileUtils.readAsList(filePath, new ReaderHelper<Tee>() {
+		List<Tee> ts = FileIO.readAsList(filePath, new ReaderHelper<Tee>() {
 
 			@Override
 			public Tee processLine(String line)
@@ -664,7 +664,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 	public void getLinks() throws Exception
 	{
 		String source = "categories.txt";
-		List<String> categories = FileUtils.readAsList(source);
+		List<String> categories = FileIO.readAsList(source);
 		int max = 20;
 
 		BufferedWriter bw = new BufferedWriter(new FileWriter(new File("tee80s-links.txt")));
