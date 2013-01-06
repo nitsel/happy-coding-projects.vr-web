@@ -17,7 +17,7 @@ import org.felix.db.Will;
 import org.felix.io.FileIO;
 import org.felix.io.web.URLReader;
 import org.felix.system.Dates;
-import org.felix.system.Timer;
+import org.felix.system.StopWatch;
 import org.felix.web.client.Tee80sShirtClient;
 
 public class Tee80sDao extends DerbyDao
@@ -1058,7 +1058,7 @@ public class Tee80sDao extends DerbyDao
 
 	public static void main(String[] args) throws Exception
 	{
-		Timer.start();
+		StopWatch.start();
 		Tee80sDao dao = new Tee80sDao();
 		//dao.buildDB();
 		//dao.retrieveDB();
@@ -1071,7 +1071,7 @@ public class Tee80sDao extends DerbyDao
 
 		dao.clearWills();
 
-		logger.debug("Consumed {} to be finished.", Timer.end());
+		logger.debug("Consumed {} to be finished.", StopWatch.end());
 	}
 
 }
