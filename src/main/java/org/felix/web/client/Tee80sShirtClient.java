@@ -16,9 +16,9 @@ import org.felix.db.Review;
 import org.felix.db.Tee;
 import org.felix.io.FileIO;
 import org.felix.io.Logs;
-import org.felix.io.ReaderHelper;
-import org.felix.io.Strings;
+import org.felix.io.ObjectReader;
 import org.felix.io.ObjectWriter;
+import org.felix.io.Strings;
 import org.felix.system.Dates;
 import org.felix.system.Systems;
 import org.jsoup.Jsoup;
@@ -117,7 +117,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 		String dirPath = "./Htmls/";
 		String filePath = dirPath + "ratings.txt";
 
-		Map<Double, Integer> ratingDist = FileIO.readAsMap(filePath, new ReaderHelper<Object[]>() {
+		Map<Double, Integer> ratingDist = FileIO.readAsMap(filePath, new ObjectReader<Object[]>() {
 
 			Map<Double, List<Review>>	revs	= new HashMap<>();
 
@@ -155,7 +155,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 	public void parseAllTee80s() throws Exception
 	{
 		String filePath = "./Htmls/" + "allTee80s.txt";
-		List<Tee> ts = FileIO.readAsList(filePath, new ReaderHelper<Tee>() {
+		List<Tee> ts = FileIO.readAsList(filePath, new ObjectReader<Tee>() {
 
 			@Override
 			public Tee processLine(String line)
@@ -272,7 +272,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 	public void parseAverageRatings() throws Exception
 	{
 		String filePath = "./Htmls/" + "allTee80s.txt";
-		List<Tee> ts = FileIO.readAsList(filePath, new ReaderHelper<Tee>() {
+		List<Tee> ts = FileIO.readAsList(filePath, new ObjectReader<Tee>() {
 
 			@Override
 			public Tee processLine(String line)
@@ -332,7 +332,7 @@ public class Tee80sShirtClient extends DefaultWebClient
 	public void getAverageRating() throws Exception
 	{
 		String filePath = "./Htmls/" + "allTee80s.txt";
-		List<Tee> ts = FileIO.readAsList(filePath, new ReaderHelper<Tee>() {
+		List<Tee> ts = FileIO.readAsList(filePath, new ObjectReader<Tee>() {
 
 			@Override
 			public Tee processLine(String line)
