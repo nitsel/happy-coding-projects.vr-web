@@ -992,7 +992,7 @@ public class Tee80sDao extends DerbyDao
 				List<String> imageList = client.parseImages(html);
 
 				FileIO.writeString("images.txt", j + "\n" + url, true);
-				FileIO.writeCollection("images.txt", imageList, null, true);
+				FileIO.writeList("images.txt", imageList, null, true);
 			}
 		}
 	}
@@ -1020,7 +1020,7 @@ public class Tee80sDao extends DerbyDao
 
 			physicalRatings.add(pr);
 		}
-		FileIO.writeCollection(dirPath + "phy-ratings.txt", physicalRatings);
+		FileIO.writeList(dirPath + "phy-ratings.txt", physicalRatings);
 
 		for (VirtualRating r : ratings)
 		{
@@ -1052,8 +1052,8 @@ public class Tee80sDao extends DerbyDao
 			else virtualRatingsVR.add(vr);
 		}
 
-		FileIO.writeCollection(dirPath + "vr-ratings-ws.txt", virtualRatingsWS);
-		FileIO.writeCollection(dirPath + "vr-ratings-vr.txt", virtualRatingsVR);
+		FileIO.writeList(dirPath + "vr-ratings-ws.txt", virtualRatingsWS);
+		FileIO.writeList(dirPath + "vr-ratings-vr.txt", virtualRatingsVR);
 	}
 
 	public static void main(String[] args) throws Exception
