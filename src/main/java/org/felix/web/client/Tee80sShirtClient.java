@@ -15,9 +15,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.felix.db.Review;
 import org.felix.db.Tee;
 import org.felix.io.FileIO;
+import org.felix.io.ListWriter;
 import org.felix.io.Logs;
 import org.felix.io.ObjectReader;
-import org.felix.io.ObjectWriter;
 import org.felix.io.Strings;
 import org.felix.system.Dates;
 import org.felix.system.Systems;
@@ -99,10 +99,10 @@ public class Tee80sShirtClient extends DefaultWebClient
 			}
 		}
 
-		FileIO.writeCollection("./Htmls/" + "allTee80s.txt", ts, new ObjectWriter<Tee>() {
+		FileIO.writeList("./Htmls/" + "allTee80s.txt", ts, new ListWriter<Tee>() {
 
 			@Override
-			public String processObject(Tee t)
+			public String processEntry(Tee t)
 			{
 				return t.getName() + "::" + t.getUrl() + "::" + t.getImage() + "::" + t.getPrice() + "::"
 						+ t.getNumRating() + "::" + t.getAvgRating();
@@ -235,10 +235,10 @@ public class Tee80sShirtClient extends DefaultWebClient
 			if (revs.size() >= 1000)
 			{
 				filePath = "./Htmls/" + "ratings.txt";
-				FileIO.writeCollection(filePath, revs, new ObjectWriter<Review>() {
+				FileIO.writeList(filePath, revs, new ListWriter<Review>() {
 
 					@Override
-					public String processObject(Review t)
+					public String processEntry(Review t)
 					{
 						return t.getUserName() + "::" + t.getTitle() + "::" + t.getProductId() + "::" + t.getRating()
 								+ "::" + t.getvDate();
@@ -253,10 +253,10 @@ public class Tee80sShirtClient extends DefaultWebClient
 		if (revs.size() > 0)
 		{
 			filePath = "./Htmls/" + "ratings.txt";
-			FileIO.writeCollection(filePath, revs, new ObjectWriter<Review>() {
+			FileIO.writeList(filePath, revs, new ListWriter<Review>() {
 
 				@Override
-				public String processObject(Review t)
+				public String processEntry(Review t)
 				{
 					return t.getUserName() + "::" + t.getTitle() + "::" + t.getProductId() + "::" + t.getRating()
 							+ "::" + t.getvDate();
@@ -316,10 +316,10 @@ public class Tee80sShirtClient extends DefaultWebClient
 
 		}
 
-		FileIO.writeCollection("./Htmls/" + "allTee80s-2.txt", ts, new ObjectWriter<Tee>() {
+		FileIO.writeList("./Htmls/" + "allTee80s-2.txt", ts, new ListWriter<Tee>() {
 
 			@Override
-			public String processObject(Tee t)
+			public String processEntry(Tee t)
 			{
 				return t.getId() + "::" + t.getName() + "::" + t.getUrl() + "::" + t.getImage() + "::" + t.getPrice()
 						+ "::" + t.getNumRating() + "::" + t.getAvgRating();
